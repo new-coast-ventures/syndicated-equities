@@ -3,5 +3,5 @@
 # ================================================
 class Deal < ActiveRecord::Base
   has_many :investments
-  has_many :investors, through: :investments, source: :user_id
+  has_many :investors, through: :investments
 end
