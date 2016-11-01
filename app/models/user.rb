@@ -1,6 +1,7 @@
 # ================================================
 # RUBY->MODEL->USER ==============================
 # ================================================
+# TODO: validators
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
