@@ -1,5 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Deal, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+  it { should have_many(:investments) }
+  it { should have_many(:investors) }
+  it { should have_many(:notes) }
+  it { should have_many(:forms) }
 end
