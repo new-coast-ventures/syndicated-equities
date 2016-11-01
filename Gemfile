@@ -27,6 +27,11 @@ gem 'devise'
 gem 'rails_admin', '~> 1.0'
 
 gem 'bootstrap', '~> 4.0.0.alpha5'
+
+gem 'paperclip'
+
+gem 'aws-sdk'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
