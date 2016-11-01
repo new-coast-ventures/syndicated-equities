@@ -1,3 +1,6 @@
+# ================================================
+# RUBY->MIGRATION->CREATENOTES ===================
+# ================================================
 class CreateNotes < ActiveRecord::Migration
   def change
     create_table :notes do |t|
