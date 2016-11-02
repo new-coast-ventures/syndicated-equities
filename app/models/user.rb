@@ -11,4 +11,8 @@ class User < ActiveRecord::Base
   has_many :addresses
   has_many :investments
   has_many :deals, through: :investments
+
+  validates_presence_of :first_name
+  validates_presence_of :last_name
+  validates_presence_of :address
 end
