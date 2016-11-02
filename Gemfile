@@ -46,6 +46,7 @@ group :development, :test do
   gem 'byebug'
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers'
+  gem 'ffaker'
 end
 
 group :development do

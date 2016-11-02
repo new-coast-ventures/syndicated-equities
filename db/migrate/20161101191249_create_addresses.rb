@@ -1,7 +1,6 @@
 # ================================================
 # RUBY->MIGRATION->CREATEADDRESSES ===============
 # ================================================
-# TODO: validations
 class CreateAddresses < ActiveRecord::Migration
   def change
     create_table :addresses do |t|
