@@ -1,5 +1,5 @@
 # ================================================
-# RUBY->CONTROLLER->ADDRESSES-CONTROLLER =========
+# RUBY->CONTROLLER->ADDRESSESCONTROLLER =========
 # ================================================
 class AddressesController < ApplicationController
   before_action :authenticate_user!
