@@ -8,12 +8,13 @@ Rails.application.routes.draw do
   # You can have the root of your site routed with "root"
   root 'home#index'
 
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, path: 'u', controllers: { registrations: 'registrations' }
   resources :deals
   resources :forms
   resources :investments
   resources :addresses, only: [:create, :update, :destroy]
   resources :notes
+  resources :users
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
