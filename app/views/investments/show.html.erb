@@ -1,0 +1,38 @@
+<h1 class="display-4 dashboard-title"><%= @investment.deal.title %></h1>
+<dl class="row">
+  <dt>
+    Description
+  </dt>
+  <dd>
+    <%= @investment.deal.description %>
+  </dd>
+  <dt>
+    Amount invested
+  </dt>
+  <dd>
+    <%= number_to_currency(@investment.amount_invested, precision: 0) %>
+  </dd>
+  <dt>
+    Invested on
+  </dt>
+  <dd>
+    <%= @investment.invested_on %>
+  </dd>
+  <dt>
+    Notes
+  </dt>
+  <% @investment.deal.notes.each do |note| %>
+    <dd>
+      <%= link_to note.title, note_path(note) %>
+    </dd>
+  <% end %>
+  <dt>
+    Forms
+  </dt>
+  <% @investment.deal.forms.each do |form| %>
+  <dd>
+    <%= link_to form.title, form_path(form) %>
+    (<%= link_to 'Download', form.document.url(:original, false) %>)
+  </dd>
+  <% end %>
+</dl>
