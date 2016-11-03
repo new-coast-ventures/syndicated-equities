@@ -69,7 +69,7 @@ class DealsController < ApplicationController
   def destroy
     @deal = Deal.find(params[:id])
     if @deal.destroy
-      redirect_to :back, notice: 'Address removed'
+      redirect_to :back, notice: 'Deal removed'
     else
       redirect_to :back, alert: "There was an issue removing this deal. #{@deal.errors.full_messages.to_sentence}"
     end
