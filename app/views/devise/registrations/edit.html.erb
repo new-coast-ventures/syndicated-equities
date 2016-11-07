@@ -41,6 +41,15 @@
     <%= f.password_field :current_password, autocomplete: "off" %>
   </div>
 
+  <%= f.fields_for :address do |address_fields| %>
+    Line 1: <br/>
+    <%= address_fields.text_field :line1 %>
+    Line 2: <%= address_fields.text_field :line2 %><br/>
+    City: <%= address_fields.text_field :city %><br/>
+    State: <%= address_fields.text_field :state %><br/>
+    Zip: <%= address_fields.text_field :zip %>
+  <% end %>
+
   <div class="actions">
     <%= f.submit "Update" %>
   </div>
