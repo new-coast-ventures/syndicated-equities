@@ -1,48 +1,52 @@
-<h2>Sign up</h2>
+<p><h2>Sign up</h2></p>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= devise_error_messages! %>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true %>
+    <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true %>
+    <%= f.text_field :last_name, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
+    <%= f.email_field :email, autofocus: true, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
   </div>
-
+  <div class="form-group">
+    <legend>Mailing Address</legend>
   <%= f.fields_for :address do |address_fields| %>
     Line 1: <br/>
-    <%= address_fields.text_field :line1 %>
-    Line 2: <%= address_fields.text_field :line2 %><br/>
-    City: <%= address_fields.text_field :city %><br/>
-    State: <%= address_fields.text_field :state %><br/>
-    Zip: <%= address_fields.text_field :zip %>
+    <%= address_fields.text_field :line1, class: "form-control" %><br/>
+    Line 2: <%= address_fields.text_field :line2, class: "form-control" %><br/>
+    City: <%= address_fields.text_field :city, class: "form-control" %><br/>
+    State: <%= address_fields.text_field :state, class: "form-control" %><br/>
+    Zip: <%= address_fields.text_field :zip, class: "form-control" %>
   <% end %>
+  </div>
 
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
-<% end %>
 
+<% end %>
+<div class="py-1">
 <%= render "devise/shared/links" %>
+</div>
