@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if current_user.id == @user.id
       render 'show'
     else
-      render plain: 'Not Authorized', status: 500
+      render plain: 'Not Authorized', status: 403
     end
   end
 

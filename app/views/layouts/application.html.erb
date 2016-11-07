@@ -9,24 +9,26 @@
 </head>
 <body>
 <% if notice %>
-  <div class="notice"><%= notice %></div>
+  <div class="alert alert-info" role="alert"><%= notice %></div>
 <% end %>
 <% if alert %>
-  <div class="alert"><%= alert %></div>
+  <div class="alert alert-danger" role="alert"><%= alert %></div>
 <% end %>
 <nav class="navbar navbar-light bg-faded">
   <a class="navbar-brand" href="#">Syndicated Equities</a>
+  <% if current_user %>
   <ul class="nav navbar-nav">
-    <li class="nav-item active">
-      <a class="nav-link" href="#">Dashboard<span class="sr-only">(current)</span></a>
+    <li class="nav-item">
+      <%= link_to "Dashboard", user_path(@user), class: "nav-link" %>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">Investments</a>
+      <%= link_to "Edit Profile", edit_registration_path(@user), class: "nav-link" %>
     </li>
     <li class="nav-item float-xs-right">
-      <a class="nav-link" href="#">Edit Profile</a>
+      <%= link_to "Log out", destroy_session_path(@user), :method => :delete, class: "nav-link" %>
     </li>
   </ul>
+  <% end %>
 </nav>
 <div class="container">
 <%= yield %>

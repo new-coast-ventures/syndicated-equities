@@ -1,6 +1,6 @@
 <h1 class="display-4 dashboard-title">Your Dashboard</h1>
 <h4>Investments</h4>
-<% if @user.investments %>
+<% if @user.investments.empty? == false %>
   <% @user.investments.each do |investment| %>
     <%= link_to investment.deal.title, investment_path(investment) %>
   <% end %>
