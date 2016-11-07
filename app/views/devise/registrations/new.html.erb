@@ -31,9 +31,15 @@
     <%= f.password_field :password_confirmation, autocomplete: "off" %>
   </div>
 
-  <%= f.fields_for :addresses do |address_fields| %>
-    <!-- TODO: address form -->
+  <%= f.fields_for :address do |address_fields| %>
+    Line 1: <br/>
+    <%= address_fields.text_field :line1 %>
+    Line 2: <%= address_fields.text_field :line2 %>
+    City: <%= address_fields.text_field :city %>
+    State: <%= address_fields.text_field :state %>
+    Zip: <%= address_fields.text_field :zip %>
   <% end %>
+
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

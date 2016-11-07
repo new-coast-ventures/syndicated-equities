@@ -14,7 +14,7 @@ def create_user
   user.first_name = FFaker::Name.first_name
   user.last_name = FFaker::Name.last_name
   user.save!
-  user.addresses = [create_address(user.id)]
+  user.address = create_address(user.id)
   user
 end
 
