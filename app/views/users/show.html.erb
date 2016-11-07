@@ -1,5 +1,9 @@
 <h1 class="display-4 dashboard-title">Your Dashboard</h1>
 <h4>Investments</h4>
-<% @user.investments.each do |investment| %>
-  <%= link_to investment.deal.title, investment_path(investment) %>
+<% if @user.investments %>
+  <% @user.investments.each do |investment| %>
+    <%= link_to investment.deal.title, investment_path(investment) %>
+  <% end %>
+<% else %>
+  No investments available for viewing.
 <% end %>

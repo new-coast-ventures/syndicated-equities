@@ -6,7 +6,10 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'home#index'
+  get '/', to: redirect { |params, request|
+  current_user = request.env["warden"].user(:user)
+  current_user ? ('/users/' + current_user.id.to_s) : '/u/sign_in'
+  }
 
   devise_for :users, path: 'u', controllers: { registrations: 'registrations' }
   resources :deals
