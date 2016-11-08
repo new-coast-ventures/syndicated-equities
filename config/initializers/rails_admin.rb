@@ -58,6 +58,7 @@ RailsAdmin.config do |config|
       field :last_name
       field :address
       field :email
+      field :password
       field :admin
     end
   end
