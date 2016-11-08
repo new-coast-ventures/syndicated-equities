@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    if current_user.id == @user.id
+    if current_user.id == @user.id || current_user.admin?
       render 'show'
     else
       render plain: 'Not Authorized', status: 403
