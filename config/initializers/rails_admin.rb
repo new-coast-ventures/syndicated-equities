@@ -38,4 +38,41 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model 'User' do
+    list do
+      field :first_name
+      field :last_name
+      field :address
+      field :email
+      field :created_at
+      field :updated_at
+    end
+
+    edit do
+      field :first_name
+      field :last_name
+      field :address
+      field :email
+    end
+  end
+
+  config.model 'Investment' do
+    configure :amount_invested do
+      formatted_value do
+        bindings[:view].number_to_currency(value.to_s, precision: 0)
+      end
+
+      pretty_value do
+        bindings[:view].number_to_currency(value.to_s, precision: 0)
+      end
+    end
+  end
+
+  config.model 'Deal' do
+    edit do
+      field :title
+      field :description
+    end
+  end
 end
