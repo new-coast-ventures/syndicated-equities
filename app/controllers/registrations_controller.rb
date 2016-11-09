@@ -1,3 +1,6 @@
+# ================================================
+# RUBY->CONTROLLER->REGISTRATIONSCONTROLLER ======
+# ================================================
 class RegistrationsController < Devise::RegistrationsController
 
   def new
@@ -9,10 +12,14 @@ class RegistrationsController < Devise::RegistrationsController
   private
 
   def sign_up_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, [address_attributes: [:id, :line1, :line2, :city, :state, :zip]])
+    address_params = [:id, :line1, :line2, :city, :state, :zip]
+
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, [address_attributes: address_params])
   end
 
   def account_update_params
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, [address_attributes: [:id, :line1, :line2, :city, :state, :zip]])
+    address_params = [:id, :line1, :line2, :city, :state, :zip]
+
+    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, [address_attributes: address_params])
   end
 end
