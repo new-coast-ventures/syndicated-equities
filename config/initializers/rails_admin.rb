@@ -81,4 +81,12 @@ RailsAdmin.config do |config|
       field :description
     end
   end
+
+  config.model 'Note' do
+    edit do
+      configure :content do
+        partial "redactor"
+      end
+    end
+  end
 end
