@@ -23,6 +23,6 @@ class User < ActiveRecord::Base
 
   def total_invested
     return investments.first.amount_invested if investments.count == 1
-    investments.inject { |sum, i| sum + i.amount_invested }
+    investments.inject(0) { |sum, i| sum + i.amount_invested }
   end
 end
