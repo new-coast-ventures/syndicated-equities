@@ -4,7 +4,7 @@ $(function()
     $('#redactor').redactor();
 });
 </script>
-<div>
-  <textarea id="redactor">
-  </textarea>
-</div>
+
+<textarea class="form-control" size="60" id="redactor" name="note[content]">
+  <%= form.object.content %>
+</textarea>

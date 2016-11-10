@@ -83,6 +83,20 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Note' do
+    list do
+      configure :content do
+        hide
+      end
+    end
+
+    show do
+      configure :content do
+        pretty_value do
+          value.html_safe
+        end
+      end
+    end
+
     edit do
       configure :content do
         partial "redactor"
