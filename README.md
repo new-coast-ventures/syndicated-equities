@@ -1,4 +1,5 @@
 # syndicated-equities
 Syndicated Equities project
 
-TODO: Redactor or WYSIWYG text editor for notes admin
+TODO: Finish Redactor setup
+TODO: Fix Paperclip config

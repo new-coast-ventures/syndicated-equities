@@ -28,7 +28,7 @@ gem 'rails_admin', '~> 1.0'
 
 gem 'bootstrap', '~> 4.0.0.alpha5'
 
-gem 'paperclip'
+gem 'paperclip', '>= 5.0'
 
 gem 'aws-sdk'
 
