@@ -25,4 +25,9 @@ class User < ActiveRecord::Base
     return investments.first.amount_invested if investments.count == 1
     investments.inject(0) { |sum, i| sum + i.amount_invested }
   end
+
+  def investments_sorted_by_date
+    investments.order(invested_on: :desc)
+  end
+
 end

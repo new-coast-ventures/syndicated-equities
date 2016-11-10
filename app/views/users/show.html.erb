@@ -13,11 +13,36 @@
   </div>
 </div>
 
-<h4>Investments</h4>
+<h4 class="py-1">Investments</h4>
 <% if @user.investments.empty? == false %>
-  <% @user.investments.each do |investment| %>
-    <%= link_to investment.deal.title, investment_path(investment) %>
+<table class="table table-hover">
+<thead class="thead-inverse">
+  <th>
+    Deal
+  </th>
+  <th>
+    Amount Invested
+  </th>
+  <th>
+    Date Invested
+  </th>
+</thead>
+<tbody>
+  <% @user.investments_sorted_by_date.each do |investment| %>
+    <tr>
+    <td>
+      <%= link_to investment.deal.title, investment_path(investment) %>
+    </td>
+    <td>
+      <%= number_to_currency(investment.amount_invested, precision: 0) %>
+    </td>
+    <td>
+      <%= investment.invested_on.to_formatted_s(:long) %>
+    </td>
+</tbody>
+
   <% end %>
+</table>
 <% else %>
   No investments available for viewing.
 <% end %>
