@@ -32,6 +32,7 @@ gem 'paperclip', '>= 5.0'
 
 gem 'aws-sdk'
 
+gem 'puma'
 
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
