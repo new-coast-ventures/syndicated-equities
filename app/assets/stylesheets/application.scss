@@ -40,9 +40,8 @@
 .navbar ul li{
   display: inline-block;
 	vertical-align: middle;
-	border-right:1px solid #fff;
 	color:#fff;
-	padding:2px 15px 0 15px;
+	padding: 15px;
 	text-align: left;
 	height: 45px;
 	font-size: 10pt;
@@ -63,8 +62,4 @@
     -moz-transition: opacity 300ms ease-out .3s;
     -o-transition: opacity 300ms ease-out .3s;
     transition: opacity 300ms ease-out .3s;
-}
-
-.nav ul li:last-of-type{
-	border:none;
 }
