@@ -44,7 +44,7 @@ def create_note(deal_id)
   note = Note.new
   note.deal_id = deal_id
   note.title = FFaker::Company.catch_phrase
-  note.content = FFaker::Company.bs
+  note.content = FFaker::HTMLIpsum.body
   note.save!
   note
 end
@@ -70,3 +70,5 @@ end
 20.times do
   create_investment
 end
+
+User.create!(email: 'admin@admin.com', first_name: 'admin', last_name: 'admin', password: 'password', admin: true)
