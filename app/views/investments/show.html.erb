@@ -1,27 +1,36 @@
 <h1 class="display-4 dashboard-title"><%= @investment.deal.title %></h1>
+
+
+
 <p class="lead my-1">
   <%= @investment.deal.description %>
 </p>
-<div class="card-deck-wrapper">
-  <div class="card-deck">
-    <div class="card card-block text-xs-center align-middle">
-      <h5 class="card-title">Amount Invested</h5>
-      <div class="card-text"><%= number_to_currency(@investment.amount_invested, precision: 0) %></div>
-    </div>
-    <div class="card card-block text-xs-center align-middle">
-      <h5 class="card-title">Invested On</h5>
-      <div class="card-text"><%= @investment.invested_on %></div>
-    </div>
-    <% @investment.deal.forms.each do |form| %>
-    <div class="card card-block text-xs-center align-middle">
-      <h5 class="card-title"><%= link_to form.title, form_path(form) %></h5>
-      <div class="card-text">
-      <%= link_to 'Download', form.document.url(:original, false) %>
-      </div>
-    </div>
-    <% end %>
-  </div>
-</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th class="text-xs-center">Amount Invested</th>
+      <th class="text-xs-center">Invested On</th>
+      <% @investment.deal.forms.each do |form| %>
+        <th class="text-xs-center">
+          <%= link_to form.title, form_path(form) %>
+        </th>
+      <% end %>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-xs-center"><%= number_to_currency(@investment.amount_invested, precision: 0) %></td>
+      <td class="text-xs-center"><%= @investment.invested_on %></td>
+      <% @investment.deal.forms.each do |form| %>
+        <td class="text-xs-center">
+          <%= link_to 'Download', form.document.url(:original, false) %>
+        </td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
+
 <h4 class="mb-1">Notes</h4>
   <div class="list-group col-xs-6">
   <% @investment.deal.notes.each do |note| %>
