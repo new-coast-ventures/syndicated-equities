@@ -4,16 +4,16 @@
 </p>
 <div class="card-deck-wrapper">
   <div class="card-deck">
-    <div class="card card-block text-xs-center">
+    <div class="card card-block text-xs-center align-middle">
       <h5 class="card-title">Amount Invested</h5>
       <div class="card-text"><%= number_to_currency(@investment.amount_invested, precision: 0) %></div>
     </div>
-    <div class="card card-block text-xs-center">
+    <div class="card card-block text-xs-center align-middle">
       <h5 class="card-title">Invested On</h5>
       <div class="card-text"><%= @investment.invested_on %></div>
     </div>
     <% @investment.deal.forms.each do |form| %>
-    <div class="card card-block text-xs-center">
+    <div class="card card-block text-xs-center align-middle">
       <h5 class="card-title"><%= link_to form.title, form_path(form) %></h5>
       <div class="card-text">
       <%= link_to 'Download', form.document.url(:original, false) %>
