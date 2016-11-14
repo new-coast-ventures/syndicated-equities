@@ -8,6 +8,9 @@
     <tr>
       <th class="text-xs-center">Amount Invested</th>
       <th class="text-xs-center">Invested On</th>
+      <% if @investment.investing_entity %>
+        <th class="text-xs-center">Investing Entity</th>
+      <% end %>
       <% @investment.deal.forms.each do |form| %>
         <th class="text-xs-center">
           <%= link_to form.title, form_path(form) %>
@@ -19,6 +22,9 @@
     <tr>
       <td class="text-xs-center"><%= number_to_currency(@investment.amount_invested, precision: 0) %></td>
       <td class="text-xs-center"><%= @investment.invested_on %></td>
+      <% if @investment.investing_entity %>
+      <td class="text-xs-center"><%= @investment.investing_entity %></td>
+      <% end %>
       <% @investment.deal.forms.each do |form| %>
         <td class="text-xs-center">
           <%= link_to 'Download', form.document.url(:original, false) %>

@@ -34,6 +34,8 @@ gem 'aws-sdk'
 
 gem 'puma'
 
+gem 'roo'
+
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
