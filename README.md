@@ -1,5 +1,6 @@
 # syndicated-equities
 Syndicated Equities project
 
-TODO: Finish Redactor setup
-TODO: Fix Paperclip config
+TODO for deployment:
+Setup Devise mailer
+Get reCAPTCHA API keys for production domain
