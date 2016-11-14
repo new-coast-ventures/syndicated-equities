@@ -1,3 +1,4 @@
+<%= flash[:recaptcha_error] %>
 <p><h2>Sign up</h2></p>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
@@ -41,7 +42,7 @@
     Zip: <%= address_fields.text_field :zip, class: "form-control" %>
   <% end %>
   </div>
-
+  <%= recaptcha_tags %>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>
