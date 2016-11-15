@@ -21,4 +21,10 @@ describe 'note authentication' do
     visit "/notes/#{@note.id}"
     expect(page).to have_content(@note.title)
   end
+
+  it 'does not show the note if the user is not properly authenticated' do
+    log_in
+    visit "/notes/#{@note.id + 1}"
+    expect(page).to have_content('Not authorized')
+  end
 end
