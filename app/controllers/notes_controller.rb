@@ -9,16 +9,12 @@ class NotesController < ApplicationController
   # ----------------------------------------------
 
   def show
-    @note = Note.find(params[:id])
-  end
-
-  # ----------------------------------------------
-  # PRIVATE --------------------------------------
-  # ----------------------------------------------
-
-  private
-
-  def note_params
-    params.require(:note).permit(:deal_id, :title, :content)
+    @note = Note.find_by(id: params[:id])
+    if @note && @note.deal.investors.include?(current_user) || current_user.admin?
+      render 'show'
+    else
+      flash[:alert] = 'Not authorized'
+      redirect_to main_app.root_path
+    end
   end
 end
