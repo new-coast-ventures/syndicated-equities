@@ -10,7 +10,7 @@ end
 # pending 'the signup process' do
 # end
 
-describe 'the login process' do
+describe 'user authentication' do
   before do
     @user = create(:user)
   end
@@ -31,7 +31,9 @@ describe 'the login process' do
     expect(page).to have_content 'No investments'
   end
 
-  it 'shows investments if user is approved and has investments' do
-    
+  it 'shows not authorized if user tries to access an unauthorized page' do
+    log_in
+    visit "/users/#{@user.id + 1}"
+    expect(page).to have_content 'Not authorized'
   end
 end
