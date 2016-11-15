@@ -24,5 +24,4 @@ RSpec.describe User, type: :model do
     @investment2.save!
     expect(@user.investments_sorted_by_date).to eq([@investment2, @investment1])
   end
-
 end
