@@ -9,7 +9,13 @@ class FormsController < ApplicationController
   # ----------------------------------------------
 
   def show
-    @form = Form.find(params[:id])
+    @form = Form.find_by(id: params[:id])
+    if @form && @form.deal.investors.include?(current_user) || current_user.admin?
+      render 'show'
+    else
+      flash[:alert] = 'Not authorized'
+      redirect_to main_app.root_path
+    end
   end
 
   # ----------------------------------------------
