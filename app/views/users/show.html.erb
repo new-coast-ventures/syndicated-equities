@@ -1,5 +1,10 @@
 <h1 class="display-4 dashboard-title">Your Dashboard</h1>
-<% if @user.investments.empty? == false %>
+
+<% unless @user.approved? %>
+  Your account is awaiting approval. Please check back in 3 business days.
+<% end %>
+
+<% if @user.approved? && @user.investments.empty? == false %>
 <div class="card-deck-wrapper">
   <div class="card-deck">
     <div class="card card-block text-xs-center">
@@ -42,6 +47,6 @@
 
   <% end %>
 </table>
-<% else %>
+<% elsif @user.approved? %>
   No investments available for viewing.
 <% end %>

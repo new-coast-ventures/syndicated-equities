@@ -15,6 +15,7 @@ def create_user
   user.last_name = FFaker::Name.last_name
   user.save!
   user.address = create_address(user.id)
+  user.approved = true
   user
 end
 
@@ -59,8 +60,10 @@ def create_form(deal_id)
 end
 
 def create_investment
+  user = create_user
   investment = Investment.new
-  investment.user_id = create_user.id
+  investment.user_id = user.id
+  investment.investor_email = user.email
   investment.deal_id = create_deal.id
   investment.amount_invested = rand(100_000_00)
   investment.invested_on = FFaker::Time.date
@@ -71,4 +74,4 @@ end
   create_investment
 end
 
-User.create!(email: 'admin@admin.com', first_name: 'admin', last_name: 'admin', password: 'password', admin: true)
+User.create!(email: 'admin@admin.com', first_name: 'admin', last_name: 'admin', password: 'password', admin: true, approved: false)
