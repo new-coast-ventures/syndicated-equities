@@ -13,9 +13,9 @@ def create_user
   user.password = FFaker::Internet.password
   user.first_name = FFaker::Name.first_name
   user.last_name = FFaker::Name.last_name
+  user.approved = true
   user.save!
   user.address = create_address(user.id)
-  user.approved = true
   user
 end
 
