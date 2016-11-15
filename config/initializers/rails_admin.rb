@@ -9,7 +9,10 @@ RailsAdmin.config do |config|
   config.current_user_method(&:current_user)
 
   config.authorize_with do
-    redirect_to main_app.root_path unless current_user.admin?
+    unless current_user.admin?
+      flash[:alert] = 'Not authorized'
+      redirect_to main_app.root_path
+    end
   end
 
   ## == Cancan ==
@@ -56,6 +59,7 @@ RailsAdmin.config do |config|
     edit do
       field :first_name
       field :last_name
+      field :approved
       field :address
       field :email
       field :password

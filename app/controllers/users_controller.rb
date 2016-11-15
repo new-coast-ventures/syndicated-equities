@@ -12,7 +12,8 @@ class UsersController < ApplicationController
     if current_user.id == @user.id || current_user.admin?
       render 'show'
     else
-      render plain: 'Not Authorized', status: 403
+      flash[:alert] = 'Not authorized'
+      redirect_to main_app.root_path
     end
   end
 
