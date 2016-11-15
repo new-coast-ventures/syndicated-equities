@@ -6,8 +6,16 @@ class RegistrationsController < Devise::RegistrationsController
 
   def new
     build_resource({})
-    self.resource.address = Address.new
-    respond_with self.resource
+    resource.address = Address.new
+    respond_with resource
+  end
+
+  def create
+    super do
+      resource.investments = Investment.where({investor_email: resource.email})
+      resource.approved = false
+      resource.save
+    end
   end
 
   private
