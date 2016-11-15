@@ -22,12 +22,7 @@ RSpec.describe User, type: :model do
   it 'has a investments_sorted_by_date method that returns the investments sorted in descending order by date' do
     @investment2.invested_on = Date.today
     @investment2.save!
-
-    if @investment1.invested_on > @investment2.invested_on
-      expect(@user.investments_sorted_by_date).to eq([@investment1, @investment2])
-    else
-      expect(@user.investments_sorted_by_date).to eq([@investment2, @investment1])
-    end
+    expect(@user.investments_sorted_by_date).to eq([@investment2, @investment1])
   end
 
 end
