@@ -16,6 +16,8 @@
 # users commonly want.
 #
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
+require 'simplecov'
+SimpleCov.start
 require 'capybara/rspec'
 require 'paperclip/matchers'
 require 'factory_girl_rails'
