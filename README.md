@@ -1,7 +1,9 @@
 # syndicated-equities
 Syndicated Equities project
 
-Question: How to handle passwords for user creation?
+TODO for demo:
+Generate seed forms and notes
+Fix responsive nav
 
 TODO for deployment:
 Setup Devise mailer
