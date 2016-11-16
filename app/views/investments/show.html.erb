@@ -33,14 +33,15 @@
     </tr>
   </tbody>
 </table>
-
-<h4 class="mb-1">Notes</h4>
-  <div class="list-group col-xs-6">
-  <% @investment.deal.notes.each do |note| %>
-    <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
-    <h5 class="list-group-item-heading"><%= note.title %></h5>
-    <h6 class="list-group-item-heading"><%= note.created_at.to_formatted_s(:long_ordinal) %></h6>
-    <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
+<% unless @investment.deal.notes.empty? %>
+  <h4 class="mb-1">Notes</h4>
+    <div class="list-group col-xs-6">
+    <% @investment.deal.notes.each do |note| %>
+      <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
+      <h5 class="list-group-item-heading"><%= note.title %></h5>
+      <h6 class="list-group-item-heading"><%= note.created_at.to_formatted_s(:long_ordinal) %></h6>
+      <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
+      <% end %>
     <% end %>
-  <% end %>
-  </div>
+    </div>
+<% end %>
