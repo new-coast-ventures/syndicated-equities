@@ -18,13 +18,4 @@ class InvestmentsController < ApplicationController
     end
   end
 
-  # ----------------------------------------------
-  # PRIVATE --------------------------------------
-  # ----------------------------------------------
-
-  private
-
-  def investment_params
-    params.require(:investment).permit(:user_id, :deal_id, :amount_invested, :invested_on)
-  end
 end
