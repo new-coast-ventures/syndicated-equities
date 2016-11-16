@@ -17,5 +17,4 @@ class InvestmentsController < ApplicationController
       redirect_to main_app.root_path
     end
   end
-
 end

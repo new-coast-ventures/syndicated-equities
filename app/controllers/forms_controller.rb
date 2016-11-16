@@ -17,14 +17,4 @@ class FormsController < ApplicationController
       redirect_to main_app.root_path
     end
   end
-
-  # ----------------------------------------------
-  # PRIVATE --------------------------------------
-  # ----------------------------------------------
-
-  private
-
-  def form_params
-    params.require(:form).permit(:title, :description, :date)
-  end
 end
