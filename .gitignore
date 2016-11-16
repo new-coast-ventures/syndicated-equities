@@ -18,5 +18,5 @@
 # Ignore coverage reports
 coverage
 
-Ignore Excel files
+# Ignore Excel files
 .xlsx
