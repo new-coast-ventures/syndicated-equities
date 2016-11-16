@@ -54,6 +54,15 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
   config.include Devise::Test::IntegrationHelpers, type: :feature
+
+  include ActionDispatch::TestProcess
+
+  config.after(:all) do
+    if Rails.env.test?
+      test_uploads = Dir["#{Rails.root}/test_uploads"]
+      FileUtils.rm_rf(test_uploads)
+    end
+  end
 end
 
 Shoulda::Matchers.configure do |config|

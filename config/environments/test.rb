@@ -42,5 +42,10 @@ Rails.application.configure do
 
   # Devise setup
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
-  
+
+  config.paperclip_defaults = {
+  path: ':rails_root/test_uploads/:class/:id/:attachment/:filename.:extension',
+  url: ':rails_root/test_uploads/:class/:id/:attachment/:filename.:extension'
+}
+
 end
