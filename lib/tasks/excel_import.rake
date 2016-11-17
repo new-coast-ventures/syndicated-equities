@@ -1,5 +1,5 @@
 require 'roo'
-
+require 'ffaker'
 desc 'Imports investment data from Excel file'
 task :excel_import, [:file] => [:environment] do |t, args|
   file = args[:file]
@@ -7,7 +7,10 @@ task :excel_import, [:file] => [:environment] do |t, args|
   xlsx = Roo::Spreadsheet.open(file)
   puts xlsx.cell(1,1)
   deal = Deal.new(title: xlsx.cell(1,1), description: 'Description TBD', date: xlsx.cell(1,2))
-  deal.save
+  deal.save!
+  form = Form.new(deal: deal, title: 'Form K-1', description: FFaker::Company.catch_phrase)
+  form.save!(validate: false)
+  note = 2.times { Note.create(deal: deal, title: FFaker::Company.catch_phrase, content: FFaker::HTMLIpsum.body) }
   xlsx.each_row_streaming(offset: 2) do |row|
     puts "Adding #{row[1]}"
     email = "#{row[0].value.downcase.strip}.#{row[1].value.downcase.strip}@example.com"
