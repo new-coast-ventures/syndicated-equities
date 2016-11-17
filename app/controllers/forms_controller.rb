@@ -10,7 +10,7 @@ class FormsController < ApplicationController
 
   def show
     @form = Form.find_by(id: params[:id])
-    if @form && @form.deal.investors.include?(current_user) || current_user.admin?
+    if @form && current_user && @form.deal.investors.include?(current_user) || current_user.admin?
       render 'show'
     else
       flash[:alert] = 'Not authorized'

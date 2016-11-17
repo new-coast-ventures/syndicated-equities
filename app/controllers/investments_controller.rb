@@ -10,7 +10,7 @@ class InvestmentsController < ApplicationController
 
   def show
     @investment = Investment.find_by(id: params[:id])
-    if @investment && @investment.investor == current_user || current_user.admin?
+    if @investment && current_user && @investment.investor == current_user || current_user.admin?
       render 'show'
     else
       flash[:alert] = 'Not authorized'

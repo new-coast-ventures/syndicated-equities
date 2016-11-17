@@ -9,7 +9,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    if @user && @user.id == current_user.id || current_user.admin?
+    if @user && current_user && @user.id == current_user.id || current_user.admin?
       render 'show'
     else
       flash[:alert] = 'Not authorized'
