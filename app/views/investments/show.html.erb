@@ -2,6 +2,7 @@
 <p class="lead my-1">
   <%= @investment.deal.description %>
 </p>
+<div class="table-responsive">
 
 <table class="table">
   <thead>
@@ -33,6 +34,7 @@
     </tr>
   </tbody>
 </table>
+</div>
 <% unless @investment.deal.notes.empty? %>
   <h4 class="mb-1">Notes</h4>
     <div class="list-group col-xs-6">
