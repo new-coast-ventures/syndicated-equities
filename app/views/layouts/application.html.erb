@@ -26,8 +26,8 @@
     <li class="nav-item float-xs-left">
       <%= link_to "Edit Profile", edit_registration_path(current_user), class: "nav-link" %>
     </li>
-    <li class="navbar-text float-xs-left">
-      <span class="nav-link">Logged in as: <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
+    <li class="nav-item float-xs-left">
+      <span class="nav-text">Logged in as: <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
     </li>
     <li class="nav-item float-xs-right">
       <%= link_to "Log out", destroy_session_path(current_user), :method => :delete, class: "nav-link" %>
