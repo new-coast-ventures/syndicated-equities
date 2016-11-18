@@ -37,7 +37,7 @@
 </div>
 <% unless @investment.deal.notes.empty? %>
   <h4 class="mb-1">Notes</h4>
-    <div class="list-group col-xs-6">
+    <div class="list-group col-xs-12 col-md-6">
     <% @investment.deal.notes.each do |note| %>
       <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
       <h5 class="list-group-item-heading"><%= note.title %></h5>
