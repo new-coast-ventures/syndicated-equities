@@ -20,8 +20,13 @@
 	z-index: 8888;
 }
 
+.navbar-toggler {
+  margin-left: 10%;
+}
+
 @media (max-width: 991px) {
-  .navbar-toggleable-md .navbar-nav .nav-item {
+  .navbar-nav .nav-item {
+    float: left;
     width: 100%;
   }
 }
