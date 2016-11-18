@@ -20,14 +20,26 @@
 	z-index: 8888;
 }
 
-.navbar img {
-	width: 340px;
-	float: left;
-  width: 90%;
+@media (max-width: 991px) {
+  .navbar-toggleable-md .navbar-nav .nav-item {
+    width: 100%;
+  }
 }
 
+.navbar-brand {
+  width: 15rem;
+  padding-top: 0.5rem;
+}
 
-.nav ul{
+.navbar img {
+	float: left;
+}
+
+.navbar-toggler {
+  margin-top: 0.5rem;
+}
+
+.nav ul {
 	float: right;
 }
 
