@@ -40,7 +40,7 @@
     <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
   </div>
   <div class="form-group">
-    <legend>Mailing Address</legend>
+  <legend>Mailing Address</legend>
   <%= f.fields_for :address do |address_fields| %>
     Line 1: <br/>
     <%= address_fields.text_field :line1, class: "form-control" %><br/>

@@ -10,6 +10,10 @@ class RegistrationsController < Devise::RegistrationsController
     respond_with resource
   end
 
+  def edit
+    resource.build_address if resource.address.nil?
+  end
+
   def create
     super do
       resource.investments = Investment.where({investor_email: resource.email})
