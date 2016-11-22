@@ -83,6 +83,7 @@ RailsAdmin.config do |config|
     edit do
       field :title
       field :description
+      field :date
     end
   end
 
