@@ -8,6 +8,10 @@ class FormsController < ApplicationController
   # SHOW -----------------------------------------
   # ----------------------------------------------
 
+  def index
+    @forms = Form.where(generic: true)
+  end
+
   def show
     @form = Form.find_by(id: params[:id])
     if @form && current_user && @form.deal.investors.include?(current_user) || current_user.admin?
