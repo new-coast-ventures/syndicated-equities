@@ -55,6 +55,7 @@ def create_form(deal_id)
   form.deal_id = deal_id
   form.title = ['Form W-2','Form 1099','Form 1040'].sample
   form.description = FFaker::Company.catch_phrase
+  form.generic = FFaker::Boolean
   form.save!(validate: false)
   form
 end

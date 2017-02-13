@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213194255) do
+ActiveRecord::Schema.define(version: 20170213201008) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,7 +36,7 @@ ActiveRecord::Schema.define(version: 20170213194255) do
   end
 
   create_table "forms", force: :cascade do |t|
-    t.integer  "deal_id",                               null: false
+    t.integer  "deal_id"
     t.string   "title",                                 null: false
     t.text     "description"
     t.string   "document_file_name"
