@@ -48,6 +48,9 @@
 
   <% end %>
 </table>
+<p>
+  <%= link_to 'Print', '#', onclick: 'window.print();return false;', class: 'btn btn-primary' %>
+</p>
 </div>
 <% elsif @user.approved? %>
   No investments available for viewing.
