@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161115163638) do
+ActiveRecord::Schema.define(version: 20170214160504) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,18 +33,20 @@ ActiveRecord::Schema.define(version: 20161115163638) do
     t.date     "date",        null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.datetime "closed_at"
   end
 
   create_table "forms", force: :cascade do |t|
-    t.integer  "deal_id",               null: false
-    t.string   "title",                 null: false
+    t.integer  "deal_id"
+    t.string   "title",                                 null: false
     t.text     "description"
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
     t.datetime "document_updated_at"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "generic",               default: false
   end
 
   create_table "investments", force: :cascade do |t|
@@ -59,11 +61,12 @@ ActiveRecord::Schema.define(version: 20161115163638) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "deal_id",    null: false
-    t.string   "title",      null: false
-    t.text     "content",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "deal_id"
+    t.string   "title",          null: false
+    t.text     "content",        null: false
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
+    t.string   "investor_email"
   end
 
   create_table "users", force: :cascade do |t|
@@ -83,6 +86,7 @@ ActiveRecord::Schema.define(version: 20161115163638) do
     t.string   "last_name",                           null: false
     t.boolean  "admin"
     t.boolean  "approved"
+    t.boolean  "viewer"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
