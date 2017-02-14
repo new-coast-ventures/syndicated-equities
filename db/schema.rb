@@ -62,11 +62,11 @@ ActiveRecord::Schema.define(version: 20170214164250) do
 
   create_table "notes", force: :cascade do |t|
     t.integer  "deal_id"
-    t.string   "title",                 null: false
-    t.text     "content",               null: false
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
-    t.string   "investor_email"
+    t.string   "title",                                 null: false
+    t.text     "content",                               null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "global",                default: false
     t.string   "document_file_name"
     t.string   "document_content_type"
     t.integer  "document_file_size"
