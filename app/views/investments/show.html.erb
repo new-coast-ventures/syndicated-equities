@@ -12,7 +12,7 @@
       <% if @investment.investing_entity %>
         <th class="text-xs-center">Investing Entity</th>
       <% end %>
-      <% if @investment.closed_at %>
+      <% if @investment.deal.closed_at %>
         <th class="text-xs-center">Closed On</th>
       <% end %>
       <% @investment.deal.forms.each do |form| %>
@@ -29,8 +29,8 @@
       <% if @investment.investing_entity %>
       <td class="text-xs-center"><%= @investment.investing_entity %></td>
       <% end %>
-      <% if @investment.closed_at %>
-      <td class="text-xs-center"><%= @investment.closed_at %></td>
+      <% if @investment.deal.closed_at %>
+      <td class="text-xs-center"><%= @investment.deal.closed_at %></td>
       <% end %>
       <% @investment.deal.forms.each do |form| %>
         <td class="text-xs-center">
