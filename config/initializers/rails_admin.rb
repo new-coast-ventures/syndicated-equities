@@ -15,8 +15,7 @@ RailsAdmin.config do |config|
     end
   end
 
-  ## == Cancan ==
-  # config.authorize_with :cancan
+  config.authorize_with :cancan
 
   ## == Pundit ==
   # config.authorize_with :pundit
@@ -64,6 +63,7 @@ RailsAdmin.config do |config|
       field :email
       field :password
       field :admin
+      field :viewer
     end
   end
 

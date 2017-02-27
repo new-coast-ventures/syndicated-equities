@@ -35,17 +35,22 @@
 <tbody>
   <% @user.investments_sorted_by_date.each do |investment| %>
     <tr>
-    <td>
-      <%= link_to investment.deal.title, investment_path(investment) %>
-    </td>
-    <td>
-      <%= number_to_currency(investment.amount_invested, precision: 0) %>
-    </td>
-    <td>
-      <%= investment.invested_on.to_formatted_s(:long) %>
-    </td>
+      <td>
+        <%= link_to investment.deal.title, investment_path(investment) %>
+      </td>
+      <td>
+        <%= number_to_currency(investment.amount_invested, precision: 0) %>
+      </td>
+      <td>
+        <%= investment.invested_on.to_formatted_s(:long) %>
+      </td>
+    </tr>
+  <% end %>
 </tbody>
 </table>
+<p>
+  <%= link_to 'Print', '#', onclick: 'window.print();return false;', class: 'btn btn-primary' %>
+</p>
 </div>
   <% end %>
 
