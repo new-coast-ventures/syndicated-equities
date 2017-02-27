@@ -18,7 +18,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address
 
   def name
-    first_name.to_s + ' ' + last_name.to_s
+    [first_name.to_s, last_name.to_s].compact.join(" ")
   end
 
   def total_invested
