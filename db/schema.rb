@@ -60,11 +60,16 @@ ActiveRecord::Schema.define(version: 20170213201008) do
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer  "deal_id",    null: false
-    t.string   "title",      null: false
-    t.text     "content",    null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "deal_id"
+    t.string   "title",                                 null: false
+    t.text     "content",                               null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.boolean  "global",                default: false
+    t.string   "document_file_name"
+    t.string   "document_content_type"
+    t.integer  "document_file_size"
+    t.datetime "document_updated_at"
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,6 +89,7 @@ ActiveRecord::Schema.define(version: 20170213201008) do
     t.string   "last_name",                           null: false
     t.boolean  "admin"
     t.boolean  "approved"
+    t.boolean  "viewer"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

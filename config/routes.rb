@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   resources :addresses, only: [:create, :update, :destroy]
   resources :notes
   resources :users
+  resources :contacts, only: [:index]
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

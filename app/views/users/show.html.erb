@@ -35,20 +35,37 @@
 <tbody>
   <% @user.investments_sorted_by_date.each do |investment| %>
     <tr>
-    <td>
-      <%= link_to investment.deal.title, investment_path(investment) %>
-    </td>
-    <td>
-      <%= number_to_currency(investment.amount_invested, precision: 0) %>
-    </td>
-    <td>
-      <%= investment.invested_on.to_formatted_s(:long) %>
-    </td>
-</tbody>
-
+      <td>
+        <%= link_to investment.deal.title, investment_path(investment) %>
+      </td>
+      <td>
+        <%= number_to_currency(investment.amount_invested, precision: 0) %>
+      </td>
+      <td>
+        <%= investment.invested_on.to_formatted_s(:long) %>
+      </td>
+    </tr>
   <% end %>
+</tbody>
 </table>
+<p>
+  <%= link_to 'Print', '#', onclick: 'window.print();return false;', class: 'btn btn-primary' %>
+</p>
 </div>
+  <% end %>
+
+<% if @user.approved? && !@notes.empty? %>
+<h4 class="mb-1">Latest Updates</h4>
+  <div class="list-group col-xs-12 col-md-6">
+  <% @notes.each do |note| %>
+    <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
+    <h5 class="list-group-item-heading"><%= note.title %></h5>
+    <h6 class="list-group-item-heading"><%= note.created_at.to_formatted_s(:long_ordinal) %></h6>
+    <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
+    <% end %>
+  <% end %>
+  </div>
+<% end %>
 <% elsif @user.approved? %>
   No investments available for viewing.
 <% end %>
