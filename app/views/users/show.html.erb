@@ -31,6 +31,9 @@
   <th>
     Date Invested
   </th>
+  <th>
+    Closed?
+  </th>
 </thead>
 <tbody>
   <% @user.investments_sorted_by_date.each do |investment| %>
@@ -43,6 +46,9 @@
       </td>
       <td>
         <%= investment.invested_on.to_formatted_s(:long) %>
+      </td>
+      <td>
+        <%= investment.deal.closed_at.present? ? 'Yes' : 'No' %>
       </td>
     </tr>
   <% end %>
