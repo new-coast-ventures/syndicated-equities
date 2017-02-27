@@ -1,0 +1,6 @@
+<h1 class="display-4 dashboard-title">Form Library</h1>
+<% @forms.each do |form| %>
+<h4><%= form.title %></h4>
+<h5>Description: <%= form.description %></h5>
+<h5><%= link_to 'Download', form.document.url(:original, false) %></h5>
+<% end %>
