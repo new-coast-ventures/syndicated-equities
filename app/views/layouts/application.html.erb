@@ -30,6 +30,9 @@
       <%= link_to "Edit Profile", edit_registration_path(current_user), class: "nav-link" %>
     </li>
     <li class="nav-item">
+      <%= link_to "Form Library", forms_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
       <span class="nav-text">Logged in as: <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
     </li>
     <li class="nav-item float-md-right">
@@ -43,5 +46,10 @@
 <div class="container">
 <%= yield %>
 </div>
+<footer class ="footer">
+  <div class="container">
+    <span class="text-muted">&copy; Syndicated Equities 2017 | <%= link_to 'Contact Us', contacts_path %></span>
+  </div>
+</footer>
 </body>
 </html>
