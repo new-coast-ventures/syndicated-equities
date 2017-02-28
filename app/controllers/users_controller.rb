@@ -2,7 +2,9 @@
 # RUBY->CONTROLLER->USERSCONTROLLER ==============
 # ================================================
 class UsersController < ApplicationController
+  
   before_filter :authenticate_user!
+
   # ----------------------------------------------
   # SHOW -----------------------------------------
   # ----------------------------------------------
@@ -10,6 +12,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(id: params[:id])
     @notes = Note.global
+    
     if @user && current_user && @user.id == current_user.id || current_user.admin?
       render 'show'
     else
