@@ -34,7 +34,7 @@ gem 'aws-sdk'
 
 gem 'puma'
 
-gem 'roo'
+gem 'roo', '~> 2.7.0'
 
 gem 'cancancan'
 
