@@ -1,59 +1,58 @@
-<p><h2>Edit Profile</h2></p>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="form-group">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, class: "form-control" %>
-  </div>
-
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently awaiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
-
-  <div class="form-group">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-    <% if @minimum_password_length %>
-      <small class="form-text text-muted"><%= @minimum_password_length %> characters minimum</small>
+<h5 class="dashboard-title">Your Account</h5>
+<div class="container">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= devise_error_messages! %>
+    <div class="form-group row">
+      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">First Name</label>
+      <div class="col-sm-10">
+        <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm" %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Last Name</label>
+      <div class="col-sm-10">
+        <%= f.text_field :last_name, autofocus: true, class: "form-control form-control-sm" %>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+      <div class="col-sm-10">
+        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm" %>
+      </div>
+    </div>
+    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+      <div>Currently awaiting confirmation for: <%= resource.unconfirmed_email %></div>
     <% end %>
-  </div>
+    <div class="form-group">
+      <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
+      <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
+      <% if @minimum_password_length %>
+        <small class="form-text text-muted"><%= @minimum_password_length %> characters minimum</small>
+      <% end %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-  </div>
+    <div class="form-group">
+      <%= f.label :password_confirmation %><br />
+      <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
-  </div>
-  <div class="form-group">
-  <legend>Mailing Address</legend>
-  <%= f.fields_for :address do |address_fields| %>
-    Line 1: <br/>
-    <%= address_fields.text_field :line1, class: "form-control" %><br/>
-    Line 2: <%= address_fields.text_field :line2, class: "form-control" %><br/>
-    City: <%= address_fields.text_field :city, class: "form-control" %><br/>
-    State: <%= address_fields.text_field :state, class: "form-control" %><br/>
-    Zip: <%= address_fields.text_field :zip, class: "form-control" %>
+    <div class="form-group">
+      <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
+      <%= f.password_field :current_password, autocomplete: "off", class: "form-control" %>
+    </div>
+    <div class="form-group">
+    <legend>Mailing Address</legend>
+    <%= f.fields_for :address do |address_fields| %>
+      Line 1: <br/>
+      <%= address_fields.text_field :line1, class: "form-control" %><br/>
+      Line 2: <%= address_fields.text_field :line2, class: "form-control" %><br/>
+      City: <%= address_fields.text_field :city, class: "form-control" %><br/>
+      State: <%= address_fields.text_field :state, class: "form-control" %><br/>
+      Zip: <%= address_fields.text_field :zip, class: "form-control" %>
+    <% end %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Update" %>
+    </div>
   <% end %>
-  </div>
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-<div class="py-1">
-<%= link_to "Back", :back %>
 </div>

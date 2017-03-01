@@ -26,7 +26,7 @@ gem 'devise'
 
 gem 'rails_admin', '~> 1.0'
 
-gem 'bootstrap', '~> 4.0.0.alpha5'
+gem 'bootstrap', '4.0.0.alpha5'
 
 gem 'paperclip', '>= 5.0'
 

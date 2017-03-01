@@ -53,7 +53,7 @@ GEM
     bcrypt (3.1.11)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap (4.0.0.alpha6)
+    bootstrap (4.0.0.alpha5)
       autoprefixer-rails (>= 6.0.3)
       sass (>= 3.4.19)
     builder (3.2.3)
@@ -270,7 +270,7 @@ PLATFORMS
 
 DEPENDENCIES
   aws-sdk
-  bootstrap (~> 4.0.0.alpha5)
+  bootstrap (= 4.0.0.alpha5)
   byebug
   cancancan
   capybara
@@ -301,4 +301,4 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 BUNDLED WITH
-   1.14.2
+   1.14.5
