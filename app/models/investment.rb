@@ -15,6 +15,10 @@ class Investment < ActiveRecord::Base
   scope :closed, -> { joins(:deal).where('deals.closed_at IS NOT NULL') }
 
   def name
-    (investor ? investor.name : '') + ' - ' + (deal ? deal.title : '')
+    [investor.try(:name), deal.try(:title)].compact.join(" - ")
+  end
+
+  def display_date
+    (invested_on > 100.years.ago) ? invested_on.strftime("%m/%d/%y") : "n/a"
   end
 end

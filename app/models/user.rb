@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one :address, inverse_of: :user
+  has_one  :address, inverse_of: :user
   has_many :investments, inverse_of: :investor
   has_many :deals, through: :investments, inverse_of: :investors
 
@@ -24,6 +24,10 @@ class User < ActiveRecord::Base
   def total_invested
     return investments.first.amount_invested if investments.count == 1
     investments.inject(0) { |sum, i| sum + i.amount_invested }
+  end
+
+  def self.insert_with(attributes = {})
+    User.find_by(attributes.slice(:first_name, :last_name, :email)) || User.create(attributes)
   end
 
 end

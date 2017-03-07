@@ -70,9 +70,9 @@
 	cursor: pointer;
 	opacity: .7;
 	-webkit-transition: opacity 300ms ease-out .3s;
-    -moz-transition: opacity 300ms ease-out .3s;
-    -o-transition: opacity 300ms ease-out .3s;
-    transition: opacity 300ms ease-out .3s;
+  -moz-transition: opacity 300ms ease-out .3s;
+  -o-transition: opacity 300ms ease-out .3s;
+  transition: opacity 300ms ease-out .3s;
 }
 
 .display-4 {
@@ -109,6 +109,12 @@ body {
   height: 60px;
   line-height: 60px; /* Vertically center the text there */
   background-color: #f5f5f5;
+}
+
+tr {
+  td:hover, td:focus {
+    background-color: transparent;
+  }
 }
 
 @media print {

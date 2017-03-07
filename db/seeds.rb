@@ -71,8 +71,8 @@ def create_investment
   investment.save!
 end
 
-20.times do
-  create_investment
-end
+# 20.times do
+#   create_investment
+# end
 
 User.create!(email: 'scott@newcoastventures.com', first_name: 'Scott', last_name: 'Kacyn', password: 'password', admin: true, approved: true)

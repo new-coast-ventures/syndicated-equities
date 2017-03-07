@@ -12,24 +12,24 @@ namespace :importer do
 
       xlsx = Roo::Spreadsheet.open(file)
 
-      xlsx.each(deal: 'Deal', date: 'Date', first_name: 'First Name', last_name: 'Last Name', entity: 'Entity', amount: 'Amount') do |hash|
-        
-        print "."
-        date  = hash[:date] || Date.new(1900, 1, 1) # Grab date or set to Jan 1, 1900 so we know which dates we need to adjust
-        first = hash[:first_name] || "Anonymous"
-        last  = hash[:last_name] || "User"
-        email = [first, last, "@temporary.com"].join("")
-        deal  = hash[:deal] == "Deal"
-        amount = hash[:amount] || 0
+      xlsx.each_row_streaming(offset: 2) do |row|
 
-        deal = Deal.find_or_create_by(title: hash[:deal], description: "Description", date: date)
+        title  = (row[0].value || "").strip
+        first  = (row[2].value || "Anonymous").strip
+        last   = (row[3].value || "").strip
+        email  = [first, last, "@temporary.com"].join("").downcase
+        entity = (row[4].value || "").strip
+        amount = (row[5].value || 0)
+        date   = row[1].value.nil? ? Date.new(1900, 1, 1) : row[1].value
+        ddate  = Date.new(1900, 1, 1)
 
-        unless user = User.find_by(first_name: first, last_name: last, email: email)
-          user = User.create(first_name: first, last_name: last, email: email, password: "password")
+        deal = Deal.find_or_create_by(title: title, description: "-", date: ddate)
+        user = User.insert_with(first_name: first, last_name: last, email: email, password: "password", approved: true)
+
+        if deal && user
+          deal.investments.find_or_create_by(investor: user, amount_invested: amount, investing_entity: entity, invested_on: date)
+          print "."
         end
-
-        deal.investments.find_or_create_by(user: user, amount_invested: amount, investing_entity: hash[:entity], invested_on: date)
-
       end
     end
   end

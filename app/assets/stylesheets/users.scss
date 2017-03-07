@@ -9,3 +9,7 @@
 .thead-inverse th {
   background: #002849;
 }
+
+.table-hover tbody tr:hover {
+	background-color: transparent;
+}
