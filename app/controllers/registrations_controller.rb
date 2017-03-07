@@ -22,18 +22,22 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  protected
+
+  def update_resource(resource, params)
+    resource.update_without_password(params)
+  end
+
   private
 
   def sign_up_params
     address_params = [:id, :line1, :line2, :city, :state, :zip]
-
     params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, [address_attributes: address_params])
   end
 
   def account_update_params
     address_params = [:id, :line1, :line2, :city, :state, :zip]
-
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, :current_password, [address_attributes: address_params])
+    params.require(:user).permit(:first_name, :last_name, :email, [address_attributes: address_params])
   end
 
   def check_captcha

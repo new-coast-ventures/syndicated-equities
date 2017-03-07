@@ -1,49 +1,55 @@
-<h1 class="display-4 dashboard-title"><%= @investment.deal.title %></h1>
-<p class="lead my-1">
-  <%= @investment.deal.description %>
-</p>
+<h5 class="dashboard-title"><%= @investment.deal.title %></h5>
+<p class="my-1"><%= @investment.deal.description %></p>
 <div class="table-responsive">
-
-<table class="table">
-  <thead>
-    <tr>
-      <th class="text-xs-center">Amount Invested</th>
-      <th class="text-xs-center">Invested On</th>
-      <% if @investment.investing_entity %>
-        <th class="text-xs-center">Investing Entity</th>
-      <% end %>
-      <% if @investment.deal.closed_at %>
-        <th class="text-xs-center">Closed On</th>
-      <% end %>
-      <% @investment.deal.forms.each do |form| %>
-        <th class="text-xs-center">
-          <%= link_to form.title, form_path(form) %>
-        </th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td class="text-xs-center"><%= number_to_currency(@investment.amount_invested, precision: 0) %></td>
-      <td class="text-xs-center"><%= @investment.invested_on %></td>
-      <% if @investment.investing_entity %>
-      <td class="text-xs-center"><%= @investment.investing_entity %></td>
-      <% end %>
-      <% if @investment.deal.closed_at %>
-      <td class="text-xs-center"><%= @investment.deal.closed_at %></td>
-      <% end %>
-      <% @investment.deal.forms.each do |form| %>
-        <td class="text-xs-center">
-          <%= link_to 'Download', form.document.url(:original, false) %>
-        </td>
-      <% end %>
-    </tr>
-  </tbody>
-</table>
+  <table class="table table-bordered">
+    <thead class="thead-default">
+      <tr>
+        <th>Amount Invested</th>
+        <th>Invested On</th>
+        <th>Investing Entity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><%= number_to_currency(@investment.amount_invested, precision: 2) %></td>
+        <td><%= @investment.display_date %></td>
+        <td><%= @investment.investing_entity || "n/a" %></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
-<% unless @investment.deal.notes.empty? %>
-  <h4 class="mb-1">Notes</h4>
-    <div class="list-group col-xs-12 col-md-6">
+
+<h5 class="py-1">Documents</h5>
+<% if @investment.deal.forms.any? %>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <thead class="thead-default">
+        <tr>
+          <th>Form Name</th>
+          <th>Description</th>
+          <th>Date</th>
+          <th>Link</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @investment.deal.forms.each do |form| %>
+          <tr>
+            <td><%= form.title %></td>
+            <td><%= form.description %></td>
+            <td><%= form.created_at.strftime("%m/%d/%y") %></td>
+            <td><%= link_to 'Download / View', form.document.url(:original, false) %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% else %>
+  <p>None</p>
+<% end %>
+
+<h5 class="py-1">Notes & Updates</h5>
+<% if @investment.deal.notes.any? %>
+  <div class="list-group col-xs-12 col-md-6">
     <% @investment.deal.notes.each do |note| %>
       <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
       <h5 class="list-group-item-heading"><%= note.title %></h5>
@@ -51,5 +57,7 @@
       <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
       <% end %>
     <% end %>
-    </div>
+  </div>
+<% else %>
+  <p>None</p>
 <% end %>

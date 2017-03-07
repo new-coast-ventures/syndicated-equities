@@ -1,6 +1,25 @@
-<h1 class="display-4 dashboard-title">Form Library</h1>
-<% @forms.each do |form| %>
-<h4><%= form.title %></h4>
-<h5>Description: <%= form.description %></h5>
-<h5><%= link_to 'Download', form.document.url(:original, false) %></h5>
+<h5 class="dashboard-title">Form Library</h5>
+<% if @forms.any? %>
+	<table class="table table-bordered">
+		<thead class="thead-default">
+			<tr>
+				<th>Form Name</th>
+				<th>Description</th>
+				<th>Date</th>
+				<th>Link</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @forms.each do |form| %>
+				<tr>
+					<td><%= form.title %></td>
+					<td><%= form.description %></td>
+					<td><%= form.created_at.strftime("%m/%d/%y") %></td>
+					<td><%= link_to 'Download', form.document.url(:original, false) %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% else %>
+  <p>None</p>
 <% end %>

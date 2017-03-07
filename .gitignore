@@ -15,6 +15,9 @@
 # Ignore environment
 .env
 
+# Ignore DSStore files
+.DS_Store
+
 # Ignore coverage reports
 coverage
 

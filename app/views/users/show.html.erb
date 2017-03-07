@@ -1,76 +1,82 @@
-<h1 class="display-4 dashboard-title">Your Dashboard</h1>
+<h5 class="dashboard-title">Your Dashboard</h5>
 
-<% unless @user.approved? %>
-  Your account is awaiting approval. Please check back in 3 business days.
-<% end %>
-
-<% if @user.approved? && @user.investments.empty? == false %>
-<div class="card-deck-wrapper">
-  <div class="card-deck">
-    <div class="card card-block text-xs-center">
-      <h4 class="card-title">Number of Investments</h4>
-      <h2 class="card-text"><%= @user.investments.count %></h2>
-    </div>
-    <div class="card card-block text-xs-center">
-      <h4 class="card-title">Total Amount Invested</h4>
-      <h2 class="card-text"><%= number_to_currency(@user.total_invested, precision: 0) %></h2>
+<% if @user.approved? %>
+  <div class="card-deck-wrapper">
+    <div class="card-deck">
+      <div class="card card-block text-xs-center">
+        <h5 class="card-title">Number of Investments</h5>
+        <h2 class="card-text"><%= @user.investments.count %></h2>
+      </div>
+      <div class="card card-block text-xs-center">
+        <h5 class="card-title">Total Amount Invested</h5>
+        <h2 class="card-text"><%= number_to_currency(@user.total_invested, precision: 0) %></h2>
+      </div>
     </div>
   </div>
-</div>
 
-<h4 class="py-1">Investments</h4>
-<div class="table-responsive">
-<table class="table table-hover">
-<thead class="thead-inverse">
-  <th>
-    Deal
-  </th>
-  <th>
-    Amount Invested
-  </th>
-  <th>
-    Date Invested
-  </th>
-  <th>
-    Closed?
-  </th>
-</thead>
-<tbody>
-  <% @user.investments_sorted_by_date.each do |investment| %>
-    <tr>
-      <td>
-        <%= link_to investment.deal.title, investment_path(investment) %>
-      </td>
-      <td>
-        <%= number_to_currency(investment.amount_invested, precision: 0) %>
-      </td>
-      <td>
-        <%= investment.invested_on.to_formatted_s(:long) %>
-      </td>
-      <td>
-        <%= investment.deal.closed_at.present? ? 'Yes' : 'No' %>
-      </td>
-    </tr>
-  <% end %>
-</tbody>
-</table>
-<p>
-  <%= link_to 'Print', '#', onclick: 'window.print();return false;', class: 'btn btn-primary' %>
-</p>
-</div>
+  <h5 class="py-1">Active Investments</h5>
+  <% if @user.investments.active.any? %>
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead class="thead-default">
+          <th>Deal</th>
+          <th>Amount Invested</th>
+          <th>Date Invested</th>
+        </thead>
+        <tbody>
+          <% @user.investments.active.each do |investment| %>
+            <tr>
+              <td><%= link_to investment.deal.title, investment_path(investment) %></td>
+              <td><%= number_to_currency(investment.amount_invested, precision: 0) %></td>
+              <td><%= investment.display_date %></td>
+            </tr>
+          <% end %>
+      </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p>None</p>
   <% end %>
 
-<% if @user.approved? && !@notes.empty? %>
-<h4 class="mb-1">Latest Updates</h4>
-  <div class="list-group col-xs-12 col-md-6">
-  <% @notes.each do |note| %>
-    <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
-    <h5 class="list-group-item-heading"><%= note.title %></h5>
-    <h6 class="list-group-item-heading"><%= note.created_at.to_formatted_s(:long_ordinal) %></h6>
-    <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
+  <h5 class="py-1">Previous Investments</h5>
+  <% if @user.investments.closed.any? %>
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered">
+        <thead class="thead-default">
+          <th>Deal</th>
+          <th>Amount Invested</th>
+          <th>Date Invested</th>
+          <th>Date Closed</th>
+        </thead>
+        <tbody>
+          <% @user.investments.closed.each do |investment| %>
+            <tr>
+              <td><%= link_to investment.deal.title, investment_path(investment) %></td>
+              <td><%= number_to_currency(investment.amount_invested, precision: 0) %></td>
+              <td><%= investment.invested_on.strftime("%m/%d/%y") %></td>
+              <td><%= investment.deal.closed_at.nil? ? "n/a" : investment.deal.closed_at.strftime("%m/%d/%y") %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    <p>None</p>
+  <% end %>
+
+  <% if @notes.any? %>
+    <h4 class="mb-1">Latest Updates</h4>
+    <div class="list-group col-xs-12 col-md-6">
+    <% @notes.each do |note| %>
+      <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
+        <h5 class="list-group-item-heading"><%= note.title %></h5>
+        <h6 class="list-group-item-heading"><%= note.created_at.to_formatted_s(:long_ordinal) %></h6>
+        <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
+        <% end %>
     <% end %>
+    </div>
   <% end %>
-  </div>
-<% elsif @user.approved? %>
-  No investments available for viewing.
+
+<% else %>
+  Your account is awaiting approval. Please check back in 3 business days.
 <% end %>

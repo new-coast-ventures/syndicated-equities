@@ -9,7 +9,16 @@ class Investment < ActiveRecord::Base
   validates_presence_of :amount_invested
   validates_presence_of :invested_on
 
+  default_scope { order(invested_on: :desc) }
+
+  scope :active, -> { joins(:deal).where('deals.closed_at IS NULL') }
+  scope :closed, -> { joins(:deal).where('deals.closed_at IS NOT NULL') }
+
   def name
-    (investor ? investor.name : '') + ' - ' + (deal ? deal.title : '')
+    [investor.try(:name), deal.try(:title)].compact.join(" - ")
+  end
+
+  def display_date
+    (invested_on > 100.years.ago) ? invested_on.strftime("%m/%d/%y") : "n/a"
   end
 end
