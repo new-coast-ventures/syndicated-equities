@@ -12,12 +12,12 @@ namespace :importer do
 
       xlsx = Roo::Spreadsheet.open(file)
 
-      xlsx.each_row_streaming(offset: 2) do |row|
+      xlsx.each_row_streaming(offset: 1) do |row|
 
         title  = (row[0].value || "").strip
         first  = (row[2].value || "Anonymous").strip
         last   = (row[3].value || "").strip
-        email  = [first, last, "@temporary.com"].join("").downcase
+        email  = [first.tr('.', ''), last.tr('.', '')].join("_").downcase.tr(' ', '_').strip + "@temporary.com"
         entity = (row[4].value || "").strip
         amount = (row[5].value || 0)
         date   = row[1].value.nil? ? Date.new(1900, 1, 1) : row[1].value
@@ -27,8 +27,12 @@ namespace :importer do
         user = User.insert_with(first_name: first, last_name: last, email: email, password: "password", approved: true)
 
         if deal && user
-          deal.investments.find_or_create_by(investor: user, amount_invested: amount, investing_entity: entity, invested_on: date)
-          print "."
+          begin
+            deal.investments.find_or_create_by(investor: user, amount_invested: amount, investing_entity: entity, invested_on: date)
+            print "."
+          rescue
+            puts "Error: #{row.inspect}"
+          end
         end
       end
     end
