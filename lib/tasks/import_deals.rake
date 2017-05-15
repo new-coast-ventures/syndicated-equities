@@ -14,12 +14,12 @@ namespace :importer do
 
       xlsx.each_row_streaming(offset: 1) do |row|
 
-        title  = (row[0].value || "").strip
-        first  = (row[2].value || "Anonymous").strip
-        last   = (row[3].value || "").strip
+        title  = row[0] ? (row[0].value || "").to_s.strip : ""
+        first  = row[2] ? (row[2].value || "Anonymous").to_s.strip : ""
+        last   = row[3] ? (row[3].value || "").to_s.strip : ""
         email  = [first.tr('.', ''), last.tr('.', '')].join("_").downcase.tr(' ', '_').strip + "@temporary.com"
-        entity = (row[4].value || "").strip
-        amount = (row[5].value || 0)
+        entity = row[4] ? (row[4].value || "").to_s.strip : ""
+        amount = row[5] ? (row[5].value || 0) : 0
         date   = row[1].value.nil? ? Date.new(1900, 1, 1) : row[1].value
         ddate  = Date.new(1900, 1, 1)
 
