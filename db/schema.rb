@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170214164250) do
+ActiveRecord::Schema.define(version: 20171005225152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(version: 20170214164250) do
 
   create_table "deals", force: :cascade do |t|
     t.string   "title",       null: false
-    t.text     "description", null: false
-    t.date     "date",        null: false
+    t.text     "description"
+    t.date     "date"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.datetime "closed_at"
@@ -51,13 +51,15 @@ ActiveRecord::Schema.define(version: 20170214164250) do
 
   create_table "investments", force: :cascade do |t|
     t.integer  "user_id"
-    t.integer  "deal_id",          null: false
-    t.integer  "amount_invested",  null: false
-    t.date     "invested_on",      null: false
-    t.datetime "created_at",       null: false
-    t.datetime "updated_at",       null: false
+    t.integer  "deal_id",             null: false
+    t.integer  "amount_invested",     null: false
+    t.date     "invested_on"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
     t.string   "investing_entity"
     t.string   "investor_email"
+    t.string   "investor_first_name"
+    t.string   "investor_last_name"
   end
 
   create_table "notes", force: :cascade do |t|
