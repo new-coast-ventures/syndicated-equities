@@ -68,14 +68,22 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Investment' do
-    configure :amount_invested do
-      formatted_value do
-        bindings[:view].number_to_currency(value.to_s, precision: 0)
-      end
+    list do
+      field :investor
+      field :deal
+      field :amount_invested
+      field :investing_entity
+      field :investor_first_name
+      field :investor_last_name
+    end
 
-      pretty_value do
-        bindings[:view].number_to_currency(value.to_s, precision: 0)
-      end
+    edit do
+      field :investor
+      field :deal
+      field :amount_invested
+      field :investing_entity
+      field :investor_first_name
+      field :investor_last_name
     end
   end
 

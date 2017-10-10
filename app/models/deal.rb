@@ -8,6 +8,4 @@ class Deal < ActiveRecord::Base
   has_many :forms, inverse_of: :deal
 
   validates_presence_of :title
-  validates_presence_of :description
-  validates_presence_of :date
 end

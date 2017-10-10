@@ -6,8 +6,6 @@ class Investment < ActiveRecord::Base
   belongs_to :deal, inverse_of: :investors
 
   validates_presence_of :deal
-  validates_presence_of :amount_invested
-  validates_presence_of :invested_on
 
   default_scope { order(invested_on: :desc) }
 
@@ -19,6 +17,6 @@ class Investment < ActiveRecord::Base
   end
 
   def display_date
-    invested_on&.strftime("%m/%d/%y") || "n/a"
+    deal&.date&.strftime("%m/%d/%y") || "n/a"
   end
 end
