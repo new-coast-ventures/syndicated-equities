@@ -23,7 +23,7 @@
 
 <div class="py-1">
   <h5>Documents</h5>
-  <p class="subtext">Note: for your added privacy, all form links expire after 10 seconds. You may download or print any document for your own personal records.</p>
+  <!--<p class="subtext">Note: for your added privacy, all form links expire after 10 seconds. You may download or print any document for your own personal records.</p>-->
   <div class="table-responsive">
     <table class="table table-bordered">
       <tbody>
@@ -31,7 +31,7 @@
           <tr>
             <td><%= form.title %></td>
             <td><%= form.description || "n/a" %></td>
-            <td><%= link_to 'Download / View', form_download_path(form), target: "_blank" %></td>
+            <td><%= link_to 'Download / View', form.document.url, target: "_blank" %></td>
           </tr>
         <% end %>
         <% if @investment.forms.empty? %>
