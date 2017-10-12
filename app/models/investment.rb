@@ -19,4 +19,8 @@ class Investment < ActiveRecord::Base
   def display_date
     deal&.date&.strftime("%m/%d/%y") || "n/a"
   end
+
+  def forms
+    deal.forms.to_a + deal.property&.forms.to_a
+  end
 end

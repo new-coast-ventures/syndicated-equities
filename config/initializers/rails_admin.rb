@@ -45,6 +45,20 @@ RailsAdmin.config do |config|
     # history_show
   end
 
+  config.model 'Form' do
+    list do
+      field :owner
+      field :title
+      field :document
+    end
+
+    edit do
+      field :owner
+      field :title
+      field :document
+    end
+  end
+
   config.model 'User' do
     list do
       field :first_name

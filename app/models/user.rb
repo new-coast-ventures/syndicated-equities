@@ -7,7 +7,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one  :address, inverse_of: :user
+  has_one  :address, as: :addressable, dependent: :destroy
   has_many :investments, inverse_of: :investor
   has_many :deals, through: :investments, inverse_of: :investors
 

@@ -1,9 +1,10 @@
-<h5 class="dashboard-title"><%= @investment.deal.title %></h5>
+<h5 class="dashboard-title">Investment Details for <%= @investment.deal&.property&.name || @investment.deal.title %></h5>
 <p class="my-1"><%= @investment.deal.description %></p>
 <div class="table-responsive">
   <table class="table table-bordered">
     <thead class="thead-default">
       <tr>
+        <th>Name</th>
         <th>Amount Invested</th>
         <th>Investing Entity</th>
         <th>Closing Date</th>
@@ -11,6 +12,7 @@
     </thead>
     <tbody>
       <tr>
+        <td><%= @investment.deal.title %></td>
         <td><%= number_to_currency(@investment.amount_invested, precision: 2) %></td>
         <td><%= @investment.investing_entity || "n/a" %></td>
         <td><%= @investment.display_date %></td>
@@ -19,45 +21,48 @@
   </table>
 </div>
 
-<h5 class="py-1">Documents</h5>
-<% if @investment.deal.forms.any? %>
+<div class="py-1">
+  <h5>Documents</h5>
+  <p class="subtext">Note: for your added privacy, all form links expire after 10 seconds. You may download or print any document for your own personal records.</p>
   <div class="table-responsive">
     <table class="table table-bordered">
-      <thead class="thead-default">
-        <tr>
-          <th>Form Name</th>
-          <th>Description</th>
-          <th>Date</th>
-          <th>Link</th>
-        </tr>
-      </thead>
       <tbody>
-        <% @investment.deal.forms.each do |form| %>
+        <% @investment.forms.each do |form| %>
           <tr>
             <td><%= form.title %></td>
-            <td><%= form.description %></td>
-            <td><%= form.created_at.strftime("%m/%d/%y") %></td>
-            <td><%= link_to 'Download / View', form.document.url(:original, false) %></td>
+            <td><%= form.description || "n/a" %></td>
+            <td><%= link_to 'Download / View', form_download_path(form), target: "_blank" %></td>
+          </tr>
+        <% end %>
+        <% if @investment.forms.empty? %>
+          <tr style="color:#cccccc;font-size:0.8rem;">
+            <td>No documents available</td>
           </tr>
         <% end %>
       </tbody>
     </table>
   </div>
-<% else %>
-  <p>None</p>
-<% end %>
+</div>
 
-<h5 class="py-1">Notes & Updates</h5>
-<% if @investment.deal.notes.any? %>
-  <div class="list-group col-xs-12 col-md-6">
-    <% @investment.deal.notes.each do |note| %>
-      <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
-      <h5 class="list-group-item-heading"><%= note.title %></h5>
-      <h6 class="list-group-item-heading"><%= note.created_at.to_formatted_s(:long_ordinal) %></h6>
-      <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
-      <% end %>
-    <% end %>
+<div class="py-1">
+  <h5>Notes & Updates</h5>
+  <div class="table-responsive">
+    <table class="table table-bordered">
+      <tbody>
+        <% @investment.deal.notes.each do |note| %>
+          <tr>
+            <td><%= note.title %></td>
+            <td><%= strip_tags(note.content.truncate(100)) %></td>
+            <td><%= note.created_at.to_date.to_formatted_s(:long) %>
+            <td><%= link_to 'Read More', note, target: "_blank" %></td>
+          </tr>
+        <% end %>
+        <% if @investment.deal.notes.empty? %>
+          <tr style="color:#cccccc;font-size:0.8rem;">
+            <td>No recent notes</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
   </div>
-<% else %>
-  <p>None</p>
-<% end %>
+</div>
