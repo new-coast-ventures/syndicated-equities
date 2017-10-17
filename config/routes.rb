@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   resources :addresses, only: [:create, :update, :destroy]
 
   devise_for :users, path: 'u', controllers: { registrations: 'registrations' }
+  devise_scope :user do
+    get 'u/edit/password', to: 'registrations#edit_password'
+    patch 'update_password', to: 'registrations#update_password'
+  end
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
 

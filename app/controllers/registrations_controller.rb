@@ -22,6 +22,20 @@ class RegistrationsController < Devise::RegistrationsController
     end
   end
 
+  def edit_password
+    @user = current_user
+  end
+
+  def update_password
+    @user = current_user
+    if @user.update(password_update_params)
+      bypass_sign_in(@user)
+      redirect_to root_path
+    else
+      render "edit"
+    end
+  end
+
   protected
 
   def update_resource(resource, params)
@@ -38,6 +52,10 @@ class RegistrationsController < Devise::RegistrationsController
   def account_update_params
     address_params = [:id, :line1, :line2, :city, :state, :zip]
     params.require(:user).permit(:first_name, :last_name, :email, [address_attributes: address_params])
+  end
+
+  def password_update_params
+    params.require(:user).permit(:password, :password_confirmation)
   end
 
   def check_captcha
