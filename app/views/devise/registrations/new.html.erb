@@ -1,53 +1,50 @@
-<%= flash[:recaptcha_error] %>
-<p><h2>Sign up</h2></p>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= devise_error_messages! %>
-
-  <div class="form-group">
-    <%= f.label :first_name %><br />
-    <%= f.text_field :first_name, autofocus: true, class: "form-control" %>
+<div class="container">
+  <div class="card" style="width: 40rem; max-width:100%; margin:30px auto;">
+    <div class="card-header">
+      Sign Up
+    </div>
+    <div class="card-block">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-3 col-form-label col-form-label-sm">First Name</label>
+          <div class="col-sm-9">
+            <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-3 col-form-label col-form-label-sm">Last Name</label>
+          <div class="col-sm-9">
+            <%= f.text_field :last_name, class: "form-control form-control-sm" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-3 col-form-label col-form-label-sm">Email</label>
+          <div class="col-sm-9">
+            <%= f.email_field :email, class: "form-control form-control-sm" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-3 col-form-label col-form-label-sm">Password *
+          </label>
+          <div class="col-sm-9">
+            <%= f.password_field :password, autocomplete: "off", class: "form-control form-control-sm" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-3 col-form-label col-form-label-sm">Confirm Password</label>
+          <div class="col-sm-9">
+            <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control form-control-sm" %>
+          </div>
+        </div>
+        <div class="actions">
+          <%= f.submit "Sign Up", class: "btn btn-primary my-1" %>
+        </div>
+      <% end %>
+    </div>
+    <div class="card-footer">
+      <span style="font-size:10px;">
+        * Password must contain a minimum of 10 characters, including at least 1 uppercase letter, 1 lowercase letter, and 1 number
+      </span>
+    </div>
   </div>
-
-  <div class="form-group">
-    <%= f.label :last_name %><br />
-    <%= f.text_field :last_name, autofocus: true, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "off", class: "form-control" %>
-  </div>
-
-  <div class="form-group">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off", class: "form-control" %>
-  </div>
-  <div class="form-group">
-    <legend>Mailing Address</legend>
-  <%= f.fields_for :address do |address_fields| %>
-    Line 1: <br/>
-    <%= address_fields.text_field :line1, class: "form-control" %><br/>
-    Line 2: <%= address_fields.text_field :line2, class: "form-control" %><br/>
-    City: <%= address_fields.text_field :city, class: "form-control" %><br/>
-    State: <%= address_fields.text_field :state, class: "form-control" %><br/>
-    Zip: <%= address_fields.text_field :zip, class: "form-control" %>
-  <% end %>
-  </div>
-  <p><%= recaptcha_tags %></p>
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-
-<% end %>
-<div class="py-1">
-<%= render "devise/shared/links" %>
 </div>
