@@ -2,7 +2,8 @@
 # RUBY->MODEL->FORM ==============================
 # ================================================
 class Form < ActiveRecord::Base
-  belongs_to :deal
+  belongs_to :owner, polymorphic: true
+  
   has_attached_file :document
 
   validates_presence_of :title

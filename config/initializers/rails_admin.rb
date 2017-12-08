@@ -45,6 +45,20 @@ RailsAdmin.config do |config|
     # history_show
   end
 
+  config.model 'Form' do
+    list do
+      field :owner
+      field :title
+      field :document
+    end
+
+    edit do
+      field :owner
+      field :title
+      field :document
+    end
+  end
+
   config.model 'User' do
     list do
       field :first_name
@@ -68,14 +82,22 @@ RailsAdmin.config do |config|
   end
 
   config.model 'Investment' do
-    configure :amount_invested do
-      formatted_value do
-        bindings[:view].number_to_currency(value.to_s, precision: 0)
-      end
+    list do
+      field :investor
+      field :deal
+      field :amount_invested
+      field :investing_entity
+      field :investor_first_name
+      field :investor_last_name
+    end
 
-      pretty_value do
-        bindings[:view].number_to_currency(value.to_s, precision: 0)
-      end
+    edit do
+      field :investor
+      field :deal
+      field :amount_invested
+      field :investing_entity
+      field :investor_first_name
+      field :investor_last_name
     end
   end
 

@@ -7,15 +7,24 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_one  :address, inverse_of: :user
+  has_one  :address, as: :addressable, dependent: :destroy
   has_many :investments, inverse_of: :investor
   has_many :deals, through: :investments, inverse_of: :investors
 
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
+  validate :password_complexity
 
   accepts_nested_attributes_for :address
+
+  def password_complexity
+    if password.present?
+      if !password.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)/)
+        errors.add :password, "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+      end
+    end
+  end
 
   def name
     [first_name.to_s, last_name.to_s].compact.join(" ")

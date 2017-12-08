@@ -2,7 +2,7 @@
 # RUBY->MODEL->ADDRESS ===========================
 # ================================================
 class Address < ActiveRecord::Base
-  belongs_to :user, inverse_of: :address
+  belongs_to :addressable, polymorphic: true
 
   validates_presence_of :line1
   validates_presence_of :city
@@ -10,6 +10,6 @@ class Address < ActiveRecord::Base
   validates_presence_of :zip
 
   def name
-    line1 + ' ' + city + ', ' + state + ' ' + zip
+    %w(line1 city state zip).join(", ")
   end
 end

@@ -1,4 +1,6 @@
 source 'https://rubygems.org'
+ruby "2.3.0"
+
 gem 'dotenv-rails', groups: [:development, :test], require: 'dotenv/rails-now'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.7.1'

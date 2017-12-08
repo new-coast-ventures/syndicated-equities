@@ -1,77 +1,44 @@
-<h5 class="dashboard-title">Your Account</h5>
 <div class="container">
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-    <%= f.hidden_field :password, autocomplete: "off" %>
-    <%= f.hidden_field :password_confirmation, autocomplete: "off" %>
-    <%= f.hidden_field :current_password, autocomplete: "off" %>
-    <%= devise_error_messages! %>
-    <div class="form-group row">
-      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">First Name</label>
-      <div class="col-sm-10">
-        <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm" %>
-      </div>
+  <div class="card" style="width: 40rem; max-width:100%; margin:30px auto;">
+    <div class="card-header">
+      Account Info
     </div>
-    <div class="form-group row">
-      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Last Name</label>
-      <div class="col-sm-10">
-        <%= f.text_field :last_name, autofocus: true, class: "form-control form-control-sm" %>
-      </div>
+    <div class="card-block">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+        <%= f.hidden_field :password, autocomplete: "off" %>
+        <%= f.hidden_field :password_confirmation, autocomplete: "off" %>
+        <%= f.hidden_field :current_password, autocomplete: "off" %>
+        <%= devise_error_messages! %>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">First Name</label>
+          <div class="col-sm-10">
+            <%= f.text_field :first_name, autofocus: true, class: "form-control form-control-sm" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Last Name</label>
+          <div class="col-sm-10">
+            <%= f.text_field :last_name, autofocus: true, class: "form-control form-control-sm" %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
+          <div class="col-sm-10">
+            <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm" %>
+          </div>
+        </div>
+
+        <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+          <div>Currently awaiting confirmation for: <%= resource.unconfirmed_email %></div>
+        <% end %>
+
+        <div class="actions">
+          <%= f.submit "Update", class: "btn btn-primary my-1" %>
+        </div>
+      <% end %>
     </div>
-    <div class="form-group row">
-      <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Email</label>
-      <div class="col-sm-10">
-        <%= f.email_field :email, autofocus: true, class: "form-control form-control-sm" %>
-      </div>
+    <div class="card-footer">
+      <%= link_to "Change your password", u_edit_password_path %>
     </div>
-
-    <hr style="margin: 40px 0;">
-
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <div>Currently awaiting confirmation for: <%= resource.unconfirmed_email %></div>
-    <% end %>
-
-    <h5 class="dashboard-title">Mailing Address</h5>
-    <%= f.fields_for :address do |address_fields| %>
-
-      <div class="form-group row">
-        <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Street Address</label>
-        <div class="col-sm-10">
-          <%= address_fields.text_field :line1, class: "form-control form-control-sm" %>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Apt or Unit #</label>
-        <div class="col-sm-10">
-          <%= address_fields.text_field :line2, class: "form-control form-control-sm" %>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">City</label>
-        <div class="col-sm-10">
-          <%= address_fields.text_field :city, class: "form-control form-control-sm" %>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">State</label>
-        <div class="col-sm-10">
-          <%= address_fields.text_field :state, class: "form-control form-control-sm" %>
-        </div>
-      </div>
-
-      <div class="form-group row">
-        <label for="smFormGroupInput" class="col-sm-2 col-form-label col-form-label-sm">Zip</label>
-        <div class="col-sm-10">
-          <%= address_fields.text_field :zip, class: "form-control form-control-sm" %>
-        </div>
-      </div>
-
-    <% end %>
-
-    <div class="actions">
-      <%= f.submit "Update", class: "btn btn-primary my-1" %>
-    </div>
-  <% end %>
+  </div>
 </div>
