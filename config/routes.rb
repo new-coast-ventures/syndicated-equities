@@ -11,6 +11,8 @@ Rails.application.routes.draw do
   resources :contacts, only: [:index]
   resources :addresses, only: [:create, :update, :destroy]
 
+  get 'terms', to: 'home#terms'
+
   devise_for :users, path: 'u', controllers: { registrations: 'registrations' }
   devise_scope :user do
     get 'u/edit/password', to: 'registrations#edit_password'
