@@ -2,7 +2,7 @@
 # RUBY->CONTROLLER->REGISTRATIONSCONTROLLER ======
 # ================================================
 class RegistrationsController < Devise::RegistrationsController
-  prepend_before_action :check_captcha, only: [:create]
+  #prepend_before_action :check_captcha, only: [:create]
 
   def new
     build_resource({})
