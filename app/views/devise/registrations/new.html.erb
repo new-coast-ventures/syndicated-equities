@@ -1,3 +1,14 @@
+<style>
+#error_explanation {
+  padding-top: 10px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(224,40,31,1);
+  background: rgba(224,40,31,0.1);
+}
+#error_explanation h2 {
+  display: none;
+}
+</style>
 <div class="container">
   <div class="card" style="width: 40rem; max-width:100%; margin:30px auto;">
     <div class="card-header">
@@ -5,6 +16,7 @@
     </div>
     <div class="card-block">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <%= devise_error_messages! %>
         <div class="form-group row">
           <label for="smFormGroupInput" class="col-sm-3 col-form-label col-form-label-sm">First Name</label>
           <div class="col-sm-9">
@@ -43,7 +55,7 @@
       <% end %>
     </div>
     <div class="card-footer">
-      <span style="font-size:10px;">
+      <span style="font-size:14px;">
         * Password must contain a minimum of 10 characters, including at least 1 uppercase letter, 1 lowercase letter, and 1 number
       </span>
     </div>
