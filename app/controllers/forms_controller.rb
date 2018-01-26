@@ -9,7 +9,7 @@ class FormsController < ApplicationController
   # ----------------------------------------------
 
   def index
-    @forms = Form.where(generic: true)
+    @forms = Form.where(owner: nil)
   end
 
   def download
