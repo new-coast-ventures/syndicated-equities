@@ -78,15 +78,18 @@ RailsAdmin.config do |config|
       field :password
       field :admin
       field :viewer
+      field :investments do
+        searchable [:investor_first_name, :investor_last_name, :investing_entity]
+      end
     end
   end
 
   config.model 'Investment' do
     list do
+      field :investing_entity
       field :investor
       field :deal
       field :amount_invested
-      field :investing_entity
       field :investor_first_name
       field :investor_last_name
     end
@@ -98,6 +101,10 @@ RailsAdmin.config do |config|
       field :investing_entity
       field :investor_first_name
       field :investor_last_name
+    end
+
+    object_label_method do 
+      :custom_investment_label
     end
   end
 
@@ -129,5 +136,9 @@ RailsAdmin.config do |config|
         partial "redactor"
       end
     end
+  end
+
+  def custom_investment_label
+    "#{self.investor_first_name} #{self.investor_last_name} | #{self.deal.title}"
   end
 end
