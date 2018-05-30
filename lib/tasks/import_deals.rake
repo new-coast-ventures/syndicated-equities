@@ -22,6 +22,8 @@ namespace :importer do
       xlsx = Roo::Spreadsheet.open(file)
       xlsx.each_row_streaming(offset: 1) do |row|
         title = sanitized_string_from(row[0])
+        next if title.blank?
+        
         deals << title
         print "."
       end
@@ -44,6 +46,7 @@ namespace :importer do
         amount = sanitized_int_from(row[3])
 
         if deal_id = @deals[title]
+          next unless amount > 0
           print "."
           investments << "(#{deal_id}, #{amount}, '#{first}', '#{last}', '#{entity}', '#{Time.now}', '#{Time.now}')"
         end
