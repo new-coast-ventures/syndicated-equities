@@ -13,7 +13,7 @@
     <tbody>
       <tr>
         <td><%= @investment.deal.title %></td>
-        <td><%= number_to_currency(@investment.amount_invested, precision: 2) %></td>
+        <td><%= humanized_money_with_symbol @investment.amount %></td>
         <td><%= @investment.investing_entity || "n/a" %></td>
         <td><%= @investment.display_date %></td>
       </tr>

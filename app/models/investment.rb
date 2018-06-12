@@ -12,6 +12,8 @@ class Investment < ActiveRecord::Base
   scope :active, -> { joins(:deal).where('deals.closed_at IS NULL') }
   scope :closed, -> { joins(:deal).where('deals.closed_at IS NOT NULL') }
 
+  monetize :amount_cents, allow_nil: true
+
   def name
     [investor&.name, deal&.title].compact.join(" - ")
   end

@@ -31,8 +31,7 @@ class User < ActiveRecord::Base
   end
 
   def total_invested
-    return investments.first.amount_invested if investments.count == 1
-    investments.inject(0) { |sum, i| sum + i.amount_invested }
+    investments.inject(0) { |sum, i| sum + i.amount }
   end
 
   def self.insert_with(attributes = {})

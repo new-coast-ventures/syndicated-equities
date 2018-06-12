@@ -9,7 +9,7 @@
       </div>
       <div class="card card-block text-xs-center">
         <h5 class="card-title">Total Amount Invested</h5>
-        <h2 class="card-text"><%= number_to_currency(@user.total_invested, precision: 0) %></h2>
+        <h2 class="card-text"><%= humanized_money_with_symbol @user.total_invested %></h2>
       </div>
     </div>
   </div>
@@ -30,7 +30,7 @@
           <% @user.investments.active.each do |investment| %>
             <tr>
               <td><%= link_to investment.deal.title, investment_path(investment) %></td>
-              <td><%= number_to_currency(investment.amount_invested, precision: 0) %></td>
+              <td><%= humanized_money_with_symbol investment.amount %></td>
               <td><%= investment.investing_entity %></td>
               <td><%= investment.display_date %></td>
             </tr>

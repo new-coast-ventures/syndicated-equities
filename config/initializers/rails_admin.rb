@@ -89,7 +89,7 @@ RailsAdmin.config do |config|
       field :investing_entity
       field :investor
       field :deal
-      field :amount_invested
+      field :amount
       field :investor_first_name
       field :investor_last_name
     end
@@ -97,7 +97,7 @@ RailsAdmin.config do |config|
     edit do
       field :investor
       field :deal
-      field :amount_invested
+      field :amount
       field :investing_entity
       field :investor_first_name
       field :investor_last_name
