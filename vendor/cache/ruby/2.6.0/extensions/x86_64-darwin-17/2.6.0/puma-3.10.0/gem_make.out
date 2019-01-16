@@ -1,0 +1,25 @@
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.6.0/gems/puma-3.10.0/ext/puma_http11
+/Users/tomncv/.rvm/rubies/ruby-2.6.0/bin/ruby -I /Users/tomncv/.rvm/rubies/ruby-2.6.0/lib/ruby/2.6.0 -r ./siteconf20190116-19335-2ox66m.rb extconf.rb
+checking for BIO_read() in -lcrypto... yes
+checking for SSL_CTX_new() in -lssl... yes
+checking for openssl/bio.h... yes
+creating Makefile
+
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.6.0/gems/puma-3.10.0/ext/puma_http11
+make "DESTDIR=" clean
+
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.6.0/gems/puma-3.10.0/ext/puma_http11
+make "DESTDIR="
+compiling http11_parser.c
+compiling io_buffer.c
+compiling mini_ssl.c
+mini_ssl.c:241:40: warning: function 'raise_error' could be declared with attribute 'noreturn' [-Wmissing-noreturn]
+void raise_error(SSL* ssl, int result) {
+                                       ^
+1 warning generated.
+compiling puma_http11.c
+linking shared-object puma/puma_http11.bundle
+
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.6.0/gems/puma-3.10.0/ext/puma_http11
+make "DESTDIR=" install
+/usr/local/bin/ginstall -c -m 0755 puma_http11.bundle ./.gem.20190116-19335-77l6no/puma

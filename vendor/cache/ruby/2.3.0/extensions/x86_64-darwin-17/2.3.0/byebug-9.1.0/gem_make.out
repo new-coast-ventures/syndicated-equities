@@ -1,0 +1,19 @@
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+/Users/tomncv/.rvm/rubies/ruby-2.3.1/bin/ruby -r ./siteconf20190116-18356-13bfzt8.rb extconf.rb
+creating Makefile
+
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+make "DESTDIR="
+compiling locker.c
+compiling byebug.c
+compiling context.c
+compiling breakpoint.c
+compiling threads.c
+linking shared-object byebug/byebug.bundle
+
+current directory: /Users/tomncv/Desktop/work/syndicated-equities/vendor/cache/ruby/2.3.0/gems/byebug-9.1.0/ext/byebug
+make "DESTDIR=" install
+/usr/local/bin/ginstall -c -m 0755 byebug.bundle ./.gem.20190116-18356-eysegz/byebug

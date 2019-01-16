@@ -1,5 +1,5 @@
-source 'https://rubygems.org'
-ruby "2.3.0"
+source 'http://rubygems.org'
+ruby "2.3.1"
 
 gem 'dotenv-rails', groups: [:development, :test], require: 'dotenv/rails-now'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
@@ -35,7 +35,7 @@ gem 'cancancan'
 gem 'money-rails', '~>1'
 gem 'recaptcha', require: 'recaptcha/rails'
 
-source 'https://rails-assets.org' do
+source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end
 

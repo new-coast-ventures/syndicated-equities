@@ -1,0 +1,32 @@
+{
+  "name": "rails-assets-tether",
+  "downloads": null,
+  "version": "1.4.0",
+  "version_downloads": null,
+  "platform": "ruby",
+  "authors": "rails-assets.org",
+  "info": "A client-side library to make absolutely positioned elements attach to elements in the page efficiently.",
+  
+  "licenses": "MIT",
+  
+  "metadata": {
+
+  },
+  "sha": null,
+  "project_uri": "http://github.hubspot.com/tether",
+  "gem_uri": null,
+  "homepage_uri": "http://github.hubspot.com/tether",
+  "wiki_uri": null,
+  "documentation_uri": null,
+  "mailing_list_uri": null,
+  "source_code_uri": "http://github.hubspot.com/tether",
+  "bug_tracker_uri": null,
+  "dependencies": {
+    "development": [
+    
+    ],
+    "runtime": [
+
+    ]
+  }
+}

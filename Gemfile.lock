@@ -1,6 +1,6 @@
 GEM
-  remote: https://rubygems.org/
-  remote: https://rails-assets.org/
+  remote: http://rubygems.org/
+  remote: http://rails-assets.org/
   specs:
     actionmailer (4.2.7.1)
       actionpack (= 4.2.7.1)
@@ -757,7 +757,7 @@ DEPENDENCIES
   web-console (~> 2.0)
 
 RUBY VERSION
-   ruby 2.3.0p0
+   ruby 2.3.1p112
 
 BUNDLED WITH
-   1.16.0.pre.3
+   1.17.2
