@@ -6,7 +6,9 @@ namespace :convert do
     puts "Updating amounts..."
     Investment.find_each do |investment|
       print "*"
-      amount_invested_cents = investment.amount_invested * 100
+      if investment.amount_invested
+        amount_invested_cents = investment.amount_invested * 100
+      end
       investment.update_attributes(amount_cents: amount_invested_cents)
     end
   end
