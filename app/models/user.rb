@@ -17,6 +17,8 @@ class User < ActiveRecord::Base
   validate :password_complexity
 
   accepts_nested_attributes_for :address
+  
+  after_create :send_admin_email
 
   def password_complexity
     if password.present?
@@ -36,6 +38,10 @@ class User < ActiveRecord::Base
 
   def self.insert_with(attributes = {})
     User.find_by(attributes.slice(:first_name, :last_name, :email)) || User.create(attributes)
+  end
+
+  def send_admin_email
+    AdminMailer.new_user_sign_up(self).deliver_now
   end
 
 end

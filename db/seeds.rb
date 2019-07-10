@@ -75,4 +75,4 @@ end
 #   create_investment
 # end
 
-User.create!(email: 'scott@newcoastventures.com', first_name: 'Scott', last_name: 'Kacyn', password: 'password', admin: true, approved: true)
+User.create!(email: 'rob@newcoastventures.com', first_name: 'Scott', last_name: 'Kacyn', password: 'Password1234', admin: true, approved: true)

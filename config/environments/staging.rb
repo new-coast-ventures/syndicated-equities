@@ -43,7 +43,6 @@ Rails.application.configure do
   # config.action_view.raise_on_missing_translations = true
 
   # Devise setup
-  config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
 
   config.paperclip_defaults = {
     storage: :s3,
@@ -52,5 +51,16 @@ Rails.application.configure do
       access_key_id: ENV.fetch('AWS_ACCESS_KEY_ID'),
       secret_access_key: ENV.fetch('AWS_SECRET_ACCESS_KEY')
     }
+  }
+
+  config.action_mailer.default_url_options = { host: 'investors.syndicatedequities.com' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :port           => ENV['MAILGUN_SMTP_PORT'],
+    :address        => ENV['MAILGUN_SMTP_SERVER'],
+    :user_name      => ENV['MAILGUN_SMTP_LOGIN'],
+    :password       => ENV['MAILGUN_SMTP_PASSWORD'],
+    :domain         => 'investors.syndicatedequities.com',
+    :authentication => :plain,
   }
 end
