@@ -1,4 +1,7 @@
 <h5 class="dashboard-title">Properties (<%= @properties.count %> Active)</h5>
+<%= form_tag(properties_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Properties" %>
+<% end %>
 <% if @properties.any? %>
 	<table class="table table-bordered">
 		<thead class="thead-default">
@@ -33,3 +36,15 @@
 <% else %>
   <p>None</p>
 <% end %>
+
+<script>
+  $(document).ready(function() {
+    $('#search-form').keydown(function(event) {
+      // enter has keyCode = 13
+      if (event.keyCode == 13) {
+        $('#search-form')submit(); // submit the form
+        return false;
+      }
+    });
+  });
+</script>

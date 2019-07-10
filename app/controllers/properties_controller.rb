@@ -7,6 +7,11 @@ class PropertiesController < ApplicationController
 
   def index
     @properties = Property.all
+    
+    if params[:search]
+      @properties = Property.search(params[:search]).order("created_at DESC")
+    end
+
     if @properties && current_user
       render 'index'
     else
