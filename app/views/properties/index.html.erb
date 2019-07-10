@@ -1,6 +1,6 @@
 <h5 class="dashboard-title">Properties (<%= @properties.count %> Active)</h5>
 <%= form_tag(properties_path, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search Properties" %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search by legal name or nickname" %>
 <% end %>
 <% if @properties.any? %>
 	<table class="table table-bordered">
@@ -34,7 +34,7 @@
 		</tbody>
 	</table>
 <% else %>
-  <p>None</p>
+  <p>There are no properties that match your search.</p>
 <% end %>
 
 <script>

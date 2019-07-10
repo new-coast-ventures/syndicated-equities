@@ -13,5 +13,6 @@ class Property < ActiveRecord::Base
 
   def self.search(search)
     where("name LIKE ?", "%#{search}%") 
+    where("nickname LIKE ?", "%#{search}%") 
   end
 end
