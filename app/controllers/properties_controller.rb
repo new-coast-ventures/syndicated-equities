@@ -8,8 +8,12 @@ class PropertiesController < ApplicationController
   def index
     @properties = Property.all
     
-    if params[:search]
+    if params[:search] && !params[:search].blank?
       @properties = Property.search(params[:search]).order("created_at DESC")
+    end
+    
+    if params[:status] && !params[:status].blank?
+      @properties = Property.filter(params[:status]).order("created_at DESC")
     end
 
     if @properties && current_user

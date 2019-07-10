@@ -1,7 +1,12 @@
 <h5 class="dashboard-title">Properties (<%= @properties.count %> Active)</h5>
-<%= form_tag(properties_path, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search by legal name or nickname" %>
-<% end %>
+<div class='form-container'>
+  <%= form_tag(properties_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search by legal name or nickname" %>
+    <div id="filter-form">
+      <%= select_tag :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']]), {:include_blank => "Filter by status", :onchange => "this.form.submit();"} %>
+    </div>
+  <% end %>
+</div>
 <% if @properties.any? %>
 	<table class="table table-bordered">
 		<thead class="thead-default">

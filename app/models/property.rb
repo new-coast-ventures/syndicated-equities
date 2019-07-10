@@ -12,7 +12,10 @@ class Property < ActiveRecord::Base
   end
 
   def self.search(search)
-    where("name LIKE ?", "%#{search}%") 
-    where("nickname LIKE ?", "%#{search}%") 
+    where("name LIKE ?", "%#{search}%").or(where("nickname LIKE ?", "%#{search}%"))
+  end
+
+  def self.filter(search)
+    where("status LIKE ?", "%#{search}%") 
   end
 end
