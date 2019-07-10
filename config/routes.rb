@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :notes
   resources :users
   resources :investments
+  resources :properties
   resources :contacts, only: [:index]
   resources :addresses, only: [:create, :update, :destroy]
 
