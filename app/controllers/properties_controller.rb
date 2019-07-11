@@ -7,6 +7,7 @@ class PropertiesController < ApplicationController
 
   def index
     @properties = Property.all
+    @property = Property.new
     
     if params[:search] && !params[:search].blank?
       @properties = Property.search(params[:search]).order("created_at DESC")
@@ -32,5 +33,24 @@ class PropertiesController < ApplicationController
       flash[:alert] = 'Not authorized'
       redirect_to main_app.root_path
     end
+  end
+
+  def create
+    property = Property.create(property_params)
+    address = Address.new(address_params)
+    address.addressable_id = property.id
+    address.save
+
+    redirect_to properties_path
+  end
+
+  private
+
+  def property_params
+    params.require(:property).permit(:name, :closing_date, :nickname, :status)
+  end
+
+  def address_params
+    params.require(:property).permit(:line1, :city, :state, :zip, :country)
   end
 end

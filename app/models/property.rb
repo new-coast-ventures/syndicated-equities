@@ -1,14 +1,17 @@
 class Property < ActiveRecord::Base
+  has_one_attached :avatar
+
   include Filterable
 
   has_one  :address, as: :addressable, dependent: :destroy
   has_many :forms, as: :owner, dependent: :destroy
   has_many :deals
 
+  attr_accessor :sale_date
 
   def deal_equity
     return "0.00" if self.deals.nil?
-    self&.deals&.first&.investments.pluck(:amount_invested).sum
+    self&.deals&.first&.investments&.pluck(:amount_invested)&.sum
   end
 
   def self.search(search)

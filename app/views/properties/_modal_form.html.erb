@@ -1,0 +1,85 @@
+<div class="modal fade" id="property-form-modal" tabindex="-1" role="dialog" aria-labelledby="propertyForm" aria-hidden="true">
+  <div class="modal-dialog" style="top: 100px" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="propertyForm">New Property</h5>
+      </div>
+      <div class="modal-body">
+        <%= form_for @property do |f| %>
+          <div class="row">
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label>Legal Name</label>
+                <%= f.text_field :name, value: @property.name, required: true %>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label>Nickname</label>
+                <%= f.text_field :nickname, value: @property.nickname, required: true %>
+              </fieldset>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label>Closing Date</label>
+                <%= f.date_field :closing_date, value: @property.closing_date, style: 'width: 62%'%>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label>Sale Date</label>
+                <%= f.date_field :sale_date, value: @property.sale_date %>
+              </fieldset>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label>Address</label>
+                <%= f.text_field :line1, value: @property&.address&.line1, required: true %>
+              </fieldset>
+            </div>
+            <div class="col-sm-6">
+              <fieldset class="form-group">
+                <label>City</label>
+                <%= f.text_field :city, value: @property&.address&.city, required: true %>
+              </fieldset>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-4">
+              <fieldset class="form-group">
+                <label>State</label>
+                <%= f.text_field :state, value: @property&.address&.state, required: true %>
+              </fieldset>
+            </div>
+            <div class="col-sm-4">
+              <fieldset class="form-group">
+                <label>Zip Code</label>
+                <%= f.text_field :zip, value: @property&.address&.zip, required: true %>
+              </fieldset>
+            </div>
+            <div class="col-sm-4">
+              <fieldset class="form-group">
+                <label>Country</label>
+                <%= f.text_field :zip, value: @property&.address&.country, required: true %>
+              </fieldset>
+            </div>
+          </div>
+          <fieldset class="form-group">
+            <label>Property Image</label>
+            <br>
+            <small>Image should be a square (1:1) image that is at least 600px by 600px large.</small>
+            <%= f.file_field :avatar %>
+          </fieldset>
+          <button type="submit" class="btn btn-primary">Create</button>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
