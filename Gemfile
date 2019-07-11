@@ -37,6 +37,11 @@ gem 'cancancan'
 gem 'money-rails', '~>1'
 gem 'recaptcha', require: 'recaptcha/rails'
 
+gem 'active_storage_validations'
+
+# Optional, to use :dimension validator
+gem 'mini_magick'
+
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
