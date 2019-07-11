@@ -36,7 +36,12 @@ class PropertiesController < ApplicationController
   end
 
   def create
-    property = Property.create(property_params)
+    # create property
+    property = Property.new(property_params)
+    property.status = "active"
+    property.save
+
+    # create address
     address = Address.new(address_params)
     address.addressable_id = property.id
     address.save

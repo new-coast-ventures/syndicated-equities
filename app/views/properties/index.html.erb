@@ -35,7 +35,7 @@
 					<td><%= prop&.address&.line1 %></td>
 					<td><%= prop&.address&.city %></td>
 					<td><%= prop&.address&.state %></td>
-					<td><%= prop.status %></td>
+					<td><%= prop.status&.capitalize %></td>
 					<td><%= prop&.deals&.first&.date&.strftime("%m-%d-%Y") %></td>
 					<td><%= number_to_currency(prop.deal_equity, precision: 0) %></td>
 				</tr>
@@ -51,7 +51,7 @@
     $('#search-form').keydown(function(event) {
       // enter has keyCode = 13
       if (event.keyCode == 13) {
-        $('#search-form')submit(); // submit the form
+        $('#search-form').submit();
         return false;
       }
     });
