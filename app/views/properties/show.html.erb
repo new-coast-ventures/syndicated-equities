@@ -1,1 +1,83 @@
-<%= @property.name %>
+<div class="container-fluid" style="margin-top: 58px">
+	<div class="row">
+		<div class="col-md-2">
+			<img alt="Property Image" src="#{url_for(@property.image)}" />
+		</div>
+		<div class="col-md-5">
+			<h3 class="text-left">
+				<%= @property.name %>
+			</h3> 
+			<address>
+				 <strong><%= @property.nickname %></strong><br /> <%= @property&.address&.line1 %><br /> <%= @property&.address&.location %>
+			</address>
+      <div><strong>Created At: </strong> <%= @property.created_at.strftime("%B %d, %Y") %> </div>
+      <div><strong>Updated At: </strong> <%= @property.updated_at.strftime("%B %d, %Y") %> </div>
+      <div><strong>Status: </strong> <%= @property.status.capitalize %> </div>
+		</div>
+		<div class="col-md-5" style="text-align: right">
+			 
+      <button type="button" style="width: 100px ;background: white" data-toggle="modal" data-target="#property-form-modal""> Edit </button>
+
+      <div><strong>Closing Date: </strong> <%= @property.closing_date.strftime("%B %d, %Y") %> </div>
+      <div><strong>Sale Date: </strong> <%= @property&.deals&.first&.date&.strftime("%B %d, %Y") %> </div>
+      <div><strong>Deal Equity: </strong> <%= number_to_currency(@property&.deal_equity, precision: 0) %> </div>
+      <div><strong>Dollars Distributed: </strong> $X </div>
+      <div><strong>Return on Equity: </strong> % </div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-md-12">
+			<h3>
+				Investors
+			</h3>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>
+							Name
+						</th>
+						<th>
+							Email
+						</th>
+						<th>
+							Investment Entity
+						</th>
+						<th>
+							Investment
+						</th>
+						<th>
+							Deal
+						</th>
+						<th>
+							Date Invested
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+          <% @property.deals.first.investments.each do |invst| %>
+					  <tr class="investor-table">
+              <td>
+                <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+              </td>
+              <td>
+                <%= invst.investor_email %>
+              </td>
+              <td>
+                <%= invst.investing_entity %>
+              </td>
+              <td>
+                <%= number_to_currency(invst.amount_invested, precision: 0) %>
+              </td>
+              <td>
+                <%= invst&.deal&.title %>
+              </td>
+              <td>
+                <%= invst&.invested_on&.strftime("%B %d, %Y") %>
+              </td>
+					  </tr>
+          <% end %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

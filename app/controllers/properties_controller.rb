@@ -44,6 +44,7 @@ class PropertiesController < ApplicationController
     # create address
     address = Address.new(address_params)
     address.addressable_id = property.id
+    address.addressable_type = "Property"
     address.save
 
     redirect_to properties_path

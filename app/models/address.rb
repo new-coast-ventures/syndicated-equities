@@ -12,4 +12,8 @@ class Address < ActiveRecord::Base
   def name
     %w(line1 city state zip).join(", ")
   end
+
+  def location
+    "#{self.city}, #{self.state}, #{self.zip}"
+  end
 end
