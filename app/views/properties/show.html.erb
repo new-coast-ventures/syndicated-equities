@@ -1,7 +1,11 @@
 <div class="container-fluid" style="margin-top: 58px">
 	<div class="row">
 		<div class="col-md-2">
-			<img alt="Property Image" src="#{url_for(@property.image)}" />
+      <% if @property.avatar.attachment  %>
+        <%= image_tag url_for(@property.avatar), alt: "Property Image", style: 'width: 100%; height: 100%' %>
+      <% else %>
+			  <img alt="Property Image" src="#{url_for(@property.avatar)}" />
+      <% end %>
 		</div>
 		<div class="col-md-5">
 			<h3 class="text-left">
@@ -30,54 +34,58 @@
 			<h3>
 				Investors
 			</h3>
-			<table class="table table-bordered">
-				<thead>
-					<tr>
-						<th>
-							Name
-						</th>
-						<th>
-							Email
-						</th>
-						<th>
-							Investment Entity
-						</th>
-						<th>
-							Investment
-						</th>
-						<th>
-							Deal
-						</th>
-						<th>
-							Date Invested
-						</th>
-					</tr>
-				</thead>
-				<tbody>
-          <% @property.deals.first.investments.each do |invst| %>
-					  <tr class="investor-table">
-              <td>
-                <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
-              </td>
-              <td>
-                <%= invst.investor_email %>
-              </td>
-              <td>
-                <%= invst.investing_entity %>
-              </td>
-              <td>
-                <%= number_to_currency(invst.amount_invested, precision: 0) %>
-              </td>
-              <td>
-                <%= invst&.deal&.title %>
-              </td>
-              <td>
-                <%= invst&.invested_on&.strftime("%B %d, %Y") %>
-              </td>
-					  </tr>
-          <% end %>
-				</tbody>
-			</table>
+      <% if !@property&.deals.first.nil? %>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>
+                Name
+              </th>
+              <th>
+                Email
+              </th>
+              <th>
+                Investment Entity
+              </th>
+              <th>
+                Investment
+              </th>
+              <th>
+                Deal
+              </th>
+              <th>
+                Date Invested
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @property.deals.first.investments.each do |invst| %>
+              <tr class="investor-table">
+                <td>
+                  <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+                </td>
+                <td>
+                  <%= invst.investor_email %>
+                </td>
+                <td>
+                  <%= invst.investing_entity %>
+                </td>
+                <td>
+                  <%= number_to_currency(invst.amount_invested, precision: 0) %>
+                </td>
+                <td>
+                  <%= invst&.deal&.title %>
+                </td>
+                <td>
+                  <%= invst&.invested_on&.strftime("%B %d, %Y") %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      <% else %>
+        No Investments on this Property.
+      <% end %>
 		</div>
 	</div>
 </div>

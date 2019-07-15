@@ -1060,6 +1060,7 @@ PLATFORMS
 DEPENDENCIES
   active_storage_validations
   aws-sdk
+  aws-sdk-s3
   bootstrap (= 4.0.0.alpha5)
   byebug
   cancancan

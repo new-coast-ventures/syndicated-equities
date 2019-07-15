@@ -40,12 +40,16 @@ class PropertiesController < ApplicationController
     property = Property.new(property_params)
     property.status = "active"
     property.save
+    if property
 
-    # create address
-    address = Address.new(address_params)
-    address.addressable_id = property.id
-    address.addressable_type = "Property"
-    address.save
+      # create address
+      address = Address.new(address_params)
+      address.addressable_id = property.id
+      address.addressable_type = "Property"
+      address.save
+    else
+      flash[:alert] = 'Something went wrong. Please try and add the property again. (rememeber the image needs to be above 600 x 600)'
+    end
 
     redirect_to properties_path
   end
@@ -53,7 +57,7 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    params.require(:property).permit(:name, :closing_date, :nickname, :status)
+    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar)
   end
 
   def address_params

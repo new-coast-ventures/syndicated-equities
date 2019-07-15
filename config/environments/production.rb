@@ -97,4 +97,6 @@ Rails.application.configure do
     :authentication => :plain,
   }
 
+  # Store files on Amazon S3.
+  config.active_storage.service = :amazon
 end
