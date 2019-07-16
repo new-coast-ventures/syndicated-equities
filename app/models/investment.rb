@@ -1,6 +1,23 @@
+require "roo"
+require "set"
+
 # ================================================
 # RUBY->MODEL->INVESTMENT ========================
 # ================================================
+
+# t.integer "user_id"
+# t.integer "deal_id", null: false
+# t.integer "amount_invested"
+# t.date "invested_on"
+# t.datetime "created_at", null: false
+# t.datetime "updated_at", null: false
+# t.string "investing_entity"
+# t.string "investor_email"
+# t.string "investor_first_name"
+# t.string "investor_last_name"
+# t.integer "amount_cents"
+
+
 class Investment < ActiveRecord::Base
   belongs_to :investor, class_name: 'User', foreign_key: :user_id, inverse_of: :investments
   belongs_to :deal, inverse_of: :investors
@@ -24,5 +41,100 @@ class Investment < ActiveRecord::Base
 
   def forms
     deal.forms.to_a + deal.property&.forms.to_a
+  end
+
+  def self.import(file, property_id)
+    @deals = {}
+
+    puts "import data from file #{file}"
+    create_deals(file, property_id)
+    create_investments(file)
+    # CSV.foreach(file.path, headers: true) do |row|
+    #   deal = Deal.find_or_create_by(title: row[0])
+    #   deal.update(property_id: property_id)
+
+    #   investor_hash = {
+    #     deal_id: deal.id,
+    #     investor_last_name: row[1],
+    #     investor_first_name: row[2],
+    #     investing_entity: row[3],
+    #     amount_invested: row[4]
+    #   }
+
+    #   Investment.create! investor_hash
+  rescue => e
+    puts e.backtrace.join("\n")
+    puts e
+    # end
+  end
+
+  private
+
+  def self.create_deals(file, property_id)
+    
+    puts "create Deals from file #{file}"
+    deals = Set.new
+
+    xlsx = Roo::Spreadsheet.open(file)
+    xlsx.each_row_streaming(offset: 1) do |row|
+      title = sanitized_string_from(row[0])
+      next if title.blank?
+      
+      deals << title
+      print "."
+    end
+
+    # values = deals.to_a.map { |title| "('#{title}', '#{Time.now}', '#{Time.now}', #{property_id})" }.join(",")
+    # ActiveRecord::Base.connection.execute("INSERT INTO deals (title, created_at, updated_at, property_id) VALUES #{values}")
+    deals.each do |deal|
+      Deal.where(title: deal, property_id: property_id).first_or_create
+    end
+    Deal.pluck(:id, :title).map { |d| @deals[d[1]] = d[0] } 
+  end
+
+  def self.create_investments(file)  
+    puts "create Investments from file #{file}."
+
+    investments = []
+    xlsx = Roo::Spreadsheet.open(file)
+    xlsx.each_row_streaming(offset: 1) do |row|
+      next if row.length < 4
+      title  = sanitized_string_from(row[0])
+      first  = sanitized_string_from(row[1])
+      last   = sanitized_string_from(row[2])
+      entity = sanitized_string_from(row[3])
+      amount = sanitized_int_from(row[4])
+      
+      deal_id = @deals[title]
+
+      if !deal_id.blank?
+        next unless amount.to_i > 0
+        print "."
+        investments << {
+          deal_id: deal_id, 
+          amount_invested: amount, 
+          investor_first_name: first,
+          investor_last_name: last,
+          investing_entity: entity
+        }
+      end
+    end
+
+    if !investments.empty?
+      # ActiveRecord::Base.connection.execute(
+      #   "INSERT INTO investments (deal_id, amount_invested, investor_first_name, investor_last_name, investing_entity, created_at, updated_at) VALUES #{investments.join(',')}"
+      # )
+      investments.each do |invest_hash|
+        Investment.create(invest_hash)
+      end
+    end
+  end
+
+  def self.sanitized_int_from(key)
+    key&.value || 0
+  end
+
+  def self.sanitized_string_from(key)
+    (key&.value || "").to_s.strip.gsub("'", %q(\\\'))
   end
 end

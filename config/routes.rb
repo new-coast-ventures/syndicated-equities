@@ -14,6 +14,8 @@ Rails.application.routes.draw do
 
   get 'terms', to: 'home#terms'
 
+  post '/investor-import', to: 'investments#import'
+
   devise_for :users, path: 'u', controllers: { registrations: 'registrations' }
   devise_scope :user do
     get 'u/edit/password', to: 'registrations#edit_password'

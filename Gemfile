@@ -29,7 +29,7 @@ gem 'turbolinks'
 gem 'devise'
 gem 'rails_admin', '~> 1.0'
 gem 'bootstrap', '4.0.0.alpha5'
-# gem 'paperclip', '>= 5.0'
+gem 'paperclip', '>= 5.0'
 gem 'aws-sdk'
 gem "aws-sdk-s3", require: false
 gem 'puma'
@@ -41,7 +41,7 @@ gem 'recaptcha', require: 'recaptcha/rails'
 gem 'active_storage_validations'
 
 # Optional, to use :dimension validator
-# gem 'mini_magick'
+gem 'mini_magick'
 
 
 source 'http://rails-assets.org' do

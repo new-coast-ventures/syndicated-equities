@@ -54,6 +54,16 @@ class PropertiesController < ApplicationController
     redirect_to properties_path
   end
 
+  def update
+    @property = Property.find(params[:id])
+
+    @property.update(property_params)
+    
+    @property.address.update(address_params)
+
+    render 'show'
+  end
+
   private
 
   def property_params
