@@ -21,7 +21,7 @@ class InvestmentsController < ApplicationController
   def import
     begin
       Investment.import(params[:file], params[:id])
-      flash[:alert] = 'Investments have been successfully imported.'
+      flash[:notice] = 'Investments have been successfully imported.'
       redirect_to property_path(params[:id])
     rescue
       flash[:alert] = "Invalid file format."
