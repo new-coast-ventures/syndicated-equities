@@ -19,6 +19,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
+    
+    if @user.admin
+      redirect_to properties_path and return
+    end
+
     @notes = Note.global
     
     if @user && current_user && @user.id == current_user.id || current_user.admin?
