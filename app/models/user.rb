@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     investments.inject(0) { |sum, i| sum + i.amount }
   end
 
+  def total_properties
+    deals.pluck(:property_id).uniq.count
+  end
+
   def self.insert_with(attributes = {})
     User.find_by(attributes.slice(:first_name, :last_name, :email)) || User.create(attributes)
   end

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   resources :addresses, only: [:create, :update, :destroy]
 
   get 'terms', to: 'home#terms'
+  get '/investor/:id', to: 'users#investor_show', as: 'investor-show'
 
   post '/investor-import', to: 'investments#import'
 

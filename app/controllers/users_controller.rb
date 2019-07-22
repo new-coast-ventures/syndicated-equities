@@ -17,6 +17,11 @@ class UsersController < ApplicationController
     render 'investors/index'
   end
 
+  def investor_show
+    @investor = User.find_by(id: params[:id])
+    render 'investors/show'
+  end
+
   def show
     @user = User.find_by(id: params[:id])
     
