@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def investment_entity
-    investments.pluck(:investing_entity).uniq.join(', ')
+    investments.pluck(:investing_entity).uniq.join(", <br>").html_safe
   end
 
   def total_invested
