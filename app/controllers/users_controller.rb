@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   # investor index
   def index
-    @investors = User.all
+    @investors = User.all.order(:first_name)
     @investor = User.new
     if params[:search] && !params[:search].blank?
       @investors = User.search(params[:search].capitalize).order("created_at DESC")

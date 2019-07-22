@@ -37,7 +37,7 @@ class User < ActiveRecord::Base
   end
 
   def investment_entity
-    investments&.first&.investing_entity
+    investments.pluck(:investing_entity).uniq.join(', ')
   end
 
   def total_invested

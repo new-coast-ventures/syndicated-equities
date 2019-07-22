@@ -1,60 +1,52 @@
 <%= render partial: "modal_form" %>
-<div>
+<div class='table-page-header'>
   <button type="button" style="float: right; background: white" data-toggle="modal" data-target="#property-form-modal""> Add Property</button>
   <h5 class="dashboard-title">Properties (<%= @properties.count %> Active)</h5>
 </div>
-<div class='form-container'>
-  <%= form_tag(properties_path, :method => "get", id: "search-form") do %>
-    <%= text_field_tag :search, params[:search], placeholder: "Search by legal name or nickname" %>
-    <div id="filter-form">
-      <%= select_tag :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']]), {:include_blank => "Filter by status", :onchange => "this.form.submit();"} %>
-    </div>
-  <% end %>
-</div>
+
 <% if @properties.any? %>
-	<table class="table table-bordered">
-		<thead class="thead-default">
-			<tr>
-				<th>Legal Name</th>
-				<th>Nickname</th>
-				<th>Closing Date</th>
-				<th>Address</th>
-				<th>City</th>
-				<th>State</th>
-				<th>Status</th>
-				<th>Sale Date</th>
-				<th>Deal Equity</th>
-			</tr>
-		</thead>
-		<tbody>
-			<% @properties.each do |prop| %>
+  <div class="table-responsive">
+		<table class="table table-bordered"id="sortable-table" cellspacing="0" width="100%">
+			<thead class="thead-default">
 				<tr>
-					<td><%= link_to prop.name, property_path(prop.id) %></td>
-					<td><%= prop.nickname %></td>
-					<td><%= prop&.closing_date&.strftime("%m-%d-%Y") %></td>
-					<td><%= prop&.address&.line1 %></td>
-					<td><%= prop&.address&.city %></td>
-					<td><%= prop&.address&.state %></td>
-					<td><%= prop.status&.capitalize %></td>
-					<td><%= prop&.deals&.first&.date&.strftime("%m-%d-%Y") %></td>
-					<td><%= number_to_currency(prop.deal_equity, precision: 0) %></td>
+					<th>Legal Name</th>
+					<th>Nickname</th>
+					<th>Closing Date</th>
+					<th>Address</th>
+					<th>City</th>
+					<th>State</th>
+					<th>Status</th>
+					<th>Sale Date</th>
+					<th>Deal Equity</th>
 				</tr>
-			<% end %>
-		</tbody>
-	</table>
+			</thead>
+			<tbody>
+				<% @properties.each do |prop| %>
+					<tr>
+						<td><%= link_to prop.name, property_path(prop.id) %></td>
+						<td><%= prop.nickname %></td>
+						<td><%= prop&.closing_date&.strftime("%m-%d-%Y") %></td>
+						<td><%= prop&.address&.line1 %></td>
+						<td><%= prop&.address&.city %></td>
+						<td><%= prop&.address&.state %></td>
+						<td><%= prop.status&.capitalize %></td>
+						<td><%= prop&.deals&.first&.date&.strftime("%m-%d-%Y") %></td>
+						<td><%= number_to_currency(prop.deal_equity, precision: 0) %></td>
+					</tr>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
 <% else %>
   <p>There are no properties that match your search.</p>
 <% end %>
 
 <script>
   $(document).ready(function() {
-    $('#search-form').keydown(function(event) {
-      // enter has keyCode = 13
-      if (event.keyCode == 13) {
-        $('#search-form').submit();
-        return false;
-      }
+    $('#sortable-table').DataTable({
+      "paging": true,
+      "info": false,
+      "order": [[3, "desc"]]
     });
   });
-
 </script>
