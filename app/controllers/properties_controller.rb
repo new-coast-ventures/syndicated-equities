@@ -7,6 +7,7 @@ class PropertiesController < ApplicationController
 
   def index
     @properties = Property.all
+    @active_properties = Property.where(status: 'active')
     @property = Property.new
     
     if params[:search] && !params[:search].blank?
@@ -55,12 +56,21 @@ class PropertiesController < ApplicationController
   end
 
   def update
-    @property = Property.find(params[:id])
-
-    @property.update(property_params)
+    @property = Property.find(params["id"])
+    if @property
+      @property.update(property_params)
+    else
+      puts "Property in Nil"
+    end
+    if @property.address
+      @property&.address&.update(address_params)
+    else
+      address = Address.new(address_params)
+      address.addressable_id = @property.id
+      address.addressable_type = "Property"
+      address.save
+    end
     
-    @property.address.update(address_params)
-
     render 'show'
   end
 

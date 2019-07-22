@@ -1,7 +1,7 @@
 <%= render partial: "modal_form" %>
 <div class='table-page-header'>
   <button type="button" style="float: right; background: white" data-toggle="modal" data-target="#property-form-modal""> Add Property</button>
-  <h5 class="dashboard-title">Properties (<%= @properties.count %> Active)</h5>
+  <h5 class="dashboard-title">Properties (<%= @active_properties.count %> Active)</h5>
 </div>
 
 <% if @properties.any? %>
