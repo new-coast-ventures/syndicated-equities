@@ -1,0 +1,53 @@
+<%= render partial: "modal_form" %>
+<div>
+  <button type="button" style="float: right; background: white" data-toggle="modal" data-target="#investor-form-modal""> Add Investor</button>
+  <h5 class="dashboard-title">Investors</h5>
+</div>
+<div class='form-container' style="margin-bottom: 12px; width">
+  <%= form_tag(users_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search by name or entity", style: 'width: 22em' %>
+  <% end %>
+</div>
+<% if @investors.any? %>
+	<table class="table table-bordered investor-table">
+		<thead class="thead-default">
+			<tr>
+				<th>Name</th>
+				<th>Email</th>
+				<th>Investment Entity</th>
+				<th>Deals</th>
+				<th>Invested</th>
+				<th>Created At</th>
+				<th>Updated At</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% @investors.each do |investor| %>
+				<tr>
+					<td><%= link_to investor.name, user_path(investor.id) %></td>
+					<td><%= investor.email %></td>
+					<td><%= investor.investment_entity %></td>
+					<td><%= investor.deals.count %></td>
+					<td><%= number_to_currency(investor.total_invested, precision: 0) %></td>
+					<td><%= investor.created_at.strftime("%B %d, %Y") %></td>
+					<td><%= investor.updated_at.strftime("%B %d, %Y") %></td>
+				</tr>
+			<% end %>
+		</tbody>
+	</table>
+<% else %>
+  <p>There are no investorss that match your search.</p>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    $('#search-form').keydown(function(event) {
+      // enter has keyCode = 13
+      if (event.keyCode == 13) {
+        $('#search-form').submit();
+        return false;
+      }
+    });
+  });
+
+</script>

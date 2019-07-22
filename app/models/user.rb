@@ -28,8 +28,16 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.search(query)
+    where("first_name LIKE ?", "%#{query}%").or(where("last_name LIKE ?", "%#{query}%"))
+  end
+
   def name
     [first_name.to_s, last_name.to_s].compact.join(" ")
+  end
+
+  def investment_entity
+    investments&.first&.investing_entity
   end
 
   def total_invested

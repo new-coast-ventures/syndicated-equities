@@ -5,6 +5,18 @@ class UsersController < ApplicationController
   
   before_action :authenticate_user!
 
+  # investor index
+  def index
+    @investors = User.all
+    @investor = User.new
+    if params[:search] && !params[:search].blank?
+      @investors = User.search(params[:search].capitalize).order("created_at DESC")
+    end
+    
+    
+    render 'investors/index'
+  end
+
   def show
     @user = User.find_by(id: params[:id])
     @notes = Note.global
