@@ -63,3 +63,9 @@ div.dataTables_filter input{
     }
   }
 }
+
+.show-property {
+  div.dataTables_filter label {
+    display: none;
+  }
+}
