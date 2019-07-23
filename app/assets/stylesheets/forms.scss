@@ -41,3 +41,12 @@ input[type='date'] {
 .investor-table td {
   font-size: 12px;
 }
+
+div.dataTables_filter label{
+  width: 70%;
+}
+
+div.dataTables_filter input{
+  margin-left: 0 !important;
+  width: 100% !important;
+}
