@@ -37,57 +37,68 @@
         <button type="button" style="width: 100px ;background: white; float:right" data-toggle="modal" data-target="#investor-import-modal"">Import</button>
 			</div>
       <% if !@property&.investments.nil? %>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>
-                Name
-              </th>
-              <th>
-                Email
-              </th>
-              <th>
-                Investment Entity
-              </th>
-              <th>
-                Investment
-              </th>
-              <th>
-                Deal
-              </th>
-              <th>
-                Date Invested
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @property&.investments.each do |invst| %>
-              <tr class="investor-table">
-                <td>
-                  <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
-                </td>
-                <td>
-                  <%= invst.investor_email %>
-                </td>
-                <td>
-                  <%= invst.investing_entity %>
-                </td>
-                <td>
-                  <%= number_to_currency(invst.amount_invested, precision: 0) %>
-                </td>
-                <td>
-                  <%= invst&.deal&.title %>
-                </td>
-                <td>
-                  <%= invst&.invested_on&.strftime("%B %d, %Y") %>
-                </td>
+        <div class="table-responsive show-property">
+          <table class="table table-bordered"id="sortable-table" cellspacing="0" width="100%">
+      			<thead class="thead-default">
+              <tr>
+                <th>
+                  Name
+                </th>
+                <th>
+                  Email
+                </th>
+                <th>
+                  Investment Entity
+                </th>
+                <th>
+                  Investment
+                </th>
+                <th>
+                  Deal
+                </th>
+                <th>
+                  Date Invested
+                </th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @property&.investments.each do |invst| %>
+                <tr class="investor-table">
+                  <td>
+                    <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+                  </td>
+                  <td>
+                    <%= invst.investor_email %>
+                  </td>
+                  <td>
+                    <%= invst.investing_entity %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(invst.amount_invested, precision: 0) %>
+                  </td>
+                  <td>
+                    <%= invst&.deal&.title %>
+                  </td>
+                  <td>
+                    <%= invst&.invested_on&.strftime("%B %d, %Y") %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       <% else %>
         No Investments on this Property.
       <% end %>
 		</div>
 	</div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#sortable-table').DataTable({
+      "paging": true,
+      "searchable": false
+		});
+	});
+</script>

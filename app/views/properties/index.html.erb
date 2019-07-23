@@ -5,6 +5,11 @@
 </div>
 
 <% if @properties.any? %>
+	<div class='form-container status-dropdown'>	
+		<%= form_tag(properties_path, :method => "get", id: "search-form") do %>	
+			<%= select_tag :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']]), {:include_blank => "Filter by status", :onchange => "this.form.submit();", :class => "form-group"} %>	
+		<% end %>	
+	</div>
   <div class="table-responsive">
 		<table class="table table-bordered"id="sortable-table" cellspacing="0" width="100%">
 			<thead class="thead-default">
@@ -15,6 +20,7 @@
 					<th>Address</th>
 					<th>City</th>
 					<th>State</th>
+					<th>Status</th>
 					<th>Sale Date</th>
 					<th>Deal Equity</th>
 				</tr>
@@ -28,6 +34,7 @@
 						<td><%= prop&.address&.line1 %></td>
 						<td><%= prop&.address&.city %></td>
 						<td><%= prop&.address&.state %></td>
+						<td><%= prop&.status&.capitalize %></td>
 						<td><%= prop&.deals&.first&.date&.strftime("%m-%d-%Y") %></td>
 						<td><%= number_to_currency(prop.deal_equity, precision: 0) %></td>
 					</tr>
@@ -45,12 +52,19 @@
       "paging": true,
       "info": false,
 			"order": [[3, "desc"]],
-			"columnDefs": [{ "searchable": false, "targets": [2,3,4,5,6,7] }],
+			"columnDefs": [{ "searchable": false, "targets": [2,3,4,5,6,7,8] }],
 			  "language": {
 					"zeroRecords": "There are no properties that match your search.",
 					searchPlaceholder: "Legal name or nickname",
 					search: "",
 				}
 		});
-		  });
+
+		$('#search-form').keydown(function(event) {
+			if (event.keyCode == 13) {
+				$('#search-form').submit();
+				return false
+			}
+		});
+	});
 </script>

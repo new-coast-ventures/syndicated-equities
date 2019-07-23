@@ -50,3 +50,16 @@ div.dataTables_filter input{
   margin-left: 0 !important;
   width: 100% !important;
 }
+
+.status-dropdown {
+  width: 100%;
+
+  #search-form { 
+    float: right;
+    margin-right: 1em;
+
+    select {
+      margin: 0;
+    }
+  }
+}
