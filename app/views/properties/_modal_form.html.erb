@@ -11,12 +11,12 @@
         <%= form_for @property do |f| %>
 
           <fieldset class="form-group">
-            <label>Legal Name</label>
+            <label>Legal Name<span style="color:red">*</span></label>
             <%= f.text_field :name, value: @property.name, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Nickname</label>
+            <label>Nickname<span style="color:red">*</span></label>
             <%= f.text_field :nickname, value: @property.nickname, required: true %>
           </fieldset>
 
@@ -31,22 +31,22 @@
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Address</label>
+            <label>Address<span style="color:red">*</span></label>
             <%= f.text_field :line1, value: @property&.address&.line1, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
-            <label>City</label>
+            <label>City<span style="color:red">*</span></label>
             <%= f.text_field :city, value: @property&.address&.city, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
-            <label>State</label>
+            <label>State<span style="color:red">*</span></label>
             <%= f.text_field :state, value: @property&.address&.state, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Zip Code</label>
+            <label>Zip Code<span style="color:red">*</span></label>
             <%= f.text_field :zip, value: @property&.address&.zip, required: true %>
           </fieldset>
          
@@ -55,8 +55,6 @@
             <br>
             <% if @property&.avatar&.attachment  %>
               <%= image_tag url_for(@property.avatar), alt: "Property Image", style: 'width: 100%; height: 100%' %>
-            <% else %>
-              <img alt="Property Image" src="#{url_for(@property.avatar)}" />
             <% end %>
             <small>Image should be a square (1:1) image that is at least 600px by 600px large.</small>
             <%= f.file_field :avatar %>
@@ -113,5 +111,20 @@
       } else {
           $('#submit').removeAttr('disabled');
       }
+  });
+
+  $(document).ready(function(){
+    var preview = $(".upload-preview img");
+
+    $(".file").change(function(event){
+       var input = $(event.currentTarget);
+       var file = input[0].files[0];
+       var reader = new FileReader();
+       reader.onload = function(e){
+           image_base64 = e.target.result;
+           preview.attr("src", image_base64);
+       };
+       reader.readAsDataURL(file);
+    });
   });
 </script>

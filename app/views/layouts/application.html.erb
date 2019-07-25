@@ -67,5 +67,12 @@
         <span class="text-muted">&copy; Syndicated Equities <%= Date.today.year %> | <%= link_to 'Contact Us', contacts_path %></span>
       </div>
     </footer>
+    <script>
+      $(document).ready(function() {
+        $(".alert").fadeTo(2000, 500).slideUp(500, function(){
+            $(".alert").slideUp(500);
+        });
+      });
+    </script>
   </body>
 </html>

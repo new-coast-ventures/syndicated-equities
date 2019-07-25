@@ -37,11 +37,12 @@ class PropertiesController < ApplicationController
   end
 
   def create
+    
     # create property
     property = Property.new(property_params)
     property.status = "active"
-    property.save
-    if property
+
+    if property.save
 
       # create address
       address = Address.new(address_params)
