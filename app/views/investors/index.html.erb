@@ -37,7 +37,13 @@
   $(document).ready(function() {
     $('#sortable-table').DataTable({
       "paging": true,
-      "info": false
+      "info": false,
+      "columnDefs": [{ "searchable": false, "targets": [1,3,4] }],
+			"language": {
+				"zeroRecords": "There are no search results.",
+				searchPlaceholder: "Name or investment entity",
+				search: "",
+			}
     });
   });
 </script>
