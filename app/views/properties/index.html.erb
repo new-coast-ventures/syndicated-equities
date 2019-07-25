@@ -28,14 +28,14 @@
 			<tbody>
 				<% @properties.each do |prop| %>
 					<tr>
-						<td><%= link_to prop.name, property_path(prop.id) %></td>
+						<td><%= link_to prop.name.strip, property_path(prop.id) %></td>
 						<td><%= prop.nickname %></td>
 						<td><%= prop&.closing_date&.strftime("%m-%d-%Y") %></td>
 						<td><%= prop&.address&.line1 %></td>
 						<td><%= prop&.address&.city %></td>
 						<td><%= prop&.address&.state %></td>
 						<td><%= prop&.status&.capitalize %></td>
-						<td><%= prop&.deals&.first&.date&.strftime("%m-%d-%Y") %></td>
+						<td><%= prop&.deals&.first&.date %></td>
 						<td><%= number_to_currency(prop.deal_equity, precision: 0) %></td>
 					</tr>
 				<% end %>

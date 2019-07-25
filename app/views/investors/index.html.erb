@@ -19,7 +19,7 @@
       <tbody>
         <% @investors.each do |investor| %>
           <tr>
-            <td><%= link_to investor.name, investor_show_path(investor.id) %></td>
+            <td><%= link_to investor.name.strip, investor_show_path(investor.id) %></td>
             <td><%= investor.email %></td>
             <td><%= investor.investment_entity %></td>
             <td><%= investor.deals.count %></td>
