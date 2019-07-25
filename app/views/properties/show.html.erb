@@ -65,7 +65,11 @@
               <% @property&.investments.each do |invst| %>
                 <tr class="investor-table">
                   <td>
-                    <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+                    <% if invst.user_id  %>
+                      <%= link_to "#{invst&.investor_first_name} #{invst&.investor_last_name}", investor_show_path(invst.id) %>
+                    <% else %>
+                      <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+                    <% end %>
                   </td>
                   <td>
                     <%= invst.investor_email %>
