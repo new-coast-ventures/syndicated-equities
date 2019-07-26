@@ -45,7 +45,7 @@ class User < ActiveRecord::Base
   end
 
   def total_properties
-    deals.pluck(:property_id).uniq.count
+    deals.pluck(:property_id).uniq.compact.count
   end
 
   def self.insert_with(attributes = {})
