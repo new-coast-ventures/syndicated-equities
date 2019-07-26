@@ -15,6 +15,7 @@ class PropertiesController < ApplicationController
     end
     
     if params[:status] && !params[:status].blank?
+      @status = params[:status]
       @properties = Property.filter(params[:status]).order("created_at DESC")
     end
 
