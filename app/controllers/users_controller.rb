@@ -17,6 +17,27 @@ class UsersController < ApplicationController
     render 'investors/index'
   end
 
+  def create
+    begin
+      User.create!(user_params.merge({password: SecureRandom.base64(15)}))
+    rescue => e 
+      flash[:alert] = "#{e}"
+    end
+    
+    redirect_to users_path
+  end
+
+  def update
+    begin
+      user = User.find(params['id'])
+      user.update(user_params)
+    rescue => e 
+      flash[:alert] = "#{e}"
+    end
+    
+    redirect_to investor_show_path(id: params['id'])
+  end
+
   def investor_show
     @investor = User.find_by(id: params[:id])
     render 'investors/show'
@@ -37,5 +58,10 @@ class UsersController < ApplicationController
       flash[:alert] = 'Not authorized'
       redirect_to main_app.root_path
     end
+  end
+
+  private
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email)
   end
 end

@@ -5,14 +5,14 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h5 class="modal-title" id="investorForm"><% if @investor.first_name %>Edit <%= @investor.name %><% else %>New investor<% end %></h5>
+        <h5 class="modal-title" id="investorForm"><% if @investor&.first_name %>Edit <%= @investor&.name %><% else %>New investor<% end %></h5>
       </div>
       <div class="modal-body">
         <%= form_for @investor do |f| %>
 
           <fieldset class="form-group">
             <label>First Name<span style="color:red">*</span></label>
-            <%= f.text_field :name, value: @investor.first_name, required: true %>
+            <%= f.text_field :first_name, value: @investor.first_name, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
@@ -21,7 +21,7 @@
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Email</label>
+            <label>Email<span style="color:red">*</span></label>
             <%= f.text_field :email, value: @investor.email %>
           </fieldset>
 
