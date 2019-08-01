@@ -23,6 +23,10 @@ class Property < ActiveRecord::Base
   end
 
   def self.filter(search)
-    where("status LIKE ?", "%#{search}%") 
+    if search == "all"
+      Property.all
+    else
+      where("status LIKE ?", "%#{search}%") 
+    end
   end
 end

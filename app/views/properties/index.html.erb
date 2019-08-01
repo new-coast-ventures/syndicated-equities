@@ -1,12 +1,12 @@
 <%= render partial: "modal_form" %>
 <div class='table-page-header'>
   <button type="button" style="float: right; background: white" data-toggle="modal" data-target="#property-form-modal""> Add Property</button>
-  <h5 class="dashboard-title">Properties (<%= @active_properties.count %> Active)</h5>
+  <h5 class="dashboard-title">Properties (<%= @properties.count %> <%= @status.capitalize %>)</h5>
 </div>
 
 <div class='form-container status-dropdown'>	
 	<%= form_tag(properties_path, :method => "get", id: "search-form") do %>	
-		<%= select_tag :status, options_for_select([['Active', 'active'], ['Inactive', 'inactive']], @status), {:include_blank => "Filter by status", :onchange => "this.form.submit();", :class => "form-group"} %>	
+		<%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['All', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
 	<% end %>	
 </div>
 <div class="table-responsive">
@@ -21,7 +21,7 @@
 				<th>State</th>
 				<th>Status</th>
 				<th>Sale Date</th>
-				<th>Deal Equity</th>
+				<th>Investor Equity</th>
 			</tr>
 		</thead>
 		<tbody>

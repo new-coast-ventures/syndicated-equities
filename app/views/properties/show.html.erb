@@ -25,9 +25,12 @@
 
       <div><strong>Closing Date: </strong> <%= @property.closing_date&.strftime("%B %d, %Y") %> </div>
       <div><strong>Sale Date: </strong> <%= @property.sale_date&.strftime("%B %d, %Y") %> </div>
-      <div><strong>Deal Equity: </strong> <%= number_to_currency(@property&.deal_equity, precision: 0) %> </div>
-      <div><strong>Dollars Distributed: </strong> $X </div>
+      <div><strong>Investor Equity: </strong> <%= number_to_currency(@property&.deal_equity, precision: 0) %> </div>
+      <% if @property.gross_distributions %><div><strong>Gross Distributions: </strong> <%= number_to_currency(@property.gross_distributions, precision: 0) %></div><% end  %>
+      <% if @property.internal_rate_of_return %><div><strong>Internal Rate of Return: </strong> <%= @property.internal_rate_of_return %>%</div><% end  %>
+      <% if @property.equity_multiple %><div><strong>Equity Multiple: </strong> <%= @property.equity_multiple %></div><% end  %>
       <div><strong>Return on Equity: </strong> % </div>
+
 		</div>
 	</div>
 	<div class="row">

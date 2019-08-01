@@ -49,6 +49,26 @@
             <label>Zip Code<span style="color:red">*</span></label>
             <%= f.text_field :zip, value: @property&.address&.zip, required: true %>
           </fieldset>
+          
+          <fieldset class="form-group">
+            <label>Gross Distributions</label>
+            <%= f.text_field :gross_distributions, value: @property&.gross_distributions %>
+          </fieldset>
+          
+          <fieldset class="form-group">
+            <label>Internal Rate of Return</label>
+            <%= f.text_field :internal_rate_of_return, value: @property&.internal_rate_of_return %>
+          </fieldset>
+          
+          <fieldset class="form-group">
+            <label>Equity Multiple</label>
+            <%= f.text_field :equity_multiple, value: @property&.equity_multiple %>
+          </fieldset>
+          
+          <fieldset class="form-group">
+            <label>Status<span style="color:red">*</span></label>
+            <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold']], @property&.status), {:class => "form-group", required: true} %>
+          </fieldset>
          
           <fieldset class="form-group">
             <label>Property Image</label>

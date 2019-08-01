@@ -10,14 +10,8 @@ class PropertiesController < ApplicationController
     @active_properties = Property.where(status: 'active')
     @property = Property.new
     
-    if params[:search] && !params[:search].blank?
-      @properties = Property.search(params[:search]).order("created_at DESC")
-    end
-    
-    if params[:status] && !params[:status].blank?
-      @status = params[:status]
-      @properties = Property.filter(params[:status]).order("created_at DESC")
-    end
+    @status = params[:status] ? params[:status] : "active"
+    @properties = Property.filter(@status).order("created_at DESC") 
 
     if @properties && current_user
       render 'index'
@@ -79,7 +73,7 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar, :sale_date)
+    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar, :sale_date, :gross_distributions, :internal_rate_of_return, :equity_multiple)
   end
 
   def address_params
