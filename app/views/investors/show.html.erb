@@ -9,7 +9,7 @@
       <h5>
         <%= @investor.investment_entity %>
       </h5>
-      <div><strong>Properties: </strong> <%= @investor.total_properties%> </div>
+      <div><strong>Investments: </strong> <%= @investor.investments.count%> </div>
       <div><strong>Invested: </strong> <%=  number_to_currency(@investor.total_invested, precision: 0 ) %></div>
       <div><strong>Created At: </strong> <%= @investor.created_at.strftime("%B %d, %Y") %>  </div>
       <div><strong>Last Updated At: </strong> <%= @investor.updated_at.strftime("%B %d, %Y") %>  </div>

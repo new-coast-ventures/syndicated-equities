@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
     
     if @user.admin
-      redirect_to properties_path and return
+      redirect_to users_path and return
     end
 
     @notes = Note.global
