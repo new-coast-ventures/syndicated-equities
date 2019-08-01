@@ -126,5 +126,18 @@
        };
        reader.readAsDataURL(file);
     });
+
+      var empty = false;
+      $('input[required]').each(function() {
+          if ($(this).val() == '') {
+              empty = true;
+          }
+      });
+
+      if (empty) {
+          $('#submit').attr('disabled', 'disabled');
+      } else {
+          $('#submit').removeAttr('disabled');
+      }
   });
 </script>
