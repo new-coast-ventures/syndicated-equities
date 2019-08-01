@@ -24,7 +24,7 @@
       <button type="button" style="width: 100px ;background: white" data-toggle="modal" data-target="#property-form-modal""> Edit </button>
 
       <div><strong>Closing Date: </strong> <%= @property.closing_date&.strftime("%B %d, %Y") %> </div>
-      <div><strong>Sale Date: </strong> <%= @property&.deals&.first&.date&.strftime("%B %d, %Y") %> </div>
+      <div><strong>Sale Date: </strong> <%= @property.sale_date&.strftime("%B %d, %Y") %> </div>
       <div><strong>Deal Equity: </strong> <%= number_to_currency(@property&.deal_equity, precision: 0) %> </div>
       <div><strong>Dollars Distributed: </strong> $X </div>
       <div><strong>Return on Equity: </strong> % </div>

@@ -8,7 +8,6 @@ class Property < ActiveRecord::Base
   has_many :deals
   has_many :investments, through: :deals
 
-  attr_accessor :sale_date
 
   validates :avatar, content_type: ['image/png', 'image/jpg', 'image/jpeg'],
   dimension: { width: { min: 600 },

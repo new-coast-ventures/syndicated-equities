@@ -79,7 +79,7 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar)
+    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar, :sale_date)
   end
 
   def address_params

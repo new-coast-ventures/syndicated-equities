@@ -22,12 +22,12 @@
 
           <fieldset class="form-group">
             <label>Closing Date</label>
-            <%= f.date_field :closing_date, value: @property.closing_date %>
+            <%= f.date_field :closing_date, value: @property.closing_date&.strftime('%Y-%m-%d') %>
           </fieldset>
 
           <fieldset class="form-group">
             <label>Sale Date</label>
-            <%= f.date_field :sale_date, value: @property.sale_date %>
+            <%= f.date_field :sale_date, value: @property.sale_date&.strftime('%Y-%m-%d') %>
           </fieldset>
 
           <fieldset class="form-group">
