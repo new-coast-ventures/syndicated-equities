@@ -26,10 +26,10 @@
       <div><strong>Closing Date: </strong> <%= @property.closing_date&.strftime("%B %d, %Y") %> </div>
       <div><strong>Sale Date: </strong> <%= @property.sale_date&.strftime("%B %d, %Y") %> </div>
       <div><strong>Investor Equity: </strong> <%= number_to_currency(@property&.deal_equity, precision: 0) %> </div>
-      <% if @property.gross_distributions %><div><strong>Gross Distributions: </strong> <%= number_to_currency(@property.gross_distributions, precision: 0) %></div><% end  %>
-      <% if @property.internal_rate_of_return %><div><strong>Internal Rate of Return: </strong> <%= @property.internal_rate_of_return %>%</div><% end  %>
-      <% if @property.equity_multiple %><div><strong>Equity Multiple: </strong> <%= @property.equity_multiple %></div><% end  %>
-      <div><strong>Return on Equity: </strong> % </div>
+      <% if !@property.gross_distributions.blank? %><div><strong>Gross Distributions: </strong> <%= number_to_currency(@property.gross_distributions, precision: 0) %></div><% end  %>
+      <% if !@property.internal_rate_of_return.blank? %><div><strong>Internal Rate of Return: </strong> <%= @property.internal_rate_of_return %>%</div><% end  %>
+      <% if !@property.equity_multiple.blank? %><div><strong>Equity Multiple: </strong> <%= @property.equity_multiple %></div><% end  %>
+       <% if @property.return_on_equity %><div><strong>Return on Equity: </strong><%= @property.return_on_equity %>%</div><% end %>
 
 		</div>
 	</div>
@@ -39,66 +39,66 @@
 				<span style="font-size: 24px; font-weight: 500">Investors</span>
         <button type="button" style="width: 100px ;background: white; float:right" data-toggle="modal" data-target="#investor-import-modal"">Import</button>
 			</div>
-      <% if !@property&.investments.nil? %>
-        <div class="table-responsive">
-          <table class="table table-bordered investor-table" id="sortable-table" cellspacing="0" width="100%">
-            <thead class="thead-default">
-              <tr>
-                <th>
-                  Name
-                </th>
-                <th>
-                  Email
-                </th>
-                <th>
-                  Investment Entity
-                </th>
-                <th>
-                  Investment
-                </th>
-                <th>
-                  Deal
-                </th>
-                <th>
-                  Date Invested
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <% @property&.investments.each do |invst| %>
-                <tr class="investor-table">
-                  <td>
-                    <% if invst.user_id  %>
-                      <%= link_to "#{invst&.investor_first_name} #{invst&.investor_last_name}", investor_show_path(invst.user_id) %>
-                    <% else %>
-                      <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
-                    <% end %>
-                  </td>
-                  <td>
-                    <%= invst.investor_email %>
-                  </td>
-                  <td>
-                    <%= invst.investing_entity %>
-                  </td>
-                  <td>
-                    <%= number_to_currency(invst.amount_invested, precision: 0) %>
-                  </td>
-                  <td>
-                    <%= invst&.deal&.title %>
-                  </td>
-                  <td>
-                    <%= invst&.invested_on&.strftime("%B %d, %Y") %>
-                  </td>
-                </tr>
-              <% end %>
-            </tbody>
-          </table>
-        </div>
-      <% else %>
-        No Investments on this Property.
-      <% end %>
-		</div>
-	</div>
+    </div>
+  </div>
+  <% if !@property&.investments.nil? %>
+    <div class="table-responsive">
+      <table class="table table-bordered investor-table" id="sortable-table" cellspacing="0" width="100%">
+        <thead class="thead-default">
+          <tr>
+            <th>
+              Name
+            </th>
+            <th>
+              Email
+            </th>
+            <th>
+              Investment Entity
+            </th>
+            <th>
+              Investment
+            </th>
+            <th>
+              Deal
+            </th>
+            <th>
+              Date Invested
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @property&.investments.each do |invst| %>
+            <tr class="investor-table">
+              <td>
+                <% if invst.user_id  %>
+                  <%= link_to "#{invst&.investor_first_name} #{invst&.investor_last_name}", investor_show_path(invst.user_id) %>
+                <% else %>
+                  <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+                <% end %>
+              </td>
+              <td>
+                <%= invst.investor_email %>
+              </td>
+              <td>
+                <%= invst.investing_entity %>
+              </td>
+              <td>
+                <%= number_to_currency(invst.amount_invested, precision: 0) %>
+              </td>
+              <td>
+                <%= invst&.deal&.title %>
+              </td>
+              <td>
+                <%= invst&.invested_on&.strftime("%B %d, %Y") %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% else %>
+    No Investments on this Property.
+  <% end %>
 </div>
 
 <script>
@@ -107,6 +107,7 @@
       "paging": true,
       "info": false,
       "columnDefs": [{ "searchable": false, "targets": [1,3,4] }],
+      "deferRender" : true,
 			"language": {
 				"zeroRecords": "There are no search results.",
 				searchPlaceholder: "Name or investment entity",

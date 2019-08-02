@@ -29,4 +29,17 @@ class Property < ActiveRecord::Base
       where("status LIKE ?", "%#{search}%") 
     end
   end
+
+  def return_on_equity
+    begin
+      if !self.gross_distributions.blank? && !self.equity_multiple.blank?
+        self.gross_distributions.to_i / self.equity_multiple.to_i
+      else
+        nil
+      end
+    rescue => e 
+      puts e
+      nil
+    end
+  end
 end
