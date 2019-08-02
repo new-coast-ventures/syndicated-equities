@@ -53,13 +53,13 @@
               Email
             </th>
             <th>
+              Investor Entity
+            </th>
+            <th>
               Investment Entity
             </th>
             <th>
               Investment
-            </th>
-            <th>
-              Deal
             </th>
             <th>
               Date Invested
@@ -83,10 +83,10 @@
                 <%= invst.investing_entity %>
               </td>
               <td>
-                <%= number_to_currency(invst.amount_invested, precision: 0) %>
+                <%= invst&.deal&.title %>
               </td>
               <td>
-                <%= invst&.deal&.title %>
+                <%= number_to_currency(invst.amount_invested, precision: 0) %>
               </td>
               <td>
                 <%= invst&.invested_on&.strftime("%B %d, %Y") %>

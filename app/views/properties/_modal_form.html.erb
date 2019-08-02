@@ -11,12 +11,12 @@
         <%= form_for @property do |f| %>
 
           <fieldset class="form-group">
-            <label>Legal Name<span style="color:red">*</span></label>
+            <label>Property Legal Name<span style="color:red">*</span></label>
             <%= f.text_field :name, value: @property.name, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Nickname<span style="color:red">*</span></label>
+            <label>Property Name<span style="color:red">*</span></label>
             <%= f.text_field :nickname, value: @property.nickname, required: true %>
           </fieldset>
 

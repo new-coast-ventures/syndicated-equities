@@ -13,29 +13,25 @@
 	<table class="table table-bordered"id="sortable-table" cellspacing="0" width="100%">
 		<thead class="thead-default">
 			<tr>
-				<th>Legal Name</th>
-				<th>Nickname</th>
-				<th>Closing Date</th>
-				<th>Address</th>
+				<th>Property Name</th>
 				<th>City</th>
 				<th>State</th>
-				<th>Status</th>
+				<th>Deal Equity</th>
+				<th>Closing Date</th>
 				<th>Sale Date</th>
-				<th>Investor Equity</th>
+				<th>Status</th>
 			</tr>
 		</thead>
 		<tbody>
 			<% @properties.each do |prop| %>
 				<tr>
-					<td><%= link_to prop.name.strip, property_path(prop.id) %></td>
-					<td><%= prop.nickname %></td>
-					<td><%= prop&.closing_date&.strftime("%m-%d-%Y") %></td>
-					<td><%= prop&.address&.line1 %></td>
+					<td><%= link_to prop.nickname.strip, property_path(prop.id) %></td>
 					<td><%= prop&.address&.city %></td>
 					<td><%= prop&.address&.state %></td>
-					<td><%= prop&.status&.capitalize %></td>
-					<td><%= prop&.sale_date&.strftime("%m-%d-%Y") %></td>
 					<td><%= number_to_currency(prop.deal_equity, precision: 0) %></td>
+					<td><%= prop&.closing_date&.strftime("%m-%d-%Y") %></td>
+					<td><%= prop&.sale_date&.strftime("%m-%d-%Y") %></td>
+					<td><%= prop&.status&.capitalize %></td>
 				</tr>
 			<% end %>
 		</tbody>

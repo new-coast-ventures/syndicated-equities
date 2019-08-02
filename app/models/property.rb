@@ -33,7 +33,7 @@ class Property < ActiveRecord::Base
   def return_on_equity
     begin
       if !self.gross_distributions.blank? && !self.equity_multiple.blank?
-        self.gross_distributions.to_i / self.equity_multiple.to_i
+        self.gross_distributions.to_f / self.equity_multiple.to_f
       else
         nil
       end
