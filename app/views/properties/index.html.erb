@@ -25,7 +25,7 @@
 		<tbody>
 			<% @properties.each do |prop| %>
 				<tr>
-					<td><%= link_to prop&.nickname&.strip, property_path(prop.id) %></td>
+					<td><%= link_to prop&.list_name&.strip, property_path(prop.id) %></td>
 					<td><%= prop&.address&.city %></td>
 					<td><%= prop&.address&.state %></td>
 					<td><%= number_to_currency(prop&.deal_equity, precision: 0) %></td>

@@ -30,6 +30,10 @@ class Property < ActiveRecord::Base
     end
   end
 
+  def list_name
+    self.nickname ? self.nickname : self.name
+  end
+
   def return_on_equity
     begin
       if !self.gross_distributions.blank? && !self.equity_multiple.blank?
