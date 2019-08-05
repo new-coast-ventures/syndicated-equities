@@ -10,7 +10,7 @@
 	<% end %>	
 </div>
 <div class="table-responsive">
-	<table class="table table-bordered"id="sortable-table" cellspacing="0" width="100%">
+	<table class="table table-bordered"id="sortable-property-table" cellspacing="0" width="100%">
 		<thead class="thead-default">
 			<tr>
 				<th>Property Name</th>
@@ -40,11 +40,11 @@
 
 <script>
   $(document).ready(function() {
-    $('#sortable-table').DataTable({
+    $('#sortable-property-table').DataTable({
       "paging": true,
       "info": false,
 			"order": [[3, "desc"]],
-			"columnDefs": [{ "searchable": false, "targets": [2,3,4,5,6,7,8] }],
+			"columnDefs": [{ "searchable": false, "targets": [1,2,3,4,5,6] }],
 			"language": {
 				"zeroRecords": "There are no properties that match your search.",
 				searchPlaceholder: "Legal name or nickname",
