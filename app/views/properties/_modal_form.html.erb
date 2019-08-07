@@ -16,11 +16,6 @@
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Property Name<span style="color:red">*</span></label>
-            <%= f.text_field :nickname, value: @property.nickname, required: true %>
-          </fieldset>
-
-          <fieldset class="form-group">
             <label>Closing Date</label>
             <%= f.date_field :closing_date, value: @property.closing_date&.strftime('%Y-%m-%d') %>
           </fieldset>
