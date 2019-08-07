@@ -30,6 +30,16 @@
             <%= f.text_field :investment_entity, value: @investor.investment_entity %>
           </fieldset>
 
+          <fieldset class="form-group">
+            <label>Approved</label>
+            <%= f.check_box :approved, value: @investor.approved %>
+          </fieldset>
+          
+          <fieldset class="form-group">
+            <label>Admin</label>
+            <%= f.check_box :admin, value: @investor.admin %>
+          </fieldset>
+
           <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
 
         <% end %>
