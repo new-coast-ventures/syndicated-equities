@@ -18,6 +18,7 @@
       <div><strong>Created At: </strong> <%= @property.created_at.strftime("%B %d, %Y") %> </div>
       <div><strong>Updated At: </strong> <%= @property.updated_at.strftime("%B %d, %Y") %> </div>
       <div><strong>Status: </strong> <%= @property.status&.capitalize %> </div>
+      <% if @property.property_type %><div><strong>Property Type: </strong> <%= @property&.property_type&.humanize %> </div><% end %>
 		</div>
 		<div class="col-md-5" style="text-align: right">
 			 

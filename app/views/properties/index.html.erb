@@ -17,6 +17,7 @@
 				<th>City</th>
 				<th>State</th>
 				<th>Investor Equity</th>
+				<th>Property Type</th>
 				<th>Closing Date</th>
 				<th>Sale Date</th>
 				<th>Status</th>
@@ -29,6 +30,7 @@
 					<td><%= prop&.address&.city %></td>
 					<td><%= prop&.address&.state %></td>
 					<td><%= number_to_currency(prop&.deal_equity, precision: 0) %></td>
+					<td><%= prop&.property_type&.humanize %></td>
 					<td><%= prop&.closing_date&.strftime("%m-%d-%Y") %></td>
 					<td><%= prop&.sale_date&.strftime("%m-%d-%Y") %></td>
 					<td><%= prop&.status&.capitalize %></td>
@@ -44,10 +46,10 @@
       "paging": true,
       "info": false,
 			"order": [[3, "desc"]],
-			"columnDefs": [{ "searchable": false, "targets": [1,2,3,4,5,6] }],
+			"columnDefs": [{ "searchable": false, "targets": [1,2,3,4,5,6,7] }],
 			"language": {
 				"zeroRecords": "There are no properties that match your search.",
-				searchPlaceholder: "Legal name or nickname",
+				searchPlaceholder: "Property Name",
 				search: "",
 			}
 		});

@@ -44,6 +44,11 @@
             <label>Zip Code<span style="color:red">*</span></label>
             <%= f.text_field :zip, value: @property&.address&.zip, required: true %>
           </fieldset>
+
+          <fieldset class="form-group">
+            <label>Property Type<span style="color:red">*</span></label>
+            <%= f.select :property_type, Property::PROPERTY_TYPE_OPTIONS.keys.to_a.map { |s| [s.to_s.humanize, s] }, prompt: "Select Type", required: true %>
+          </fieldset>
           
           <fieldset class="form-group">
             <label>Gross Distributions</label>

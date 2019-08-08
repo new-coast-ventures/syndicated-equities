@@ -8,6 +8,8 @@ class Property < ActiveRecord::Base
   has_many :deals
   has_many :investments, through: :deals
 
+  PROPERTY_TYPE_OPTIONS = {government: 'government', hospitality: 'hospitality', industrial: 'industrial', medical: 'medical', multifamily: 'multifamily', office: 'office', parking: 'parking', retail: 'retail', student_housing: 'student housing}'}
+
 
   validates :avatar, content_type: ['image/png', 'image/jpg', 'image/jpeg']
   # dimension: { width: { min: 600 },
