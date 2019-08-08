@@ -1,6 +1,6 @@
 <%= render partial: "investors/modal_form", investor: @investor %>
 <div class="container-fluid" style="margin-top: 58px">
-	<div class="row">
+	<div class="row page-header">
 		<div class="col-md-12">
       <button type="button" style="width: 100px ;background: white; float:right" data-toggle="modal" data-target="#investor-form-modal""> Edit </button>
 			<h2 class="text-left">
@@ -9,6 +9,7 @@
       <h5>
         <%= @investor.investment_entity %>
       </h5>
+      <div><strong>Email: </strong> <%= @investor.email%> </div>
       <div><strong>Investments: </strong> <%= @investor.investments.count%> </div>
       <div><strong>Invested: </strong> <%=  number_to_currency(@investor.total_invested, precision: 0 ) %></div>
       <div><strong>Created At: </strong> <%= @investor.created_at.strftime("%B %d, %Y") %>  </div>
@@ -18,57 +19,68 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<div style="padding-top: 20px">
+			<div class="table-page-header" style="padding-top: 20px">
 				<span style="font-size: 24px; font-weight: 500">Investments</span>
         <br>
         <br>
 			</div>
       <% if !@investor&.investments.nil? %>
-        <table class="table table-bordered">
-          <thead>
-            <tr>
-              <th>
-                Property Name
-              </th>
-              <th>
-                Investor Entity
-              </th>
-              <th>
-                Investment Entity
-              </th>
-              <th>
-                Investment
-              </th>
-              <th>
-                Closing Date
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <% @investor&.investments.each do |invst| %>
-              <tr class="investor-table">
-                <td>
-                  <%= invst&.deal&.property&.name %>
-                </td>
-                <td>
-                  <%= invst.investing_entity %>
-                </td>
-                <td>
-                  <%= invst&.deal&.title %>
-                </td>
-                <td>
-                  <%= number_to_currency(invst.amount_invested, precision: 0) %>
-                </td>
-                <td>
-                  <%= invst&.deal&.property&.closing_date&.strftime("%B %d, %Y") %>
-                </td>
+        <div class="table-responsive">
+          <table class="table table-bordered investor-table" id="sortable-table" cellspacing="0" width="100%">
+            <thead class="thead-default">
+              <tr>
+                <th>
+                  Property Name
+                </th>
+                <th>
+                  Investor Entity
+                </th>
+                <th>
+                  Investment Entity
+                </th>
+                <th>
+                  Investment
+                </th>
+                <th>
+                  Closing Date
+                </th>
               </tr>
-            <% end %>
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              <% @investor&.investments.each do |invst| %>
+                <tr class="investor-table">
+                  <td>
+                    <%= invst&.deal&.property&.name %>
+                  </td>
+                  <td>
+                    <%= invst.investing_entity %>
+                  </td>
+                  <td>
+                    <%= invst&.deal&.title %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(invst.amount_invested, precision: 0) %>
+                  </td>
+                  <td>
+                    <%= invst&.deal&.property&.closing_date&.strftime("%B %d, %Y") %>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        </div>
       <% else %>
         No Investments on this investor.
       <% end %>
 		</div>
 	</div>
 </div>
+
+<script>
+  $(document).ready(function() {
+    $('#sortable-table').DataTable({
+      searching: false,
+      paging: false,
+    });
+  });
+</script>

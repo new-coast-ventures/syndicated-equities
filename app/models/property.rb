@@ -12,8 +12,6 @@ class Property < ActiveRecord::Base
 
 
   validates :avatar, content_type: ['image/png', 'image/jpg', 'image/jpeg']
-  # dimension: { width: { min: 600 },
-  #              rsheight: { min: 600 }, message: 'is not 600 x 600 or above' }
 
   def deal_equity
     return "0.00" if self.deals.nil?

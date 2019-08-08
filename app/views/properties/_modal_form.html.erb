@@ -76,7 +76,6 @@
             <% if @property&.avatar&.attachment  %>
               <%= image_tag url_for(@property.avatar), alt: "Property Image", style: 'width: 100%; height: 100%' %>
             <% end %>
-            <small>Image should be a square (1:1) image that is at least 600px by 600px large.</small>
             <%= f.file_field :avatar %>
           </fieldset>
           <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
