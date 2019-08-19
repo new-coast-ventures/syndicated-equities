@@ -1,19 +1,65 @@
-<h5 class="dashboard-title">Your Dashboard</h5>
+<!-- <h5 class="dashboard-title">Your Dashboard</h5> -->
+<h5 class="dashboard-title">Investments</h5>
 
-<% if @user.approved? %>
-  <div class="card-deck-wrapper">
-    <div class="card-deck">
-      <div class="card card-block text-xs-center">
-        <h5 class="card-title">Total Active Investments</h5>
-        <h2 class="card-text"><%= @user.investments.count %></h2>
-      </div>
-      <div class="card card-block text-xs-center">
-        <h5 class="card-title">Total Amount Invested</h5>
-        <h2 class="card-text"><%= humanized_money_with_symbol @user.total_invested %></h2>
-      </div>
-    </div>
-  </div>
+	<div class="row">
+    <% if @investments %>
+      <% @investments.each do |investment| %>
+        <div class="col-md-4" >
+          <div class="card">
+            <img class="investor-card-image" alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg">
+            <div class='card-padding investor-card-address'>
+              <% if investment.deal.property %>
+                <p>
+                  <%= link_to "#{investment&.deal&.property&.name}", investment_path(investment.id) %>
+                </p>
+                <p>
+                  <%= investment&.deal&.property&.address&.line1 %> <%= investment&.deal&.property&.address&.location %>
+                </p>
+              <% else %>
+                <p>
+                  No Property 
+                </p>
+              <% end %>
+              </div>
+              <div class="grey-divider"></div>
+              <div class='card-padding'>
+                <div class="row" style="padding-top: 8px; font-size: small">
+                  <div class="col-md-6">
+                    <p>
+                      Investment Type
+                      <br>
+                      Investor Equity
+                      <br>
+                      Gross Disstributions
+                    </p>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="text-right" style="font-weight: bold; text-align: right">
+                      <%= investment&.deal&.property&.property_type&.capitalize %>
+                      <br>
+                      <%= number_to_currency(investment.amount_invested, precision: 0) %>
+                      <br>
+                      <% if investment&.deal&.property&.gross_distributions %>
+                        <%= number_to_currency(investment&.deal&.property&.gross_distributions, precision: 0) %>
+                      <% else %>
+                        $0.00
+                      <% end %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      <% end %> 
+      </div> 
+    <% else %>
+    <p>
+      No investments
+    </p>
+    <% end %>
+	</div>
 
+<!-- <% if @user.approved? %>
   <hr/>
   <% if @user.investments.active.any? %>
     <div class="table-responsive">
@@ -58,7 +104,7 @@
 <% else %>
   <p>Thank you for registering for the Investor Portal!</p>
   <p>Your account is currently under review. We will send you an email with more information once your account is approved.</p>
-<% end %>
+<% end %> -->
 
 <script>
   $(document).ready(function() {

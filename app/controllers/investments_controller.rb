@@ -7,6 +7,9 @@ class InvestmentsController < ApplicationController
   # ----------------------------------------------
   # SHOW -----------------------------------------
   # ----------------------------------------------
+  def index 
+    @investments = Investment.all
+  end
 
   def show
     @investment = Investment.find_by(id: params[:id])

@@ -13,3 +13,36 @@
 .table-hover tbody tr:hover {
 	background-color: transparent;
 }
+
+.investor-card-image {
+  width: 100%;
+  border-bottom: 1px solid lightgrey;
+  margin-bottom: 8px;
+  height: 11em
+}
+
+.investor-card-container{
+  border: 1px solid lightgrey;
+  padding-left: 0px; 
+  padding-right: 0px; 
+  margin-right: 2em;
+  margin-bottom: 1em;
+}
+
+.investor-card-container:nth-child(3n+3) { margin-right: 0; }
+
+.investor-card-address{
+  height: 6em;
+}
+
+.grey-divider{
+  border: 1px solid lightgrey;
+}
+.card-padding{
+  padding-left: 15px; 
+  padding-right:15px
+}
+// .dashboard{
+//   width: 1050px;
+// }
+

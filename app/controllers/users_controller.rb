@@ -45,14 +45,15 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find_by(id: params[:id])
-    
+    @investments = Investment.where(user_id: @user.id)
     if @user.admin
       redirect_to users_path and return
     end
-
+    
     @notes = Note.global
     
     if @user && current_user && @user.id == current_user.id || current_user.admin?
+      @view = "dashboard"
       render 'show'
     else
       flash[:alert] = 'Not authorized'
