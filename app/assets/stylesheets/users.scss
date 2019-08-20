@@ -21,15 +21,15 @@
   height: 11em
 }
 
-.investor-card-container{
+.investor-card-container {
   border: 1px solid lightgrey;
   padding-left: 0px; 
   padding-right: 0px; 
-  margin-right: 2em;
-  margin-bottom: 1em;
+  margin-right: 1.5em;
+  margin-bottom: 2em;
 }
 
-.investor-card-container:nth-child(3n+3) { margin-right: 0; }
+.card .investor-card-container:nth-child(3n+3) { margin-right: 0; }
 
 .investor-card-address{
   height: 6em;

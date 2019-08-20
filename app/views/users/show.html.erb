@@ -5,8 +5,12 @@
     <% if @investments %>
       <% @investments.each do |investment| %>
         <div class="col-md-4" >
-          <div class="card">
-            <img class="investor-card-image" alt="Bootstrap Image Preview" src="https://www.layoutit.com/img/sports-q-c-140-140-3.jpg">
+          <div class="card investor-card-container">
+            <% if investment&.deal&.property&.avatar&.attachment  %>
+              <%= image_tag url_for(investment&.deal&.property&.avatar), alt: "Property Image", class: 'investor-card-image' %>
+            <% else %>
+              <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+            <% end %>
             <div class='card-padding investor-card-address'>
               <% if investment.deal.property %>
                 <p>
@@ -17,7 +21,7 @@
                 </p>
               <% else %>
                 <p>
-                  No Property 
+                  No Property Information
                 </p>
               <% end %>
               </div>
