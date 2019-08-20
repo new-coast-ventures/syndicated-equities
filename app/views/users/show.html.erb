@@ -4,7 +4,7 @@
 	<div class="row xs-row">
     <% if @investments %>
       <% @investments.each do |investment| %>
-        <div class="col-md-4" >
+        <div class="col-lg-4 col-md-6" >
           <div class="card investor-card-container">
             <% if investment&.deal&.property&.avatar&.attachment  %>
               <%= image_tag url_for(investment&.deal&.property&.avatar), alt: "Property Image", class: 'investor-card-image' %>
