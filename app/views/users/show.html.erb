@@ -24,42 +24,42 @@
                   No Property Information
                 </p>
               <% end %>
-              </div>
-              <div class="grey-divider"></div>
-              <div class='card-padding'>
-                <div class="row" style="padding-top: 8px; font-size: small">
-                  <div class="col-xs-6">
-                    <p>
-                      Investment Type
-                      <br>
-                      Investor Equity
-                      <br>
-                      Gross Disstributions
-                    </p>
-                  </div>
-                  <div class="col-xs-6">
-                    <p class="text-right" style="font-weight: bold; text-align: right">
-                      <%= investment&.deal&.property&.property_type&.capitalize %>
-                      <br>
-                      <%= number_to_currency(investment.amount_invested, precision: 0) %>
-                      <br>
-                      <% if investment&.deal&.property&.gross_distributions&.blank? %>
-                        <%= number_to_currency(investment&.deal&.property&.gross_distributions, precision: 0) %>
-                      <% else %>
-                        $0.00
-                      <% end %>
-                    </p>
-                  </div>
+            </div>
+            <div class="grey-divider"></div>
+            <div class='card-padding'>
+              <div class="row" style="padding-top: 8px; font-size: small">
+                <div class="col-xs-6">
+                  <p>
+                    Investment Type
+                    <br>
+                    Investor Equity
+                    <br>
+                    Gross Disstributions
+                  </p>
+                </div>
+                <div class="col-xs-6">
+                  <p class="text-right" style="font-weight: bold; text-align: right">
+                    <%= investment&.deal&.property&.property_type&.capitalize %>
+                    <br>
+                    <%= number_to_currency(investment.amount_invested, precision: 0) %>
+                    <br>
+                    <% if investment&.deal&.property&.gross_distributions&.blank? %>
+                      <%= number_to_currency(investment&.deal&.property&.gross_distributions, precision: 0) %>
+                    <% else %>
+                      $0.00
+                    <% end %>
+                  </p>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       <% end %> 
-      </div> 
+    </div> 
     <% else %>
-    <p>
-      No investments
-    </p>
+      <p>
+        No investments
+      </p>
     <% end %>
 	</div>
 

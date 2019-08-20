@@ -1,24 +1,108 @@
-<h5 class="dashboard-title">Investment Details for <%= @investment.deal&.property&.name || @investment.deal.title %></h5>
+<h5 class="dashboard-title"><%= @investment.deal&.property&.name || @investment.deal.title %></h5>
 <p class="my-1"><%= @investment.deal.description %></p>
-<div class="table-responsive">
-  <table class="table table-bordered">
-    <thead class="thead-default">
-      <tr>
-        <th>Name</th>
-        <th>Amount Invested</th>
-        <th>Investing Entity</th>
-        <th>Closing Date</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><%= @investment.deal.title %></td>
-        <td><%= humanized_money_with_symbol @investment.amount %></td>
-        <td><%= @investment.investing_entity || "n/a" %></td>
-        <td><%= @investment.display_date %></td>
-      </tr>
-    </tbody>
-  </table>
+<div class="container">
+  <div class="row">
+    <% if @investment&.deal&.property&.avatar&.attachment  %>
+      <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investor-card-image' %>
+    <% else %>
+      <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+    <% end %>
+  </div>
+  <div class="row">
+    <div>
+      <% if @investment.deal.property %>
+        <p>
+          <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
+        </p>
+        <div class="col-xs-6" style="padding-left:0;">
+          More Locations
+        </div>
+        <div class="col-xs-6" style="padding-right:0; text-align: right">
+          View Map
+        </div>
+      <% else %>
+        <p>
+          No Property Information
+        </p>
+      <% end %>
+    </div>
+  </div>
+  <div class="row">
+    <h5 class="dashboard-title">Investment Details</h5>
+
+    <div class="row">
+      <div class="col-xs-6">
+        Investment Type
+      </div>
+      <div class="col-xs-6" style="text-align:right; font-weight: bold">
+        <%= @investment&.deal&.property&.property_type&.capitalize %>
+      </div>
+    </div>
+    <div class="grey-divider"></div>
+    <div class="row">
+      <p style="padding-left: 15px; font-weight: bold">
+        INVESTOR EQUITY
+      </p>
+      <% @property_investments.each do |investment| %>
+        <div class="col-xs-6">
+          <%= investment&.investing_entity&.titleize %>
+        </div>
+        <div class="col-xs-6" style="text-align:right">
+          <%= number_to_currency(investment.amount_invested, precision: 0) %>
+        </div>
+      <% end %>
+      <div class="col-xs-6">
+        <b>Total</b>
+      </div>
+      <div class="col-xs-6" style="text-align:right; font-weight: bold">
+        <%= number_to_currency(@property_investments.pluck(:amount_invested).sum, precision: 0) %>
+      </div>
+    </div>
+    <div class="grey-divider"></div>
+    <div class="row">
+      <p style="padding-left: 15px; font-weight: bold">
+        GROSS DISTRIBUTIONS
+      </p>
+      <div class="col-xs-6">
+         <%= @investment&.investing_entity&.titleize %>
+      </div>
+      <div class="col-xs-6" style="text-align:right">
+        <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
+      </div>
+      <div class="col-xs-6">
+        <b>Total</b>
+      </div>
+      <div class="col-xs-6" style="text-align:right; font-weight: bold">
+        <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
+      </div>
+    </div>
+    <div class="grey-divider"></div>
+    <div class="row">
+      <p style="padding-left: 15px; font-weight: bold">
+        CAPITAL OUTSTANDING
+      </p>
+      <% @property_investments.each do |investment| %>
+        <div class="col-xs-6">
+          <%= investment&.investing_entity&.titleize %>
+        </div>
+        <div class="col-xs-6" style="text-align:right">
+          <%= number_to_currency((investment.amount_invested.to_i - @investment&.deal&.property&.gross_distributions.to_i), precision: 0) %>
+        </div>
+      <% end %>
+      <div class="col-xs-6">
+        <b>Total</b>
+      </div>
+      <div class="col-xs-6" style="text-align:right; font-weight: bold">
+        <%= number_to_currency((@property_investments.pluck(:amount_invested).sum - @investment&.deal&.property&.gross_distributions.to_i), precision: 0) %>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <h5 class="dashboard-title">Investment Summary</h5>
+    <p>
+      Investment Summary will go here
+    </p>
+  </div>
 </div>
 
 <div class="py-1">
