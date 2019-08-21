@@ -1,107 +1,102 @@
 <h5 class="dashboard-title"><%= @investment.deal&.property&.name || @investment.deal.title %></h5>
-<p class="my-1"><%= @investment.deal.description %></p>
+<div class="grey-divider" style="margin-bottom: 2em"></div>
 <div class="container">
-  <div class="row">
-    <% if @investment&.deal&.property&.avatar&.attachment  %>
-      <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investor-card-image' %>
-    <% else %>
-      <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
-    <% end %>
-  </div>
-  <div class="row">
-    <div>
-      <% if @investment.deal.property %>
-        <p>
-          <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
-        </p>
-        <div class="col-xs-6" style="padding-left:0;">
-          More Locations
-        </div>
-        <div class="col-xs-6" style="padding-right:0; text-align: right">
-          View Map
-        </div>
+  <div class="investment-mobile-container">
+    <div class="row">
+      <% if @investment&.deal&.property&.avatar&.attachment  %>
+        <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
       <% else %>
-        <p>
-          No Property Information
-        </p>
+        <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
       <% end %>
     </div>
+    <div class="row">
+      <div class="investment-location-mobile">
+        <% if @investment.deal.property %>
+          <p>
+            <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
+          </p>
+          <div class="col-xs-6" style="padding-left:0;">
+            More Locations
+          </div>
+          <div class="col-xs-6" style="padding-right:0; text-align: right">
+            <a href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
+              View Map
+            </a>
+          </div>
+        <% else %>
+          <p>
+            No Property Information
+          </p>
+        <% end %>
+      </div>
+    </div>
+    <%= render partial: "details" %>
   </div>
-  <div class="row">
-    <h5 class="dashboard-title">Investment Details</h5>
-
+  <div class="investment-tablet-container">
     <div class="row">
-      <div class="col-xs-6">
-        Investment Type
-      </div>
-      <div class="col-xs-6" style="text-align:right; font-weight: bold">
-        <%= @investment&.deal&.property&.property_type&.capitalize %>
-      </div>
-    </div>
-    <div class="grey-divider"></div>
-    <div class="row">
-      <p style="padding-left: 15px; font-weight: bold">
-        INVESTOR EQUITY
-      </p>
-      <% @property_investments.each do |investment| %>
-        <div class="col-xs-6">
-          <%= investment&.investing_entity&.titleize %>
-        </div>
-        <div class="col-xs-6" style="text-align:right">
-          <%= number_to_currency(investment.amount_invested, precision: 0) %>
-        </div>
+      <% if @investment&.deal&.property&.avatar&.attachment  %>
+        <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
+      <% else %>
+        <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
       <% end %>
-      <div class="col-xs-6">
-        <b>Total</b>
-      </div>
-      <div class="col-xs-6" style="text-align:right; font-weight: bold">
-        <%= number_to_currency(@property_investments.pluck(:amount_invested).sum, precision: 0) %>
-      </div>
     </div>
-    <div class="grey-divider"></div>
     <div class="row">
-      <p style="padding-left: 15px; font-weight: bold">
-        GROSS DISTRIBUTIONS
-      </p>
-      <div class="col-xs-6">
-         <%= @investment&.investing_entity&.titleize %>
+      <div class="col-sm-6">
+        <%= render partial: "details" %>
       </div>
-      <div class="col-xs-6" style="text-align:right">
-        <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
-      </div>
-      <div class="col-xs-6">
-        <b>Total</b>
-      </div>
-      <div class="col-xs-6" style="text-align:right; font-weight: bold">
-        <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
-      </div>
-    </div>
-    <div class="grey-divider"></div>
-    <div class="row">
-      <p style="padding-left: 15px; font-weight: bold">
-        CAPITAL OUTSTANDING
-      </p>
-      <% @property_investments.each do |investment| %>
-        <div class="col-xs-6">
-          <%= investment&.investing_entity&.titleize %>
-        </div>
-        <div class="col-xs-6" style="text-align:right">
-          <%= number_to_currency((investment.amount_invested.to_i - @investment&.deal&.property&.gross_distributions.to_i), precision: 0) %>
-        </div>
-      <% end %>
-      <div class="col-xs-6">
-        <b>Total</b>
-      </div>
-      <div class="col-xs-6" style="text-align:right; font-weight: bold">
-        <%= number_to_currency((@property_investments.pluck(:amount_invested).sum - @investment&.deal&.property&.gross_distributions.to_i), precision: 0) %>
+      <div class="col-sm-6" style="margin-top: 2rem">
+        <% if @investment.deal.property %>
+          <p>
+            <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
+          </p>
+          <div class="col-xs-6" style="padding-left:0;">
+            More Locations
+          </div>
+          <div class="col-xs-6" style="padding-right:0; text-align: right">
+            <a href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
+              View Map
+            </a>
+          </div>
+        <% else %>
+          <p>
+            No Property Information
+          </p>
+        <% end %>
       </div>
     </div>
   </div>
-  <div class="row">
-    <h5 class="dashboard-title">Investment Summary</h5>
-    <p>
-      Investment Summary will go here
-    </p>
+    <div class="investment-desktop-container">
+    <div class="row">
+      <div class="col-sm-7">
+        <% if @investment&.deal&.property&.avatar&.attachment  %>
+          <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
+        <% else %>
+          <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+        <% end %>
+        <div style="padding: 0 15px;">
+          <%= render partial: "details", style: 'padding-left: 15px' %>
+        </div>
+      </div>
+      <div class="col-sm-5">
+        <% if @investment.deal.property %>
+          <p>
+            <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
+          </p>
+          <div class="col-xs-6" style="padding-left:0;">
+            More Locations
+          </div>
+          <div class="col-xs-6" style="padding-right:0; text-align: right">
+            <a href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
+              View Map
+            </a>
+          </div>
+        <% else %>
+          <p>
+            No Property Information
+          </p>
+        <% end %>
+      </div>
+    </div>
   </div>
 </div>
 

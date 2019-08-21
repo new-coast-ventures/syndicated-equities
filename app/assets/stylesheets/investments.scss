@@ -1,3 +1,68 @@
 // Place all the styles related to the Investments controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+.investment-desktop-container{
+  display: inline;
+
+  .investment-card-image {
+    width: 100%;
+    margin-bottom: 8px;
+    height: 22em
+  }
+
+  .col-sm-7{
+    padding: 0;
+  }
+}
+
+.investment-mobile-container, .investment-tablet-container{display: none}
+
+
+
+// Tablet
+@media (min-width: 768px) and (max-width: 1024px) {
+  .investment-tablet-container{
+    display: inline;
+
+    .investment-card-image {
+      height: 26em;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+  }
+
+  .investment-mobile-container, .investment-desktop-container{display: none}
+
+}
+
+// Mobile
+@media (max-width: 767px) { 
+  .investment-mobile-container{
+    display: inline;
+  }
+  .investment-card-image {
+    width: 100%;
+    margin-bottom: 8px;
+    height: 11em
+  }
+
+  .col-md-4 {
+    padding: 0;
+  }
+  .xs-row {
+    margin: 15px;
+  }
+
+  .footer {
+    width: auto !important;
+  }
+
+  .investment-location-mobile {
+
+  }
+
+  .investment-tablet-container, .investment-desktop-container{display: none}
+  
+}
+

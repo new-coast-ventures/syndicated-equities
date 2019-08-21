@@ -47,16 +47,16 @@
 //   width: 1050px;
 // }
 
-  @media (max-width: 767px) { 
-    .investor-card-container{
-      margin-right: 1em;
-    }
-   
-    .col-md-4 {
-      padding: 0;
-    }
-    .xs-row {
-      margin: 15px;
-    }
+@media (max-width: 767px) { 
+  .investor-card-container{
+    margin-right: 1em;
   }
+  
+  .col-md-4 {
+    padding: 0;
+  }
+  .xs-row {
+    margin: 15px;
+  }
+}
 
