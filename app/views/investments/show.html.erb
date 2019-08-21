@@ -6,7 +6,7 @@
       <% if @investment&.deal&.property&.avatar&.attachment  %>
         <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
       <% else %>
-        <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+        <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
       <% end %>
     </div>
     <div class="row">
@@ -37,7 +37,7 @@
       <% if @investment&.deal&.property&.avatar&.attachment  %>
         <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
       <% else %>
-        <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+        <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
       <% end %>
     </div>
     <div class="row">
@@ -71,7 +71,7 @@
         <% if @investment&.deal&.property&.avatar&.attachment  %>
           <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
         <% else %>
-          <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+          <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
         <% end %>
         <div style="padding: 0 15px;">
           <%= render partial: "details", style: 'padding-left: 15px' %>
