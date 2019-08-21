@@ -20,6 +20,9 @@ class InvestmentsController < ApplicationController
       flash[:alert] = 'Not authorized'
       redirect_to main_app.root_path
     end
+  rescue => e  
+    flash[:alert] = 'Sorry, that investment is not available.'
+    redirect_to main_app.root_path
   end
 
   def import

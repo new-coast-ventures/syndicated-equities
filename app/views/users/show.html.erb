@@ -6,10 +6,14 @@
       <% @investments.each do |investment| %>
         <div class="col-lg-4 col-md-6" >
           <div class="card investor-card-container">
-            <% if investment&.deal&.property&.avatar&.attachment  %>
-              <%= image_tag url_for(investment&.deal&.property&.avatar), alt: "Property Image", class: 'investor-card-image' %>
+            <% if investment&.deal&.property&.avatar&.attachment %>
+              <%= link_to investment_path(investment.id) do %>
+                <%= image_tag url_for(investment&.deal&.property&.avatar), alt: "Property Image", class: 'investor-card-image' %>
+              <% end %>
             <% else %>
-              <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+              <%= link_to investment_path(investment.id) do %>
+                <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+              <% end %>
             <% end %>
             <div class='card-padding investor-card-address'>
               <% if investment.deal.property %>
