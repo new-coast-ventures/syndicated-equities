@@ -17,17 +17,17 @@
 			</address>
       <div><strong>Created At: </strong> <%= @property.created_at.strftime("%B %d, %Y") %> </div>
       <div><strong>Updated At: </strong> <%= @property.updated_at.strftime("%B %d, %Y") %> </div>
-      <div><strong>Status: </strong> <%= @property.status&.capitalize %> </div>
+      <% if @property.status %><div><strong>Status: </strong> <%= @property.status&.capitalize %> </div><% end %>
       <% if @property.property_type %><div><strong>Property Type: </strong> <%= @property&.property_type&.humanize %> </div><% end %>
 		</div>
 		<div class="col-md-5" style="text-align: right">
 			 
       <button type="button" style="width: 100px ;background: white" data-toggle="modal" data-target="#property-form-modal""> Edit </button>
 
-      <div><strong>Closing Date: </strong> <%= @property.closing_date&.strftime("%B %d, %Y") %> </div>
-      <div><strong>Investor Equity: </strong> <%= number_to_currency(@property&.deal_equity, precision: 0) %> </div>
+      <% if @property.closing_date %><div><strong>Closing Date: </strong> <%= @property.closing_date&.strftime("%B %d, %Y") %> </div><% end %>
+      <% if @property.deal_equity %><div><strong>Investor Equity: </strong> <%= number_to_currency(@property&.deal_equity, precision: 0) %> </div><% end %>
       <% if !@property.gross_distributions.blank? %><div><strong>Gross Distributions: </strong> <%= number_to_currency(@property.gross_distributions, precision: 0) %></div><% end  %>
-      <div><strong>Sale Date: </strong> <%= @property.sale_date&.strftime("%B %d, %Y") %> </div>
+      <% if @property.sale_date %><div><strong>Sale Date: </strong> <%= @property.sale_date&.strftime("%B %d, %Y") %> </div><% end %>
       <% if !@property.internal_rate_of_return.blank? %><div><strong>Internal Rate of Return: </strong> <%= @property.internal_rate_of_return %>%</div><% end  %>
       <% if !@property.equity_multiple.blank? %><div><strong>Equity Multiple: </strong> <%= @property.equity_multiple %></div><% end  %>
 		</div>
