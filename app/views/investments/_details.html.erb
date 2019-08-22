@@ -38,13 +38,21 @@
         <%= @investment&.investing_entity&.titleize %>
     </div>
     <div class="col-xs-6" style="text-align:right">
-      <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
+      <% unless @investment&.deal&.property&.gross_distributions.blank? %>
+        <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
+      <% else %>
+        $0.00
+      <% end %>
     </div>
     <div class="col-xs-6">
       <b>Total</b>
     </div>
     <div class="col-xs-6" style="text-align:right; font-weight: bold">
-      <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
+      <% unless @investment&.deal&.property&.gross_distributions.blank? %>
+        <%= number_to_currency(@investment&.deal&.property&.gross_distributions, precision: 0) %>
+      <% else %>
+        $0.00
+      <% end %>
     </div>
   </div>
   <div class="grey-divider"></div>
