@@ -96,7 +96,7 @@
         <h5 class="modal-title" id="importForm">Upload Investments for <%= @property.name %></h5>
       </div>
       <div class="modal-body">
-          <%= form_tag investor_import_path, multipart: true do %>
+          <%= form_tag import_headers_path, multipart: true do %>
             <%= hidden_field_tag 'id', @property.id %>
             <fieldset class="form-group">
               <label>Upload investors</label>
@@ -106,7 +106,7 @@
             <%= submit_tag "Import", class: 'button -right' %>
             <br>
             <br>
-            <a href="https://s3-us-west-2.amazonaws.com/shopgenius-assets/Investment+Import.csv" target="_blank">Download CSV Template</a>
+            <a href="https://syndicated-equities.s3.amazonaws.com/investor_import_template.csv" target="_blank">Download CSV Template</a>
           <% end %>
       </div>
     </div>

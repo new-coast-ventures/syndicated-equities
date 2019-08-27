@@ -16,6 +16,9 @@ require "set"
 # t.string "investor_first_name"
 # t.string "investor_last_name"
 # t.integer "amount_cents"
+# t.string "amount_currency", default: "USD", null: false
+# t.string "investor_entity"
+# t.string "gross_distribution"
 
 
 class Investment < ActiveRecord::Base
@@ -43,25 +46,30 @@ class Investment < ActiveRecord::Base
     deal.forms.to_a + deal.property&.forms.to_a
   end
 
-  def self.import(file, property_id)
-    @deals = {}
-
+  def self.import(property_id, file, mapping)
+    byebug
     puts "import data from file #{file}"
-    create_deals(file, property_id)
-    create_investments(file)
-    # CSV.foreach(file.path, headers: true) do |row|
-    #   deal = Deal.find_or_create_by(title: row[0])
-    #   deal.update(property_id: property_id)
+    # create_deals(file, property_id)
+    # create_investments(file)
+    CSV.foreach(file, headers: true) do |row|
+      byebug
+      deal = Deal.find_or_create_by(title: row[mapping["investing_entity"]])
+      deal.update(property_id: property_id)
 
-    #   investor_hash = {
-    #     deal_id: deal.id,
-    #     investor_last_name: row[1],
-    #     investor_first_name: row[2],
-    #     investing_entity: row[3],
-    #     amount_invested: row[4]
-    #   }
+      investor_hash = {
+        deal_id: deal.id,
+        investor_last_name: row[mapping["investor_last_name"]],
+        investor_first_name: row[mapping["investor_first_name"]],
+        investor_email: row[mapping["investor_email"]],
+        investing_entity: row[mapping["investing_entity"]],
+        investor_entity: row[mapping["investor_entity"]],
+        gross_distribution: row[mapping["gross_distribution"]],
+        amount_invested: row[mapping["amount_invested"]],
+        user_id: get_user_id(row, mapping)
+      }
 
-    #   Investment.create! investor_hash
+      Investment.create! investor_hash
+    end
   rescue => e
     puts e.backtrace.join("\n")
     puts e
@@ -136,5 +144,22 @@ class Investment < ActiveRecord::Base
 
   def self.sanitized_string_from(key)
     (key&.value || "").to_s.strip.gsub("'", %q(\\\'))
+  end
+
+  def self.get_user_id(row, mapping)
+    user_id = User.find_by(email: row[mapping["investor_email"]])&.id
+
+    if !user_id
+      user_id = User.create(
+        email: row[mapping["investor_email"]], 
+        password: "Se1#{SecureRandom.base64(8)}",
+        first_name: row[mapping["investor_first_name"]],
+        last_name: row[mapping["investor_last_name"]]
+      ).id
+    end
+  end
+
+  def self.create_temp_csv(file)
+    FileUtils.cp(file, "tmp/imports")
   end
 end

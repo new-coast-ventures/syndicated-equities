@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_08_172609) do
+ActiveRecord::Schema.define(version: 2019_08_23_201814) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,8 @@ ActiveRecord::Schema.define(version: 2019_08_08_172609) do
     t.string "investor_last_name"
     t.integer "amount_cents"
     t.string "amount_currency", default: "USD", null: false
+    t.string "investor_entity"
+    t.string "gross_distribution"
   end
 
   create_table "notes", id: :serial, force: :cascade do |t|
