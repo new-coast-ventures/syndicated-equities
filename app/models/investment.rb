@@ -47,12 +47,10 @@ class Investment < ActiveRecord::Base
   end
 
   def self.import(property_id, file, mapping)
-    byebug
     puts "import data from file #{file}"
     # create_deals(file, property_id)
     # create_investments(file)
     CSV.foreach(file, headers: true) do |row|
-      byebug
       deal = Deal.find_or_create_by(title: row[mapping["investing_entity"]])
       deal.update(property_id: property_id)
 

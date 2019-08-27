@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
   end
 
   def total_invested
-    investments.inject(0) { |sum, i| sum + i.amount }
+    investments.inject(0) { |sum, i| sum + i.amount_invested }
   end
 
   def total_properties
