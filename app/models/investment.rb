@@ -155,6 +155,8 @@ class Investment < ActiveRecord::Base
         last_name: row[mapping["investor_last_name"]]
       ).id
     end
+    
+    user_id
   end
 
   def self.create_temp_csv(file)
