@@ -151,8 +151,8 @@ class Investment < ActiveRecord::Base
       user_id = User.create(
         email: row[mapping["investor_email"]], 
         password: "Se1#{SecureRandom.base64(8)}",
-        first_name: row[mapping["investor_first_name"]].strip,
-        last_name: row[mapping["investor_last_name"]].strip
+        first_name: row[mapping["investor_first_name"]]&.strip,
+        last_name: row[mapping["investor_last_name"]]&.strip
       ).id
     end
 
@@ -160,6 +160,6 @@ class Investment < ActiveRecord::Base
   end
 
   def self.create_temp_csv(file)
-    FileUtils.cp(file, "tmp/imports")
+    FileUtils.cp(file, "lib/imports")
   end
 end
