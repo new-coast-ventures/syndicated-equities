@@ -62,6 +62,7 @@ class InvestmentsController < ApplicationController
         }
         Investment.create! investor_hash
       end
+      File.delete(file) if File.exist?(file)
 
       flash[:notice] = 'Investments have been successfully imported.'
       redirect_to property_path(params[:property_id])
