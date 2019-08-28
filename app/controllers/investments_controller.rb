@@ -62,7 +62,7 @@ class InvestmentsController < ApplicationController
         }
         Investment.create! investor_hash
       end
-      byebug
+      
       File.delete(file) if File.exist?(file)
 
       flash[:notice] = 'Investments have been successfully imported.'
