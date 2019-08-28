@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_23_201814) do
+ActiveRecord::Schema.define(version: 2019_08_28_201048) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -116,6 +116,7 @@ ActiveRecord::Schema.define(version: 2019_08_23_201814) do
     t.string "internal_rate_of_return"
     t.string "equity_multiple"
     t.string "property_type"
+    t.text "description"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|

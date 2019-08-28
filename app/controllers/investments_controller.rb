@@ -60,6 +60,8 @@ class InvestmentsController < ApplicationController
           amount_invested: row[mapping["amount_invested"]]&.strip&.to_i,
           user_id: Investment.get_user_id(row, mapping)
         }
+
+        byebug
         Investment.create! investor_hash
       end
       

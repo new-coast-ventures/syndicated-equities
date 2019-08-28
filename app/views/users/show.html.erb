@@ -43,12 +43,12 @@
                 </div>
                 <div class="col-xs-6">
                   <p class="text-right" style="font-weight: bold; text-align: right">
-                    <%= investment&.deal&.property&.property_type&.capitalize %>
+                    <%= investment&.deal&.property&.property_type&.humanize&.titleize %>
                     <br>
                     <%= number_to_currency(investment.amount_invested, precision: 0) %>
                     <br>
                     <% if investment&.deal&.property&.gross_distributions&.blank? %>
-                      <%= number_to_currency(investment&.deal&.property&.gross_distributions, precision: 0) %>
+                      <%= number_to_currency(investment&.gross_distribution, precision: 0) %>
                     <% else %>
                       $0.00
                     <% end %>

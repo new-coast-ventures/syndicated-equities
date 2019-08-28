@@ -69,6 +69,11 @@
             <label>Status<span style="color:red">*</span></label>
             <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold']], @property&.status), {:class => "form-group", required: true} %>
           </fieldset>
+
+          <fieldset class="form-group">
+            <label>Property Description</label>
+            <%= f.text_area :description, value: @property&.description %>
+          </fieldset>
          
           <fieldset class="form-group">
             <label>Property Image</label>
