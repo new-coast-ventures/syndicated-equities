@@ -7,10 +7,12 @@
     <%= hidden_field_tag 'investment_file', @investment_file %>
     <%= hidden_field_tag 'property_id', @property_id %>
     <% @investment_fields.each do |field| %>
-      <fieldset class="form-group">
-        <label><%= field.titleize %></label>
-        <%= f.select field.to_sym, options_for_select(@headers), {:class => "form-group"} %>
-      </fieldset>
+      <div class="row">
+        <fieldset class="form-group">
+          <label class="col-sm-3" style="font-weight: bold"><%= field.titleize %></label>
+          <%= f.select field.to_sym, options_for_select(@headers), {:class => "form-group col-sm-3"} %>
+        </fieldset>
+      </div>
     <% end %>
     <div class="spacer -space-16"></div>
     <%= submit_tag "Import", class: 'button -right' %>

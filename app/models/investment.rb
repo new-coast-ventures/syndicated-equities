@@ -151,11 +151,11 @@ class Investment < ActiveRecord::Base
       user_id = User.create(
         email: row[mapping["investor_email"]], 
         password: "Se1#{SecureRandom.base64(8)}",
-        first_name: row[mapping["investor_first_name"]],
-        last_name: row[mapping["investor_last_name"]]
+        first_name: row[mapping["investor_first_name"]].strip,
+        last_name: row[mapping["investor_last_name"]].strip
       ).id
     end
-    
+
     user_id
   end
 
