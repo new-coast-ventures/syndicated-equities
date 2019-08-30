@@ -31,7 +31,7 @@ class InvestmentsController < ApplicationController
     @property_id = params[:id]
     @investment = Investment.new
     @headers = CSV.read(@investment_file, headers: true).headers << ['No Mapping', nil]
-    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investing_entity', 'investor_entity', 'amount_invested', 'gross_distribution']
+    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_entity', 'investing_entity', 'amount_invested', 'gross_distribution']
     
     render 'properties/import_headers'
   rescue => e  
@@ -61,7 +61,7 @@ class InvestmentsController < ApplicationController
           user_id: Investment.get_user_id(row, mapping)
         }
 
-        byebug
+        
         Investment.create! investor_hash
       end
       
