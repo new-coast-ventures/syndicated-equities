@@ -78,10 +78,6 @@
                           <div class="modal-body">
                             <%= form_for invst do |f| %>
                               <fieldset class="form-group">
-                                <label>Property</label>
-                                <%= select :property, :id, Property.all.map {|property| ["#{property.name}", property.id]}, prompt: 'Select property...', required: true, selected: invst&.deal&.property_id %>
-                              </fieldset>
-                              <fieldset class="form-group">
                                 <label>Investor Entity<span style="color:red">*</span></label>
                                 <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
                               </fieldset>

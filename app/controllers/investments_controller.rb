@@ -18,8 +18,6 @@ class InvestmentsController < ApplicationController
   def update
     @investment = Investment.find(params[:id])
     @investment.update(investment_params)
-    @investment.deal.update(property_id: params["property"]["id"])
-
     
     redirect_back(fallback_location: root_path)
   end
