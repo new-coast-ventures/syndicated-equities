@@ -44,6 +44,8 @@
                 <th>
                   Closing Date
                 </th>
+                <th>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -63,6 +65,49 @@
                   </td>
                   <td>
                     <%= invst&.deal&.property&.closing_date&.strftime("%B %d, %Y") %>
+                  </td>
+                  <td>
+                    <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{invst.id}", 'data-toggle' => 'modal'  %>
+                    <div class="modal fade" id='<%= "myModal_#{invst.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Update Investment</h4>
+                          </div>
+                          <div class="modal-body">
+                            <%= form_for invst do |f| %>
+                              <fieldset class="form-group">
+                                <label>Property</label>
+                                <%= select :property, :id, Property.all.map {|property| ["#{property.name}", property.id]}, prompt: 'Select property...', required: true, selected: invst&.deal&.property_id %>
+                              </fieldset>
+                              <fieldset class="form-group">
+                                <label>Investor Entity<span style="color:red">*</span></label>
+                                <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
+                              </fieldset>
+
+                              <fieldset class="form-group">
+                                <label>Investment Entity<span style="color:red">*</span></label>
+                                <%= f.text_field :investing_entity, value: invst.investing_entity %>
+                              </fieldset>
+
+                              <fieldset class="form-group">
+                                <label>Investment</label>
+                                <%= f.text_field :amount_invested, value: invst.amount_invested %>
+                              </fieldset>
+
+                              <fieldset class="form-group">
+                                <label>Gross Distribution</label>
+                                <%= f.text_field :gross_distribution, value: invst.gross_distribution %>
+                              </fieldset>
+
+                              <%= f.submit class: "btn btn-primary", id: "submit" %>
+
+                            <% end %>
+                          </div>
+                        </div><!-- /.modal-content -->
+                      </div><!-- /.modal-dialog -->
+                    </div><!-- /.modal -->
                   </td>
                 </tr>
               <% end %>

@@ -20,7 +20,8 @@ class InvestmentsController < ApplicationController
     @investment.update(investment_params)
     @investment.deal.update(property_id: params["property"]["id"])
 
-    redirect_to property_path(id: params[:investment][:property_id])
+    
+    redirect_back(fallback_location: root_path)
   end
 
   def show

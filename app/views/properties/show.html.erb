@@ -106,7 +106,6 @@
                       </div>
                       <div class="modal-body">
                         <%= form_for invst do |f| %>
-                          <%= f.hidden_field :property_id, value: @property.id %>
                           <fieldset class="form-group">
                             <label>Property</label>
                             <%= select :property, :id, Property.all.map {|property| ["#{property.name}", property.id]}, prompt: 'Select property...', required: true %>
