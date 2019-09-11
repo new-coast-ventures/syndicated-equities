@@ -11,6 +11,18 @@ class InvestmentsController < ApplicationController
     @investments = Investment.all
   end
 
+  def edit
+    @investment = Investment.find(params[:id])
+  end
+
+  def update
+    @investment = Investment.find(params[:id])
+    @investment.update(investment_params)
+    @investment.deal.update(property_id: params["property"]["id"])
+
+    redirect_to property_path(id: params[:investment][:property_id])
+  end
+
   def show
     @investment = Investment.find_by(id: params[:id])
     @property_investments = Property.find(@investment&.deal&.property&.id).investments.where(user_id: current_user.id)
@@ -76,4 +88,9 @@ class InvestmentsController < ApplicationController
     end
   end
 
+  private
+
+  def investment_params
+    params.require(:investment).permit(:user_id, :deal_id, :amount_invested, :invested_on, :investing_entity, :investor_email, :investor_first_name, :investor_last_name, :amount_cents, :amount_currency, :investor_entity, :gross_distribution)
+  end
 end

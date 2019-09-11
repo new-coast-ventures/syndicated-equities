@@ -1,0 +1,3 @@
+$('#investment-form-modal').html("<%= escape_javascript( render partial: '/investments/modal_form', locals: {investment: @investment} ) %>")
+
+$('#investment-form-modal').modal("show")
