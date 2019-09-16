@@ -23,6 +23,9 @@ class PropertiesController < ApplicationController
 
   def show
     @property = Property.find(params[:id])
+
+    @investment = Investment.new
+
     if @property && current_user
       render 'show'
     else

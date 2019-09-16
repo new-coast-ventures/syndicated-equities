@@ -40,12 +40,15 @@ class UsersController < ApplicationController
 
   def investor_show
     @investor = User.find_by(id: params[:id])
+    @investment = Investment.new
+
     render 'investors/show'
   end
 
   def show
     @user = User.find_by(id: params[:id])
     @investments = Investment.where(user_id: @user.id)
+    @investment = Investment.new
     if @user.admin
       redirect_to users_path and return
     end

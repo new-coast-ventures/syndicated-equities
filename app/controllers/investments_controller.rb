@@ -15,6 +15,33 @@ class InvestmentsController < ApplicationController
     @investment = Investment.find(params[:id])
   end
 
+  def create
+    invst_params = params['investment']
+    
+    property_id = invst_params['property_id'].nil? ? params['property']['id'] : invst_params['property_id']
+    user_id = invst_params['user_id'].nil? ? params['investor']['id'] : invst_params['user_id']
+    
+    deal = Deal.find_or_create_by(title: invst_params["investing_entity"], property_id: property_id)
+    
+    investor = User.find(user_id)
+
+    investor_hash = {
+      deal_id: deal.id,
+      investor_last_name: investor.last_name,
+      investor_first_name: investor.first_name,
+      investor_email: investor.email,
+      investing_entity:invst_params["investing_entity"]&.strip,
+      investor_entity: invst_params["investor_entity"]&.strip,
+      gross_distribution: invst_params["gross_distribution"]&.strip,
+      amount_invested: invst_params["amount_invested"]&.strip&.to_i,
+      user_id: investor.id
+    }
+
+    Investment.create! investor_hash
+
+    redirect_back(fallback_location: root_path)
+  end
+
   def update
     @investment = Investment.find(params[:id])
     @investment.update(investment_params)
