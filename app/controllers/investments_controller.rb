@@ -15,6 +15,12 @@ class InvestmentsController < ApplicationController
     @investment = Investment.find(params[:id])
   end
 
+  def destroy
+    Investment.find(params['id']).destroy
+    
+    redirect_back(fallback_location: root_path)
+  end
+
   def create
     invst_params = params['investment']
     
