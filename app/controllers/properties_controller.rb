@@ -73,6 +73,16 @@ class PropertiesController < ApplicationController
     render 'show'
   end
 
+  def destroy
+    property = Property.find(params['id'])
+    property_name = property.name
+    Deal.where(property_id: property.id).each {|deal| deal.investments.destroy_all; deal.destroy}
+    property.destroy
+    flash[:alert] = "#{property_name} has been successfully deleted."
+
+    redirect_to properties_path
+  end
+
   private
 
   def property_params
