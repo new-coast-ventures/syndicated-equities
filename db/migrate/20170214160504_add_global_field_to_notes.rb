@@ -1,4 +1,4 @@
-class AddGlobalFieldToNotes < ActiveRecord::Migration
+class AddGlobalFieldToNotes < ActiveRecord::Migration[5.1]
   def change
     change_table :notes do |t|
       t.boolean :global, default: false

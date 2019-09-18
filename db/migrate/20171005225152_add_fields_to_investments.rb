@@ -1,4 +1,4 @@
-class AddFieldsToInvestments < ActiveRecord::Migration
+class AddFieldsToInvestments < ActiveRecord::Migration[5.1]
   def change
     # remove null constraints
     change_column_null :investments, :invested_on, true

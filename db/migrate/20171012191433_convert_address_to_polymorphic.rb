@@ -1,4 +1,4 @@
-class ConvertAddressToPolymorphic < ActiveRecord::Migration
+class ConvertAddressToPolymorphic < ActiveRecord::Migration[5.1]
   def change
     # Address: change user -> addressable
     rename_column :addresses, :user_id, :addressable_id
