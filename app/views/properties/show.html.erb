@@ -149,7 +149,7 @@
                 <%= invst.investor_entity %>
               </td>
               <td>
-                <%= invst&.deal&.title %>
+                <%= invst.investing_entity ? invst.investing_entity : invst&.deal&.title %>
               </td>
               <td>
                 <%= number_to_currency(invst.amount_invested, precision: 0) %>
