@@ -35,7 +35,7 @@
                   <%= f.hidden_field :user_id, value: @investor.id %>
                   <fieldset class="form-group">
                     <label>Property</label>
-                    <%= select :property, :id, Property.all.map {|property| ["#{property.name}", property.id]}, prompt: 'Select Property...', required: true %>
+                    <%= select :property, :id, Property.all.order("name ASC").map {|property| ["#{property.name}", property.id]}, prompt: 'Select Property...', required: true %>
                   </fieldset>
                   <fieldset class="form-group">
                     <label>Investor Entity<span style="color:red">*</span></label>
