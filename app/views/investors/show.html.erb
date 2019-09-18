@@ -95,7 +95,9 @@
               <% @investor&.investments.each do |invst| %>
                 <tr class="investor-table">
                   <td>
-                    <%= link_to "#{invst&.deal&.property&.name}", property_path(invst&.deal&.property&.id) %>
+                    <% if invst&.deal&.property&.id %>
+                      <%= link_to "#{invst&.deal&.property&.name}", property_path(invst&.deal&.property&.id) %>
+                    <% end %>
                   </td>
                   <td>
                     <%= invst.investor_entity %>
