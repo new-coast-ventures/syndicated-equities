@@ -15,29 +15,58 @@
 }
 
 .investor-card-image {
+  border-radius: 0.25rem 0.25rem 0 0;
   width: 100%;
-  border-bottom: 1px solid lightgrey;
-  margin-bottom: 8px;
-  height: 11em
+  margin-bottom: 12px;
+}
+
+.investor-card-name {
+  font-weight: bolder;
+  margin-bottom: 5px;
+  font-size: 1.1em;
+}
+
+.investment-property-address {
+  font-size: 0.8em;
 }
 
 .investor-card-container {
-  border: 1px solid lightgrey;
   padding-left: 0px; 
   padding-right: 0px; 
-  margin-right: 1.5em;
+  margin-right: 0px;
   margin-bottom: 2em;
+}
+
+.card.investor-card-container {
+  border: 0;
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(194,194,194,1);
+  -moz-box-shadow: 0px 2px 4px 0px rgba(194,194,194,1);
+  box-shadow: 0px 2px 4px 0px rgba(194,194,194,1);
 }
 
 .card .investor-card-container:nth-child(3n+3) { margin-right: 0; }
 
 .investor-card-address{
-  height: 6em;
+  height: 4em;
+}
+
+.status-tag {
+  background-color: white;
+  color: black; 
+  position: absolute;
+  padding: 2px;
+  border-radius: 0.25em;
+  font-size: 0.7em;
+  font-weight: bolder;
+  text-transform: capitalize;
+  letter-spacing: 0px;
+  right: 10px;
+  top: 10px;
 }
 
 .grey-divider{
-  border: 1px solid lightgrey;
-  margin: 8px 0px;
+  border-top: 1px solid lightgrey;
+  margin: 5px 15px;
 }
 .card-padding{
   padding-left: 15px; 

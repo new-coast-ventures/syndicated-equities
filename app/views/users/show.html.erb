@@ -12,17 +12,24 @@
               <% end %>
             <% else %>
               <%= link_to investment_path(investment.id) do %>
-                <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
+                <%
+=begin%>
+ <div class="status-tag">ACTIVE</div> 
+<%
+=end%>
+                <%= image_tag asset_url('storefront.jpg'), class: 'investor-card-image' %>
               <% end %>
             <% end %>
             <div class='card-padding investor-card-address'>
               <% if investment.deal.property %>
-                <p>
+                <div class="investor-card-name">
                   <%= link_to "#{investment&.deal&.property&.name}", investment_path(investment.id) %>
+                </div>
+                <%if investment&.deal&.property&.address%>
+                <p class="investment-property-address">
+                  <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= investment&.deal&.property&.address&.line1 %>, <%= investment&.deal&.property&.address&.location %>
                 </p>
-                <p>
-                  <%= investment&.deal&.property&.address&.line1 %> <%= investment&.deal&.property&.address&.location %>
-                </p>
+                <% end %>
               <% else %>
                 <p>
                   No Property Information
