@@ -1,5 +1,4 @@
-<h5 class="dashboard-title"><%= @investment.deal&.property&.name || @investment.deal.title %></h5>
-<div class="grey-divider" style="margin-bottom: 2em"></div>
+<h5 class="dashboard-title" style="font-weight: bolder;"><%= @investment.deal&.property&.name || @investment.deal.title %></h5>
 <div class="container">
   <div class="investment-mobile-container">
     <div class="row">
@@ -32,6 +31,12 @@
     </div>
     <%= render partial: "details" %>
   </div>
+
+  <!-- HERE FORWARD IS TABLET VIEW -->
+  <!-- =========================== -->
+  <!-- =========================== -->
+  <!-- =========================== -->
+
   <div class="investment-tablet-container">
     <div class="row">
       <% if @investment&.deal&.property&.avatar&.attachment  %>
@@ -65,7 +70,13 @@
       </div>
     </div>
   </div>
-    <div class="investment-desktop-container">
+
+  <!-- HERE FORWARD IS DESKTOP VIEW -->
+  <!-- =========================== -->
+  <!-- =========================== -->
+  <!-- =========================== -->
+
+  <div class="investment-desktop-container">
     <div class="row">
       <div class="col-sm-7">
         <% if @investment&.deal&.property&.avatar&.attachment  %>
@@ -77,51 +88,71 @@
           <%= render partial: "details", style: 'padding-left: 15px' %>
         </div>
       </div>
-      <div class="col-sm-5">
-        <% if @investment.deal.property %>
-          <p>
-            <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
-          </p>
-          <div class="col-xs-6" style="padding-left:0;">
-            More Locations
+      <div  class="col-sm-4" style="display: flex; flex-direction: column;">
+        <div class="card investor-card-container info-cards">
+          <h5 class="show-investment-card-title">Locations</h5>
+          <div class="investment-divider"></div>
+          <% if @investment.deal.property %>
+            <p class='investment-property-address' style="padding: 15px; margin-bottom: 0">
+              <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= @investment&.deal&.property&.address&.line1 %>, <%= @investment&.deal&.property&.address&.location %>
+            </p>
+            <div class="investment-divider"></div>
+            <div class="investment-property-address" style="padding:15px; text-align: right">
+              <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
+                View More Locations
+              </a>
+            </div>
+          <% else %>
+            <p>
+              No Property Information
+            </p>
+          <% end %>
+        </div>
+
+        <div class="card investor-card-container info-cards">
+          <h5 class="show-investment-card-title">Documents</h5>
+          <div class="investment-divider"></div>
+          <div class="documents-list">
+            <% @investment.forms.each do |form| %>
+                <p class="investment-property-address document-download"><i class="far fa-file" style="margin-right: 10px"></i><%= link_to form.title, form.document.url, target: "_blank" %></p>
+            <% end %>
+            <% if @investment.forms.empty? %>
+              <tr style="color:#cccccc;font-size:0.8rem;">
+                <td>No documents available</td>
+              </tr>
+            <% end %>
           </div>
-          <div class="col-xs-6" style="padding-right:0; text-align: right">
-            <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
-              View Map
-            </a>
-          </div>
-        <% else %>
-          <p>
-            No Property Information
-          </p>
-        <% end %>
+          <div class="investment-divider"></div>
+          <div class="investment-property-address" style="padding:15px; text-align: right">
+              <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
+                Download All
+              </a>
+            </div>
+        </div>
+
+        <div class="card investor-card-container info-cards">
+          <h5 class="show-investment-card-title">Notes & Updates</h5>
+          <div class="investment-divider"></div>
+          <% @investment.deal.notes.each do |note| %>
+            <tr>
+              <td><%= note.title %></td>
+              <td><%= strip_tags(note.content.truncate(100)) %></td>
+              <td><%= note.created_at.to_date.to_formatted_s(:long) %>
+              <td><%= link_to 'Read More', note, target: "_blank" %></td>
+            </tr>
+          <% end %>
+          <% if @investment.deal.notes.empty? %>
+              <div class="investment-property-address" style="text-align: center; padding: 15px; color: #ccc">No recent notes</div>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
+
+
+  
 </div>
 
-<div class="py-1">
-  <h5>Documents</h5>
-  <!--<p class="subtext">Note: for your added privacy, all form links expire after 10 seconds. You may download or print any document for your own personal records.</p>-->
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <tbody>
-        <% @investment.forms.each do |form| %>
-          <tr>
-            <td><%= form.title %></td>
-            <td><%= form.description || "n/a" %></td>
-            <td><%= link_to 'Download / View', form.document.url, target: "_blank" %></td>
-          </tr>
-        <% end %>
-        <% if @investment.forms.empty? %>
-          <tr style="color:#cccccc;font-size:0.8rem;">
-            <td>No documents available</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-</div>
 
 <div class="py-1">
   <h5>Notes & Updates</h5>

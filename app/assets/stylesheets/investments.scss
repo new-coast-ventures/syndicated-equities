@@ -7,7 +7,25 @@
   .investment-card-image {
     width: 100%;
     margin-bottom: 8px;
-    height: 22em;
+  }
+
+  .show-investment-card-title {
+    padding: 15px;
+    margin-bottom: 0;
+    font-weight: bolder;
+  }
+
+  .investment-divider {
+    border-top: 1px solid lightgray; 
+  }
+
+  .document-download {
+    padding-bottom: 5px;
+    margin: 0;
+  }
+
+  .documents-list {
+    margin: 15px;
   }
 
   .col-sm-7{
