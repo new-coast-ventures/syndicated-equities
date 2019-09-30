@@ -37,8 +37,27 @@
   margin-bottom: 2em;
 }
 
+.investment-section-title {
+  text-transform: capitalize;
+  font-weight: bold;
+  color: darkblue;
+}
+
+.no-padding {
+  padding: 0;
+}
+
 .info-cards {
   margin-bottom: 15px;
+}
+
+.tom {
+  border: 1px solid red;
+}
+
+.note-container {
+  padding: 5px 15px 10px 15px;
+  margin-bottom: 10px
 }
 
 .card.investor-card-container {

@@ -84,9 +84,7 @@
         <% else %>
           <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
         <% end %>
-        <div style="padding: 0 15px;">
-          <%= render partial: "details", style: 'padding-left: 15px' %>
-        </div>
+            <%= render partial: "details" %>
       </div>
       <div  class="col-sm-4" style="display: flex; flex-direction: column;">
         <div class="card investor-card-container info-cards">
@@ -132,14 +130,15 @@
 
         <div class="card investor-card-container info-cards">
           <h5 class="show-investment-card-title">Notes & Updates</h5>
-          <div class="investment-divider"></div>
+          <div class="investment-divider" style="margin-bottom: 10px"></div>
           <% @investment.deal.notes.each do |note| %>
-            <tr>
-              <td><%= note.title %></td>
-              <td><%= strip_tags(note.content.truncate(100)) %></td>
-              <td><%= note.created_at.to_date.to_formatted_s(:long) %>
-              <td><%= link_to 'Read More', note, target: "_blank" %></td>
-            </tr>
+
+            <div class='note-container'>
+              <div style="font-weight: bolder; font-size: 0.8em; margin-bottom: 10px"><%= note.title %> <span style="font-weight:lighter; float: right; font-size: 0.9em"><%= note.created_at.to_date.to_formatted_s(:long) %></span></div>
+              <div style="font-size: 0.8em; margin-bottom: 5px"><%= strip_tags(note.content.truncate(100)) %></div>
+              <div style="font-size: 0.7em"><%= link_to 'Read More', note, target: "_blank" %></div>
+            </div>
+
           <% end %>
           <% if @investment.deal.notes.empty? %>
               <div class="investment-property-address" style="text-align: center; padding: 15px; color: #ccc">No recent notes</div>
@@ -151,28 +150,4 @@
 
 
   
-</div>
-
-
-<div class="py-1">
-  <h5>Notes & Updates</h5>
-  <div class="table-responsive">
-    <table class="table table-bordered">
-      <tbody>
-        <% @investment.deal.notes.each do |note| %>
-          <tr>
-            <td><%= note.title %></td>
-            <td><%= strip_tags(note.content.truncate(100)) %></td>
-            <td><%= note.created_at.to_date.to_formatted_s(:long) %>
-            <td><%= link_to 'Read More', note, target: "_blank" %></td>
-          </tr>
-        <% end %>
-        <% if @investment.deal.notes.empty? %>
-          <tr style="color:#cccccc;font-size:0.8rem;">
-            <td>No recent notes</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
 </div>
