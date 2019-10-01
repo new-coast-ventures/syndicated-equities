@@ -1,16 +1,18 @@
 <%= render partial: "modal_form" %>
 <div class='table-page-header'>
-  <button type="button" style="float: right; background: white" data-toggle="modal" data-target="#property-form-modal""> Add Property</button>
   <h5 class="dashboard-title">Properties (<%= @properties.count %> <%= @status.capitalize %>)</h5>
 </div>
 
-<div class='form-container status-dropdown'>	
+
+<div class="table-responsive">
+
+	<table class="table table-bordered"id="sortable-property-table" cellspacing="0" width="100%">
+	<div class='form-container status-dropdown tom'>	
+<button type="button" data-toggle="modal" data-target="#property-form-modal" class="button"> Add Property</button>
 	<%= form_tag(properties_path, :method => "get", id: "search-form") do %>	
 		<%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['All', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
 	<% end %>	
 </div>
-<div class="table-responsive">
-	<table class="table table-bordered"id="sortable-property-table" cellspacing="0" width="100%">
 		<thead class="thead-default">
 			<tr>
 				<th>Property Name</th>

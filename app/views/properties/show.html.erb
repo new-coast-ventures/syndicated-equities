@@ -1,7 +1,14 @@
 <%= render partial: "modal_form", property: @property %>
 <div id="investment-form-modal"></div>
 <div class="container-fluid" style="margin-top: 58px">
-	<div class="row page-header">
+
+  <div class="row card investor-card-container" style="margin-left: 15px">
+    <h5 class="show-investment-card-title">Details</h5>
+    <div class="investment-divider" style="margin-bottom: 15px"></div>
+    <div> content goes here </div>
+  </div>
+
+	<div class="row page-header tom">
 		<div class="col-md-2">
       <% if @property&.avatar&.attachment  %>
         <%= image_tag url_for(@property.avatar), alt: "Property Image", style: 'width: 100%; height: 100%' %>
@@ -50,6 +57,10 @@
       <% if !@property.equity_multiple.blank? %><div><strong>Equity Multiple: </strong> <%= @property.equity_multiple %></div><% end %>
 		</div>
 	</div>
+
+
+
+
 	<div class="row">
 		<div class="col-md-12">
 			<div class="table-page-header">
