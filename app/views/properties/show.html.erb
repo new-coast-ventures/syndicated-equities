@@ -2,13 +2,85 @@
 <div id="investment-form-modal"></div>
 <div class="container-fluid" style="margin-top: 58px">
 
-  <div class="row card investor-card-container" style="margin-left: 15px">
-    <h5 class="show-investment-card-title">Details</h5>
-    <div class="investment-divider" style="margin-bottom: 15px"></div>
-    <div> content goes here </div>
+    <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.name %><span style="font-weight: normal; font-size: 0.6em; margin-left: 25px"><%= @property.address.city%>, <%= @property.address.state%></span></h4>
+
+
+  <div class="investment-desktop-container">
+    <div class="card investor-card-container col-md-8" style="font-size: 0.8em; line-height: 2.5em">
+      <h5 class="show-investment-card-title">Details</h5>
+      <div class="investment-divider" style="margin-bottom: 15px"></div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Created</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.created_at.strftime("%m/%d/%y") %></strong></div>
+        </div>
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Closing Date</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.closing_date&.strftime("%m/%d/%y") %></strong></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Updated</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.updated_at.strftime("%m/%d/%y") %></strong></div>
+        </div>
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Investor Equity</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property&.deal_equity, precision: 0) %></strong></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Property Type</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property&.property_type&.humanize %></strong></div>
+        </div>
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Gross Distributions</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property.gross_distributions, precision: 0) || 'N/A' %></strong></div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Status</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.status.humanize %></strong></div>
+        </div>
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong></div>
+        </div>
+      </div>
+      <div class="row" style="margin-bottom: 15px">
+        <div class="col-sm-6">
+        </div>
+        <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
+        </div>
+      </div>              
+    </div>
+    <div class="col-md-4" style="padding-left: 15px">
+      <div class="card investor-card-container">
+        <h5 class="show-investment-card-title">Locations</h5>
+        <div class="investment-divider"></div>
+        <p class='investment-property-address' style="padding: 15px; margin-bottom: 0">
+          <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= @property&.address&.line1 %>, <%= @property&.address&.location %>
+        </p>
+        <div class="investment-divider"></div>
+        <div class="investment-property-address" style="padding:15px; text-align: right">
+          <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @property&.address&.line1 %> <%= @property&.address&.location %>" target="_blank">
+            View More Locations
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 
-	<div class="row page-header tom">
+
+
+
+	<%
+=begin%>
+ <div class="row page-header">
 		<div class="col-md-2">
       <% if @property&.avatar&.attachment  %>
         <%= image_tag url_for(@property.avatar), alt: "Property Image", style: 'width: 100%; height: 100%' %>
@@ -31,8 +103,8 @@
 		</div>
 		<div class="col-md-5" style="text-align: right">
 			 
-      <button type="button" style="width: 100px ;background: white" data-toggle="modal" data-target="#property-form-modal""> Edit </button>
-      <button type="button" style="width: 100px ;background: white; margin-left: 8px" data-toggle="modal" data-target="#property-delete-modal""> Delete </button>
+      <button type="button" style="width: 100px ;background: white" data-toggle="modal" data-target="#property-form-modal"> Edit </button>
+      <button type="button" style="width: 100px ;background: white; margin-left: 8px" data-toggle="modal" data-target="#property-delete-modal"> Delete </button>
       <div class="modal fade" id="property-delete-modal" tabindex="-1" role="dialog" aria-labelledby="property-delete-modal" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content" style="margin-top:100px">
@@ -56,7 +128,9 @@
       <% if !@property.internal_rate_of_return.blank? %><div><strong>Internal Rate of Return: </strong> <%= @property.internal_rate_of_return %>%</div><% end %>
       <% if !@property.equity_multiple.blank? %><div><strong>Equity Multiple: </strong> <%= @property.equity_multiple %></div><% end %>
 		</div>
-	</div>
+	</div> 
+<%
+=end%>
 
 
 
@@ -221,7 +295,9 @@
 <script>
 
   $(document).ready(function() {
-    $('#sortable-table').DataTable({
+    var table = $('#sortable-table').DataTable({
+          "dom": 'Bfrtip',
+      "buttons": ['copy'],
       "paging": true,
       "info": false,
       "columnDefs": [{ "searchable": false, "targets": [1,3] }],
