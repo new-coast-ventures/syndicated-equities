@@ -38,6 +38,13 @@ input[type='date'] {
   width: 25%;
 }
 
+.investor-table-container {
+  background: #FFF;
+}
+table.dataTable{
+  border-collapse: collapse !important;
+}
+
 .investor-table td {
   font-size: 12px;
 }

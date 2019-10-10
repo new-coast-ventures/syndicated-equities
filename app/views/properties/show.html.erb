@@ -2,7 +2,7 @@
 <div id="investment-form-modal"></div>
 <div class="container-fluid" style="margin-top: 58px">
 
-    <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.name %><span style="font-weight: normal; font-size: 0.6em; margin-left: 25px"><%= @property.address.city%>, <%= @property.address.state%></span></h4>
+    <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.name %><span style="font-weight: normal; font-size: 0.6em; margin-left: 25px"><%= @property.address&.city%>, <%= @property.address&.state%></span></h4>
 
 
   <div class="investment-desktop-container">
@@ -42,7 +42,7 @@
       <div class="row">
         <div class="col-sm-6">
           <div class='col-sm-6' style="text-align: left">Status</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.status.humanize %></strong></div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.status&.humanize %></strong></div>
         </div>
         <div class="col-sm-6">
           <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
@@ -190,8 +190,8 @@
   </div>
   <% if !@property&.investments.nil? %>
     <div class="table-responsive">
-      <table class="table table-bordered investor-table" id="sortable-table" cellspacing="0" width="100%">
-        <thead class="thead-default">
+      <table class="table investor-table-container display" id="sortable-table" cellspacing="0" width="100%">
+        <thead style="border-collapse: collapse !important">
           <tr>
             <th>
               Name
