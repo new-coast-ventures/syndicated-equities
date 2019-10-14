@@ -7,7 +7,7 @@
       Investment Type
     </div>
     <div class="col-xs-6" style="text-align:right; font-weight: bold">
-      <%= @investment&.deal&.property&.property_type&.capitalize %>
+      <%= @investment&.deal&.property&.property_type&.humanize&.titleize %>
     </div>
   </div>
   <div class="grey-divider" style="margin-bottom: 15px"></div>
@@ -79,10 +79,11 @@
 </div>
 </div>
 <div style="padding-left: 15px">
-<div class="row card investor-card-container">
-  <h5 class="show-investment-card-title">Investment Summary</h5>
-  <p>
-    <%= @investment&.deal&.property&.description %>
-  </p>
-</div>
+  <div class="row card investor-card-container">
+    <h5 class="show-investment-card-title">Investment Summary</h5>
+      <div class="investment-divider" style="margin-bottom: 15px"></div>
+    <p style="margin: 15px">
+      <%= @investment&.deal&.property&.description %>
+    </p>
+  </div>
 </div>
