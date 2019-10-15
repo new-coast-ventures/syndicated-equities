@@ -1,25 +1,23 @@
 <%= render partial: "investors/modal_form", investor: @investor %>
 <div class="container-fluid" style="margin-top: 58px">
+  <div class='row'>
+    <p  style="cursor: pointer; float:left" > < Back to Investors </p>
+    <p  style="cursor: pointer; float:right" data-toggle="modal" data-target="#investor-form-modal"> Edit </p>
+  </div>
 	<div class="row page-header">
-		<div class="col-md-12">
-      <button type="button" style="width: 100px ;background: white; float:right" data-toggle="modal" data-target="#investor-form-modal""> Edit </button>
-			<h2 class="text-left">
-				<%= @investor.name %>
-			</h2> 
-      <h5>
-        <%= @investor.investment_entity %>
-      </h5>
-      <div><strong>Email: </strong> <%= @investor.email%> </div>
-      <div><strong>Investments: </strong> <%= @investor.investments.count%> </div>
-      <div><strong>Invested: </strong> <%=  number_to_currency(@investor.total_invested, precision: 0 ) %></div>
-      <div><strong>Created At: </strong> <%= @investor.created_at.strftime("%B %d, %Y") %>  </div>
-      <div><strong>Last Updated At: </strong> <%= @investor.updated_at.strftime("%B %d, %Y") %>  </div>
+		<div class="col-md-12 no-padding">
+      <div style="display: flex; align-items: center; justify-content: flex-start">
+        <h2>
+          <%= @investor.name %>
+        </h2> 
+        <div style="margin-left: 15px"><%= @investor.email%> </div>
+      </div>
 		</div>
 		
 	</div>
 	<div class="row">
-		<div class="col-md-12">
-			<div class="table-page-header" style="padding-top: 20px">
+		<div class="col-md-9">
+			<div class="table-p age-header" style="padding-top: 20px">
 				<span style="font-size: 24px; font-weight: 500">Investments</span>
         <button type="button" style="margin-left: 10px ;background: white; float:right" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
 
@@ -160,6 +158,31 @@
         No Investments on this investor.
       <% end %>
 		</div>
+    <div class="col-md-3 card investor-card-container info-cards">
+      <h5 class="show-investment-card-title">Details</h5>
+      <div class="investment-divider"style="margin-bottom: 15px;"></div>
+        <div class="col-sm-12 no-padding bottom-margin">
+          <div class='col-sm-6' style="text-align: left">Created</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @investor.created_at&.strftime("%m/%d/%y") %></strong></div>
+        </div>
+        <div class="col-sm-12 no-padding bottom-margin">
+          <div class='col-sm-6' style="text-align: left">Updated</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @investor.updated_at&.strftime("%m/%d/%y") %></strong></div>
+        </div>
+        <div class="col-sm-12 no-padding bottom-margin">
+          <div class='col-sm-6' style="text-align: left">Investments</div>
+          <div class='col-sm-6' style="text-align: right"><strong> <%= @investor.investments.count%></strong></div>
+        </div>
+        <div class="col-sm-12 no-padding bottom-margin">
+          <div class='col-sm-6' style="text-align: left">Invested</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%=  number_to_currency(@investor.total_invested, precision: 0 ) %></strong></div>
+        </div>
+      </div>
+      <div class="row">
+      </div>
+      <div class="row">
+      </div>
+    </div>
 	</div>
 </div>
 
