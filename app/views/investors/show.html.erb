@@ -1,8 +1,8 @@
 <%= render partial: "investors/modal_form", investor: @investor %>
 <div class="container-fluid" style="margin-top: 58px">
-  <div class='row'>
-    <p  style="cursor: pointer; float:left" > < Back to Investors </p>
-    <p  style="cursor: pointer; float:right" data-toggle="modal" data-target="#investor-form-modal"> Edit </p>
+  <div class='row' style="margin-bottom: 25px;">
+    <%= link_to '< Back to Investors', users_path %>
+    <a  style="cursor: pointer; float:right" data-toggle="modal" data-target="#investor-form-modal"> Edit </a>
   </div>
 	<div class="row page-header">
 		<div class="col-md-12 no-padding">
