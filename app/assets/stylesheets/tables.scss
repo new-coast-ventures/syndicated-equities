@@ -1,0 +1,17 @@
+.dataTables_wrapper .dataTables_paginate {
+  text-align: center !important;
+  float: none !important;
+  padding-top: 1.25em !important;
+  padding-bottom: 1.25em !important;
+
+  .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover{
+    color: #0E77D9 !important;
+  }
+}
+
+.edit-button{
+  width: 100px; float:right; color: #0E77D9;background: transparent;border: none;
+}
+.back-button {
+  float: left; width: 200px;text-align: left; color: #0E77D9;;
+}

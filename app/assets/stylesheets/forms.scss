@@ -42,9 +42,11 @@ input[type='date'] {
 table.dataTable{
   border-collapse: collapse !important;
 }
+
 .table-button{
   float: right; height: 40px;	width: 110px;	border-radius: 4px;	background-color: #0E77D9;	box-shadow: 0 2px 4px 0 #DBDDDE;color: #FFFFFF;	font-size: 14px;	font-weight: 600;	line-height: 14px;	text-shadow: 0 2px 4px 0 rgba(0,0,0,0.5); margin-bottom: 8px;
 }
+
 input[type='search']{
   box-sizing: border-box;	height: 40px;	width: 300px;	border: 1px solid #CFD0D1;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 2px 4px 0 #DBDDDE;
 }

@@ -1,8 +1,9 @@
 <%= render partial: "investors/modal_form", investor: @investor %>
 <div class="container-fluid" style="margin-top: 58px">
+  <%= link_to "< Back to investors", users_path, { :class=>"back-button" } %>
+  <button type="button" class="edit-button" data-toggle="modal" data-target="#investor-form-modal""> Edit </button>
 	<div class="row page-header">
-		<div class="col-md-12">
-      <button type="button" style="width: 100px ;background: white; float:right" data-toggle="modal" data-target="#investor-form-modal""> Edit </button>
+		<div class="col-md-12" style="padding-left: 0px;">
 			<h2 class="text-left">
 				<%= @investor.name %>
 			</h2> 
@@ -21,7 +22,7 @@
 		<div class="col-md-12">
 			<div class="table-page-header" style="padding-top: 20px">
 				<span style="font-size: 24px; font-weight: 500">Investments</span>
-        <button type="button" style="margin-left: 10px ;background: white; float:right" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
+        <button type="button" class="table-button" style="margin-left: 10px" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
 
         <div class="modal fade" id="addInvestment" tabindex="-1" role="dialog" aria-labelledby="addInvestment" aria-hidden="true">
           <div class="modal-dialog">
