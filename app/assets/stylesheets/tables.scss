@@ -15,3 +15,20 @@
 .back-button {
   float: left; width: 200px;text-align: left; color: #0E77D9;;
 }
+
+.investor-table-container{
+  overflow-x: visible;
+  thead, th{
+    background-color: white !important;
+  }
+  
+}
+.investor-table {
+  border-bottom: none;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px 0 #DBDDDE;
+}
+table.dataTable.no-footer{
+  border-bottom: none !important;
+}

@@ -3,23 +3,15 @@
   <%= link_to "< Back to investors", users_path, { :class=>"back-button" } %>
   <button type="button" class="edit-button" data-toggle="modal" data-target="#investor-form-modal""> Edit </button>
 	<div class="row page-header">
-		<div class="col-md-12" style="padding-left: 0px;">
+		<div class="col-md-12" style="padding-left: 0px;margin-top: 10px">
 			<h2 class="text-left">
-				<%= @investor.name %>
+				<%= @investor.name %> <span style="font-size:14px"> <%= @investor.email%> </span>
 			</h2> 
-      <h5>
-        <%= @investor.investment_entity %>
-      </h5>
-      <div><strong>Email: </strong> <%= @investor.email%> </div>
-      <div><strong>Investments: </strong> <%= @investor.investments.count%> </div>
-      <div><strong>Invested: </strong> <%=  number_to_currency(@investor.total_invested, precision: 0 ) %></div>
-      <div><strong>Created At: </strong> <%= @investor.created_at.strftime("%B %d, %Y") %>  </div>
-      <div><strong>Last Updated At: </strong> <%= @investor.updated_at.strftime("%B %d, %Y") %>  </div>
 		</div>
 		
 	</div>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-9">
 			<div class="table-page-header" style="padding-top: 20px">
 				<span style="font-size: 24px; font-weight: 500">Investments</span>
         <button type="button" class="table-button" style="margin-left: 10px" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
@@ -67,8 +59,8 @@
         </div><!-- /.modal -->
 			</div>
       <% if !@investor&.investments.nil? %>
-        <div class="table-responsive">
-          <table class="investor-table display" id="sortable-table" cellspacing="0" width="100%">
+        <div class="table-responsive investor-table-container">
+          <table class="display investor-table" id="sortable-table" cellspacing="0" width="100%">
             <thead class="thead-default">
               <tr>
                 <th>
@@ -161,6 +153,15 @@
         No Investments on this investor.
       <% end %>
 		</div>
+    <div class="col-md-3">
+      <div class="investor-details-container">
+        <div class="investor-details-header">Details</div>
+        <div class="investor-details-item">Created  <span style="float:right"><%= @investor.created_at.strftime("%B %d, %Y") %></span>  </div>
+        <div class="investor-details-item">Last Updated  <span style="float:right"><%= @investor.updated_at.strftime("%B %d, %Y") %></span>   </div>
+        <div class="investor-details-item">Investments <span style="float:right"><%= @investor.investments.count%></span>  </div>
+        <div class="investor-details-item">Invested <span style="float:right"><%=  number_to_currency(@investor.total_invested, precision: 0 ) %></span> </div>
+      </div>
+    </div>
 	</div>
 </div>
 

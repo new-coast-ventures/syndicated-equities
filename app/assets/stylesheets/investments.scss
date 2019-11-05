@@ -37,20 +37,14 @@
 .investment-mobile-container, .investment-tablet-container{display: none}
 
 
-.investor-table-container{
-  overflow-x: visible;
-  thead{
-    background-color: white;
-  }
+.investor-details-container {
+  height: 216px;	width: 280px;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 2px 4px 0 #DBDDDE; margin-top: 20px;
 }
-.investor-table {
-  border-bottom: none;
-  border-radius: 4px;
-  background-color: #FFFFFF;
-  box-shadow: 0 2px 4px 0 #DBDDDE;
+.investor-details-header {
+  font-size: 18px;	font-weight: bold;	line-height: 22px; padding: 20px 0 16px 20px; 	border-bottom: 1px solid #CFD0D1;
 }
-table.dataTable.no-footer{
-  border-bottom: none !important;
+.investor-details-item{
+  font-size: 14px; padding: 16px 20px 0px 20px;
 }
 
 // Tablet
