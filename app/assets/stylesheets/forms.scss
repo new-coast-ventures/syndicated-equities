@@ -39,7 +39,7 @@ input[type='date'] {
 }
 
 .investor-table-container {
-  background: #FFF;
+  // background: #FFF;
 }
 table.dataTable{
   border-collapse: collapse !important;
@@ -49,14 +49,14 @@ table.dataTable{
   font-size: 12px;
 }
 
-div.dataTables_filter label{
-  width: 70%;
-}
+// div.dataTables_filter label{
+//   width: 70%;
+// }
 
-div.dataTables_filter input{
-  margin-left: 0 !important;
-  width: 100% !important;
-}
+// div.dataTables_filter input{
+//   margin-left: 0 !important;
+//   width: 100% !important;
+// }
 
 .status-dropdown {
   width: 100%;

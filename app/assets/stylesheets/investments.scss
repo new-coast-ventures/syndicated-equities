@@ -37,6 +37,21 @@
 .investment-mobile-container, .investment-tablet-container{display: none}
 
 
+.investor-table-container{
+  overflow-x: visible;
+  thead{
+    background-color: white;
+  }
+}
+.investor-table {
+  border-bottom: none;
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  box-shadow: 0 2px 4px 0 #DBDDDE;
+}
+table.dataTable.no-footer{
+  border-bottom: none !important;
+}
 
 // Tablet
 @media (min-width: 768px) and (max-width: 1024px) {
