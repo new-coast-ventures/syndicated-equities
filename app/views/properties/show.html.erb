@@ -140,7 +140,7 @@
 			<div class="table-page-header">
 				<span style="font-size: 24px; font-weight: 500">Investors</span>
         
-        <button type="button" style="margin-left: 10px ;background: white; float:right" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
+        <button type="button" class="table-button" style="margin-left: 10px ; float:right" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
 
         <div class="modal fade" id="addInvestment" tabindex="-1" role="dialog" aria-labelledby="addInvestment" aria-hidden="true">
           <div class="modal-dialog">
@@ -184,14 +184,14 @@
           </div><!-- /.modal-dialog -->
         </div><!-- /.modal -->
 
-        <button type="button" style="width: 100px ;background: white; float:right" data-toggle="modal" data-target="#investor-import-modal">Import</button>
+        <button type="button" class="table button" style="width: 100px ;background: white; color: #0E77D9; float:right" data-toggle="modal" data-target="#investor-import-modal">Import</button>
 			</div>
     </div>
   </div>
   <% if !@property&.investments.nil? %>
-    <div class="table-responsive">
-      <table class="table investor-table-container display" id="sortable-table" cellspacing="0" width="100%">
-        <thead style="border-collapse: collapse !important">
+    <div class="table-responsive investor-table-container">
+      <table class="investor-table display" id="sortable-table" cellspacing="0" width="100%">
+        <thead style="border-collapse: collapse !important" class="thead-default">
           <tr>
             <th>
               Name
@@ -295,16 +295,15 @@
 <script>
 
   $(document).ready(function() {
-    var table = $('#sortable-table').DataTable({
+    $('#sortable-table').DataTable({
           "dom": 'Bfrtip',
       "buttons": ['copy'],
       "paging": true,
       "info": false,
       "columnDefs": [{ "searchable": false, "targets": [1,3] }],
-      "deferRender" : true,
 			"language": {
 				"zeroRecords": "There are no search results.",
-				searchPlaceholder: "Name or investment entity",
+				searchPlaceholder: "🔍 Name or investment entity",
 				search: "",
 			}
     });
