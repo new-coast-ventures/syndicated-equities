@@ -5,7 +5,7 @@
 	<div class="row page-header">
 		<div class="col-md-12" style="padding-left: 0px;margin-top: 10px">
 			<h2 class="text-left">
-				<%= @investor.name %> <span style="font-size:14px"> <%= @investor.email%> </span>
+				<%= @investor.name %>
 			</h2> 
 		</div>
 		
@@ -156,6 +156,7 @@
     <div class="col-md-3">
       <div class="investor-details-container">
         <div class="investor-details-header">Details</div>
+        <div class="investor-details-item">Email  <span style="float:right"><%= @investor.email %></span>  </div>
         <div class="investor-details-item">Created  <span style="float:right"><%= @investor.created_at.strftime("%B %d, %Y") %></span>  </div>
         <div class="investor-details-item">Last Updated  <span style="float:right"><%= @investor.updated_at.strftime("%B %d, %Y") %></span>   </div>
         <div class="investor-details-item">Investments <span style="float:right"><%= @investor.investments.count%></span>  </div>

@@ -65,8 +65,10 @@ input[type='search']{
 // }
 
 .status-dropdown {
-  width: 100%;
-
+  float: right;
+  .form-group{
+    box-sizing: border-box;	height: 40px;	width: 178px;	border: 1px solid #CFD0D1;	border-radius: 4px;	background-color: #FFFFFF;	box-shadow: 0 2px 4px 0 #DBDDDE;
+  }
   #search-form { 
     float: right;
     margin-right: 1em;
