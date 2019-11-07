@@ -22,7 +22,7 @@
     </div>
     <br>
     <br>
-    <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.name %><span style="font-weight: normal; font-size: 0.6em; margin-left: 25px"><%= @property.address&.city%>, <%= @property.address&.state%></span></h4>
+    <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.name %></h4>
 
 
   <div class="investment-desktop-container">
@@ -88,7 +88,7 @@
         <div class="investment-divider"></div>
         <div class="investment-property-address" style="padding:15px; text-align: right">
           <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @property&.address&.line1 %> <%= @property&.address&.location %>" target="_blank">
-            View More Locations
+            View Maps
           </a>
         </div>
       </div>
