@@ -1,19 +1,20 @@
 <%= render partial: "modal_form" %>
 <div class='table-page-header'>
-  <h5 class="dashboard-title">Properties (<%= @properties.count %> <%= @status.capitalize %>)</h5>
-</div>
-
-
-<div class="table-responsive investor-table-container">
-	<table class="display investor-table"id="sortable-property-table" cellspacing="0" width="100%">
-		<div>
+  <h3 class="dashboard-title">Properties (<%= @properties.count %> <%= @status.capitalize %>)
+		<span>
 			<button type="button" data-toggle="modal" data-target="#property-form-modal" class="table-button"> Add Property</button>
 			<span class='form-container status-dropdown'>	
 				<%= form_tag(properties_path, :method => "get", id: "search-form") do %>	
 					<%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['All Statuses', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
 				<% end %>	
 			</span>
-		</div>
+		</span>
+	</h3>
+</div>
+
+
+<div class="table-responsive investor-table-container" style="margin-top: 60px">
+	<table class="display investor-table"id="sortable-property-table" cellspacing="0" width="100%">
 		<thead class="thead-default">
 			<tr>
 				<th>Property Name</th>
