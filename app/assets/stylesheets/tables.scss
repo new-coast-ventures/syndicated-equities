@@ -36,11 +36,16 @@
 table.dataTable.no-footer{
   border-bottom: none !important;
 }
+.dataTables_paginate{
+  font-size: 14px;
+}
+
 .dataTables_length{
+  font-size: 14px;
   select{
     box-sizing: border-box;
-    height: 40px;
-    width: 178px;
+    height: 35px;
+    width: 50px;
     border: 1px solid #CFD0D1;
     border-radius: 4px;
     background-color: #FFFFFF;
