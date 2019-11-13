@@ -92,7 +92,6 @@ class InvestmentsController < ApplicationController
       mapping = params[:post]
       CSV.foreach(file, headers: true) do |row|
         deal = Deal.find_or_create_by(title: row[mapping["investing_entity"]], property_id: property_id)
-  
         investor_hash = {
           deal_id: deal.id,
           investor_last_name: row[mapping["investor_last_name"]]&.strip,
@@ -101,11 +100,9 @@ class InvestmentsController < ApplicationController
           investing_entity: row[mapping["investing_entity"]]&.strip,
           investor_entity: row[mapping["investor_entity"]]&.strip,
           gross_distribution: row[mapping["gross_distribution"]]&.strip,
-          amount_invested: row[mapping["amount_invested"]]&.strip&.to_i,
+          amount_invested: row[mapping["amount_invested"]]&.strip&.gsub(/\D/,'').to_i,
           user_id: Investment.get_user_id(row, mapping)
         }
-
-        
         Investment.create! investor_hash
       end
       

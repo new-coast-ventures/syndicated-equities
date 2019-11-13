@@ -65,7 +65,7 @@ class Investment < ActiveRecord::Base
         amount_invested: row[mapping["amount_invested"]],
         user_id: get_user_id(row, mapping)
       }
-
+      puts investor_hash
       Investment.create! investor_hash
     end
   rescue => e
