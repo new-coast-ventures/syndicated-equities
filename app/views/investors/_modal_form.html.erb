@@ -22,7 +22,7 @@
 
           <fieldset class="form-group">
             <label>Email<span style="color:red">*</span></label>
-            <%= f.text_field :email, value: @investor.email %>
+            <%= f.text_field :email, value: @investor.email, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
@@ -45,36 +45,36 @@
 
 <script>
 
-  $('input[required]').on('change', function() {
+  $('#investor-form-modal input[required]').on('change', function() {
       console.log('here');
       
-      var empty = false;
-      $('input[required]').each(function() {
+      var investorEmpty = false;
+      $('#investor-form-modal input[required]').each(function() {
           if ($(this).val() == '') {
-              empty = true;
+              investorEmpty = true;
           }
       });
 
-      if (empty) {
-          $('#submit').attr('disabled', 'disabled');
+      if (investorEmpty) {
+          $('#investor-form-modal #submit').attr('disabled', 'disabled');
       } else {
-          $('#submit').removeAttr('disabled');
+          $('#investor-form-modal #submit').removeAttr('disabled');
       }
   });
 
   $(document).ready(function(){
 
-      var empty = false;
-      $('input[required]').each(function() {
+      var investorEmpty = false;
+      $('#investor-form-modal input[required]').each(function() {
           if ($(this).val() == '') {
-              empty = true;
+              investorEmpty = true;
           }
       });
 
-      if (empty) {
-          $('#submit').attr('disabled', 'disabled');
+      if (investorEmpty) {
+          $('#investor-form-modal #submit').attr('disabled', 'disabled');
       } else {
-          $('#submit').removeAttr('disabled');
+          $('#investor-form-modal #submit').removeAttr('disabled');
       }
   });
 </script>

@@ -100,14 +100,14 @@
 			<div class="table-page-header" style="margin-top: 20px">
 				<span style="font-size: 24px; font-weight: 500">Investors</span>
         
-        <button type="button" class="table-button" style="margin-left: 10px ; float:right" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
+        <button type="button" class="table-button" style="margin-left: 10px ; float:right" data-toggle="modal" data-target="#addPropertyInvestment">Add Investment</button>
 
-        <div class="modal fade" id="addInvestment" tabindex="-1" role="dialog" aria-labelledby="addInvestment" aria-hidden="true">
+        <div class="modal fade" id="addPropertyInvestment" tabindex="-1" role="dialog" aria-labelledby="addPropertyInvestment" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content" style="margin-top:100px">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="addInvestment">Add Investment</h4>
+                <h4 class="modal-title" id="addPropertyInvestment">Add Investment</h4>
               </div>
               <div class="modal-body">
                 <%= form_for @investment do |f| %>
@@ -136,7 +136,7 @@
                     <%= f.text_field :gross_distribution %>
                   </fieldset>
 
-                  <%= f.submit class: "btn btn-primary", id: "submit" %>
+                  <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
 
                 <% end %>
               </div>

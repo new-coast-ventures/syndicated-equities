@@ -17,7 +17,7 @@
 
             <fieldset class="form-group">
               <label>Investment Entity<span style="color:red">*</span></label>
-              <%= f.text_field :investing_entity, value: @investment.investing_entity %>
+              <%= f.text_field :investing_entity, value: @investment.investing_entity, , required: true %>
             </fieldset>
 
             <fieldset class="form-group">
@@ -52,25 +52,25 @@
       });
 
       if (empty) {
-          $('#submit').attr('disabled', 'disabled');
+          $('#investment-form-modal #submit').attr('disabled', 'disabled');
       } else {
-          $('#submit').removeAttr('disabled');
+          $('#investment-form-modal #submit').removeAttr('disabled');
       }
   });
 
   $(document).ready(function(){
 
       var empty = false;
-      $('input[required]').each(function() {
+      $('#investment-form-modal input[required]').each(function() {
           if ($(this).val() == '') {
               empty = true;
           }
       });
 
       if (empty) {
-          $('#submit').attr('disabled', 'disabled');
+          $('#investment-form-modal #submit').attr('disabled', 'disabled');
       } else {
-          $('#submit').removeAttr('disabled');
+          $('#investment-form-modal #submit').removeAttr('disabled');
       }
   });
 </script>

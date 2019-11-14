@@ -69,7 +69,7 @@ class PropertiesController < ApplicationController
       address.addressable_type = "Property"
       address.save
     end
-    
+    @investment = Investment.new
     render 'show'
   end
 

@@ -27,7 +27,7 @@
                 <%= form_for @investment do |f| %>
                   <%= f.hidden_field :user_id, value: @investor.id %>
                   <fieldset class="form-group">
-                    <label>Property</label>
+                    <label>Property<span style="color:red">*</span></label>
                     <%= select :property, :id, Property.all.order("name ASC").map {|property| ["#{property.name}", property.id]}, prompt: 'Select Property...', required: true %>
                   </fieldset>
                   <fieldset class="form-group">
@@ -37,7 +37,7 @@
 
                   <fieldset class="form-group">
                     <label>Investment Entity<span style="color:red">*</span></label>
-                    <%= f.text_field :investing_entity %>
+                    <%= f.text_field :investing_entity, required: true %>
                   </fieldset>
 
                   <fieldset class="form-group">
@@ -50,7 +50,7 @@
                     <%= f.text_field :gross_distribution %>
                   </fieldset>
 
-                  <%= f.submit class: "btn btn-primary", id: "submit" %>
+                  <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
 
                 <% end %>
               </div>
@@ -172,5 +172,40 @@
       searching: false,
       paging: true,
     });
+  });
+
+  $('#addInvestment input[required]').on('change', function() {
+    
+    var empty = false;
+    $('#addInvestment input[required]').each(function() {
+        console.log($(this), $(this).val())
+
+        if ($(this).val() == '') {
+            empty = true;
+        }
+    });
+    console.log(empty)
+    if (empty) {
+        $('#addInvestment #submit').attr('disabled', 'disabled');
+    } else {
+        $('#addInvestment #submit').removeAttr('disabled');
+    }
+  });
+
+  $(document).ready(function(){
+
+      var empty = false;
+      $('#addInvestment input[required]').each(function() {
+        console.log($(this))
+          if ($(this).val() == '') {
+              empty = true;
+          }
+      });
+
+      if (empty) {
+          $('#addInvestment #submit').attr('disabled', 'disabled');
+      } else {
+          $('#addInvestment #submit').removeAttr('disabled');
+      }
   });
 </script>
