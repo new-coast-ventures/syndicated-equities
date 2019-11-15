@@ -144,19 +144,21 @@ class Investment < ActiveRecord::Base
     (key&.value || "").to_s.strip.gsub("'", %q(\\\'))
   end
 
-  def self.get_user_id(row, mapping)
-    user_id = User.find_by(email: row[mapping["investor_email"]])&.id
-
-    if !user_id
-      user_id = User.create(
-        email: row[mapping["investor_email"]], 
+  def self.get_user(row, mapping)
+    first_name = row[mapping["investor_first_name"]]&.strip
+    last_name = row[mapping["investor_last_name"]]&.strip
+    email = row[mapping["investor_email"]] ? row[mapping["investor_email"]] : "#{first_name}_#{last_name}#{rand(1000)}@syndicatedequities.com"
+    user = User.find_by(email: email)
+    if !user
+      user = User.create(
+        email: email, 
         password: "Se1#{SecureRandom.base64(8)}",
-        first_name: row[mapping["investor_first_name"]]&.strip,
-        last_name: row[mapping["investor_last_name"]]&.strip
-      ).id
+        first_name: first_name,
+        last_name: last_name
+      )
     end
 
-    user_id
+    user
   end
 
   def self.create_temp_csv(file)
