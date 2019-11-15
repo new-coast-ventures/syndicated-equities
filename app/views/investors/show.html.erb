@@ -28,7 +28,7 @@
                   <%= f.hidden_field :user_id, value: @investor.id %>
                   <fieldset class="form-group">
                     <label>Property<span style="color:red">*</span></label>
-                    <%= select :property, :id, Property.all.order("name ASC").map {|property| ["#{property.name}", property.id]}, prompt: 'Select Property...', required: true %>
+                    <%= select :property, :id, Property.all.order("name ASC").map {|property| ["#{property.list_name}", property.id]}, prompt: 'Select Property...', required: true %>
                   </fieldset>
                   <fieldset class="form-group">
                     <label>Investor Entity<span style="color:red">*</span></label>
@@ -89,7 +89,7 @@
                 <tr class="investor-table">
                   <td>
                     <% if invst&.deal&.property&.id %>
-                      <%= link_to "#{invst&.deal&.property&.name}", property_path(invst&.deal&.property&.id) %>
+                      <%= link_to "#{invst&.deal&.property&.list_name}", property_path(invst&.deal&.property&.id) %>
                     <% end %>
                   </td>
                   <td>

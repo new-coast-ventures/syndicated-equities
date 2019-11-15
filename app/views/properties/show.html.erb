@@ -22,7 +22,7 @@
     </div>
     <br>
     <br>
-    <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.name %></h4>
+    <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.list_name %></h4>
 
 
   <div class="investment-desktop-container">
@@ -71,6 +71,8 @@
       </div>
       <div class="row" style="margin-bottom: 15px">
         <div class="col-sm-6">
+          <div class='col-sm-6' style="text-align: left">Property Legal Name</div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= @property.name %></strong></div>
         </div>
         <div class="col-sm-6">
           <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
