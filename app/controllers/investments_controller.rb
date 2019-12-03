@@ -113,7 +113,7 @@ class InvestmentsController < ApplicationController
       redirect_to property_path(params[:property_id])
     rescue => e  
       puts "ERROR:: #{e}"
-      flash[:alert] = "Invalid file format."
+      # flash[:alert] = "Invalid file format."
       redirect_to property_path(params[:property_id])
     end
   end
