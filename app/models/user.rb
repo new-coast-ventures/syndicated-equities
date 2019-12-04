@@ -40,6 +40,10 @@ class User < ActiveRecord::Base
     investments.pluck(:investing_entity).uniq.join(", <br>").html_safe
   end
 
+  def investor_entity
+    investments.pluck(:investor_entity).uniq.join(", <br>").html_safe
+  end
+
   def total_invested
     investments.inject(0) { |sum, i| sum + i.amount_invested }
   end
