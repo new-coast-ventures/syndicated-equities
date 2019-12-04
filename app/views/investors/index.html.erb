@@ -21,7 +21,7 @@
           <tr>
             <td><%= link_to investor.name.strip, investor_show_path(investor.id) %></td>
             <td><%= investor.email %></td>
-            <td><%= investor.investment_entity %></td>
+            <td><%= investor.investor_entity %></td>
             <td><%= investor.investments.count %></td>
             <td><%= number_to_currency(investor.total_invested, precision: 0) %></td>
           </tr>
