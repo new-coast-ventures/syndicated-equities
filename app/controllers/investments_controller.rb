@@ -99,7 +99,7 @@ class InvestmentsController < ApplicationController
           investor_first_name: row[mapping["investor_first_name"]]&.strip,
           investing_entity: row[mapping["investing_entity"]]&.strip,
           investor_entity: row[mapping["investor_entity"]]&.strip,
-          gross_distribution: row[mapping["gross_distribution"]]&.strip,
+          gross_distribution: row[mapping["gross_distribution"]]&.strip&.gsub(/[^\d\.]/, ''),
           amount_invested: row[mapping["amount_invested"]]&.strip&.gsub(/[^\d\.]/, '').to_i,
           user_id: user.id,
           investor_email: user.email
