@@ -34,6 +34,14 @@ class Property < ActiveRecord::Base
     self.nickname ? self.nickname : self.name
   end
 
+  def total_gross_distribution
+    total = 0
+    self.investments.pluck(:gross_distribution).each do |gross|
+      total += gross.to_i
+    end
+    total
+  end
+
   def return_on_equity
     begin
       if !self.gross_distributions.blank? && !self.equity_multiple.blank?

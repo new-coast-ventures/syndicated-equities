@@ -56,7 +56,7 @@
         </div>
         <div class="col-sm-6">
           <div class='col-sm-6' style="text-align: left">Gross Distributions</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property.gross_distributions, precision: 0) || 'N/A' %></strong></div>
+          <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property.total_gross_distribution, precision: 0) || 'N/A' %></strong></div>
         </div>
       </div>
       <div class="row">
@@ -64,20 +64,24 @@
           <div class='col-sm-6' style="text-align: left">Status</div>
           <div class='col-sm-6' style="text-align: right"><strong><%= @property.status&.humanize %></strong></div>
         </div>
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong></div>
-        </div>
+        <% if !@property.internal_rate_of_return.blank? %>
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong></div>
+          </div>
+        <% end %>
       </div>
       <div class="row" style="margin-bottom: 15px">
         <div class="col-sm-6">
           <div class='col-sm-6' style="text-align: left">Property Legal Name</div>
           <div class='col-sm-6' style="text-align: right"><strong><%= @property.name %></strong></div>
         </div>
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
-        </div>
+        <% if !@property.equity_multiple.blank? %>
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
+          </div>
+        <% end %>
       </div>              
     </div>
     <div class="col-md-4" style="padding-left: 15px">
@@ -202,7 +206,7 @@
                 <%= number_to_currency(invst.amount_invested, precision: 0) %>
               </td>
               <td>
-                <%= invst&.gross_distribution %>
+                <%= number_to_currency(invst&.gross_distribution, precision: 0) %>
               </td>
               <td>
                 <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{invst.id}", 'data-toggle' => 'modal'  %>
