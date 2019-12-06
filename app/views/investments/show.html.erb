@@ -2,7 +2,7 @@
 <div class="container">
   <div class="investment-mobile-container">
     <div class="row">
-      <% if @investment&.deal&.property&.avatar&.attachment  %>
+      <% if @investment&.deal&.property&.avatar %>
         <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
       <% else %>
         <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
