@@ -49,7 +49,7 @@
       <b>Total</b>
     </div>
     <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
-      <%= number_to_currency(@property_investments.pluck(:gross_distribution).sum, precision: 0) %>
+      <%= number_to_currency(Investment.total_gross_distribution(@property_investments.pluck(:gross_distribution)), precision: 0) %>
     </div>
   </div>
   <div class="grey-divider" style="margin: 15px"></div>

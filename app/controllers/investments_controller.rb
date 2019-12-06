@@ -59,6 +59,7 @@ class InvestmentsController < ApplicationController
     @investment = Investment.find_by(id: params[:id])
     @property_investments = Property.find(@investment&.deal&.property&.id).investments.where(user_id: current_user.id)
     if @investment && current_user && @investment.investor == current_user || current_user.admin?
+      byebug
       render 'show'
     else
       flash[:alert] = 'Not authorized'

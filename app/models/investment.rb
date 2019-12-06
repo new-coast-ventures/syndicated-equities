@@ -164,4 +164,12 @@ class Investment < ActiveRecord::Base
   def self.create_temp_csv(file)
     FileUtils.cp(file, "lib/imports")
   end
+
+  def self.total_gross_distribution(gross_distributions)
+    total = 0
+    gross_distributions.each do |gross|
+      total += gross.to_i
+    end
+    total
+  end
 end
