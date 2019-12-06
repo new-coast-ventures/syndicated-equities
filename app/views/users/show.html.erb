@@ -23,7 +23,7 @@
             <div class='card-padding investor-card-address'>
               <% if investment.deal.property %>
                 <div class="investor-card-name">
-                  <%= link_to "#{investment&.deal&.property&.name}", investment_path(investment.id) %>
+                  <%= link_to "#{investment&.deal&.property&.nickname}", investment_path(investment.id) %>
                 </div>
                 <%if investment&.deal&.property&.address%>
                 <p class="investment-property-address">
