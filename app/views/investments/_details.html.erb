@@ -7,7 +7,7 @@
       Investment Type
     </div>
     <div class="col-xs-6" style="text-align:right; font-weight: bold">
-      <%= @investment&.deal&.property&.property_type&.capitalize %>
+      <%= @investment&.deal&.property&.property_type&.humanize.titleize %>
     </div>
   </div>
   <div class="grey-divider" style="margin-bottom: 15px"></div>
