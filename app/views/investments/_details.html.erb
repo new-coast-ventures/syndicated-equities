@@ -1,4 +1,4 @@
-<div style="padding-left: 15px">
+<div class='details-container'>
   <div class="row card investor-card-container">
   <h5 class="show-investment-card-title">Investment Details</h5>
   <div class="investment-divider" style="margin-bottom: 15px"></div>
@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="grey-divider" style="margin-bottom: 15px"></div>
-  <div class="row" style="margin: 0 15px">
+  <div class="row row-margin">
     <p class="investment-section-title">
       INVESTOR EQUITY
     </p>
@@ -23,6 +23,8 @@
         <%= number_to_currency(investment.amount_invested, precision: 0) %>
       </div>
     <% end %>
+  </div>
+  <div class="row row-margin">
     <div class="col-xs-6 no-padding" style="margin-top: 10px">
       <b>Total</b>
     </div>
@@ -30,8 +32,8 @@
       <%= number_to_currency(@property_investments.pluck(:amount_invested).sum, precision: 0) %>
     </div>
   </div>
-  <div class="grey-divider" style="margin: 15px"></div>
-  <div class="row" style="margin: 0 15px">
+  <div class="grey-divider"></div>
+  <div class="row row-margin">
     <p class="investment-section-title">
       GROSS DISTRIBUTIONS
     </p>
@@ -45,6 +47,8 @@
         $0.00
       <% end %>
     </div>
+  </div>
+  <div class="row row-margin">
     <div class="col-xs-6 no-padding" style="margin-top: 10px">
       <b>Total</b>
     </div>
@@ -52,8 +56,8 @@
       <%= number_to_currency(Investment.total_gross_distribution(@property_investments.pluck(:gross_distribution)), precision: 0) %>
     </div>
   </div>
-  <div class="grey-divider" style="margin: 15px"></div>
-  <div class="row" style="margin: 0 15px; padding-bottom: 15px">
+  <div class="grey-divider"></div>
+  <div class="row row-margin" style="padding-bottom: 15px">
     <p class="investment-section-title">
       CAPITAL OUTSTANDING
     </p>
@@ -65,6 +69,8 @@
         <%= number_to_currency((investment.amount_invested.to_i - @investment&.deal&.property&.gross_distributions.to_i), precision: 0) %>
       </div>
     <% end %>
+  </div>
+  <div class="row row-margin" style="margin-bottom: 20px">
     <div class="col-xs-6 no-padding" style="margin-top: 10px">
       <b>Total</b>
     </div>
@@ -74,11 +80,9 @@
   </div>
 </div>
 </div>
-<div style="padding-left: 15px">
 <div class="row card investor-card-container">
   <h5 class="show-investment-card-title">Investment Summary</h5>
   <p>
     <%= @investment&.deal&.property&.description %>
   </p>
-</div>
 </div>
