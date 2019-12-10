@@ -39,6 +39,7 @@ RailsAdmin.config do |config|
     edit
     delete
     show_in_app
+    become_user   # Add the clone action
 
     ## With an audit adapter, you can add:
     # history_index
