@@ -9,8 +9,8 @@
   .investor-card-container{
     margin-top: 20px;
     box-shadow: none !important;
-    background-color: transparent; 
     margin-right: 0;
+    padding: 20px;
   }
   .details-container {
     padding-left: 0px;
@@ -28,11 +28,18 @@
 
 // tablet
 @media (min-width: 768px) and (max-width: 1024px) {
-  .investor-card-container{
+  .investor-card-container, .location-container{
     margin-top: 20px;
     box-shadow: none !important;
-    background-color: transparent; 
     margin-right: 0;
+    padding: 20px;
+    border: none;
+  }
+  .investor-card-container{
+    margin-left: -15px;
+  }
+  .info-cards {
+    margin-left: 0px;
   }
   .details-container {
     padding-left: 0px;
@@ -46,4 +53,5 @@
       margin: 10px 0;
     }
   }
+
 }
