@@ -34,7 +34,7 @@
 					<td><%= prop&.address&.city %></td>
 					<td><%= prop&.address&.state %></td>
 					<td><%= number_to_currency(prop&.deal_equity, precision: 0) %></td>
-					<td><%= prop&.property_type&.humanize %></td>
+					<td><%= prop&.property_type&.humanize&.titleize %></td>
 					<td><%= prop&.closing_date&.strftime("%m-%d-%Y") %></td>
 					<td><%= prop&.sale_date&.strftime("%m-%d-%Y") %></td>
 					<td><%= prop&.status&.capitalize %></td>
