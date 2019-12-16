@@ -24,6 +24,8 @@
   font-weight: bolder;
   margin-bottom: 5px;
   font-size: 1.1em;
+  padding-top: 12px;
+  // min-height: 75px;
 }
 
 .investment-property-address {
@@ -69,7 +71,13 @@
 .card .investor-card-container:nth-child(3n+3) { margin-right: 0; }
 
 .investor-card-address{
-  // height: 4em;
+  min-height: 135px;
+}
+
+.investment-button{
+  margin-left: 30%;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .status-tag {

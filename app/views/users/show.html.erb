@@ -6,19 +6,10 @@
       <% @investments.each do |investment| %>
         <div class="col-lg-4 col-md-6" >
           <div class="card investor-card-container">
-            <% if investment&.deal&.property&.avatar&.attached? %>
-              <%= link_to investment_path(investment.id) do %>
-                <%= image_tag url_for(investment&.deal&.property&.avatar.attachment), alt: "Property Image", class: 'investor-card-image' %>
-              <% end %>
+             <% if investment&.deal&.property&.avatar&.attached? %>
+              <div style="background-image: url(<%= asset_url(investment&.deal&.property&.avatar.attachment) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0"></div>
             <% else %>
-              <%= link_to investment_path(investment.id) do %>
-                <%
-=begin%>
- <div class="status-tag">ACTIVE</div> 
-<%
-=end%>
-                <%= image_tag asset_url('empty_property_image.png'), class: 'investor-card-image' %>
-              <% end %>
+              <div style="background-image: url(<%= asset_url('empty-property-image.png') %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0"></div>
             <% end %>
             <div class='card-padding investor-card-address'>
               <% if investment.deal.property %>
@@ -61,6 +52,11 @@
                     <% end %>
                   </p>
                 </div>
+              </div>
+              <div>
+                <form action="<%= investment_path(investment.id) %>">
+                  <button class="btn btn-primary investment-button" type="submit">View Details</button>
+                </form>
               </div>
             </div>
           </div>

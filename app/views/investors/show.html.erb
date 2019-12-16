@@ -10,8 +10,20 @@
 		</div>
 		
 	</div>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="investor-details-container">
+        <div class="investor-details-header">Details</div>
+        <div class="investor-details-item">Email  <span style="float:right"><%= @investor.email %></span>  </div>
+        <div class="investor-details-item">Created  <span style="float:right"><%= @investor.created_at.strftime("%B %d, %Y") %></span>  </div>
+        <div class="investor-details-item">Last Updated  <span style="float:right"><%= @investor.updated_at.strftime("%B %d, %Y") %></span>   </div>
+        <div class="investor-details-item">Investments <span style="float:right"><%= @investor.investments.count%></span>  </div>
+        <div class="investor-details-item">Invested <span style="float:right"><%=  number_to_currency(@investor.total_invested, precision: 0 ) %></span> </div>
+      </div>
+    </div>
+  </div>
 	<div class="row" style="padding-top: 20px">
-		<div class="col-md-9">
+		<div class="col-md-12">
 			<div class="table-page-header" style="padding-top: 20px">
 				<span style="font-size: 24px; font-weight: 500">Investments</span>
         <button type="button" class="table-button" style="margin-left: 10px" data-toggle="modal" data-target="#addInvestment">Add Investment</button>
@@ -76,6 +88,9 @@
                   Investment
                 </th>
                 <th>
+                  Gross Distributions
+                </th>
+                <th>
                   Closing Date
                 </th>
                 <th>
@@ -100,6 +115,9 @@
                   </td>
                   <td>
                     <%= number_to_currency(invst.amount_invested, precision: 0) %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(invst.gross_distribution, precision: 0) %>
                   </td>
                   <td>
                     <%= invst&.deal&.property&.closing_date&.strftime("%B %d, %Y") %>
@@ -153,16 +171,6 @@
         No Investments on this investor.
       <% end %>
 		</div>
-    <div class="col-md-3">
-      <div class="investor-details-container">
-        <div class="investor-details-header">Details</div>
-        <div class="investor-details-item">Email  <span style="float:right"><%= @investor.email %></span>  </div>
-        <div class="investor-details-item">Created  <span style="float:right"><%= @investor.created_at.strftime("%B %d, %Y") %></span>  </div>
-        <div class="investor-details-item">Last Updated  <span style="float:right"><%= @investor.updated_at.strftime("%B %d, %Y") %></span>   </div>
-        <div class="investor-details-item">Investments <span style="float:right"><%= @investor.investments.count%></span>  </div>
-        <div class="investor-details-item">Invested <span style="float:right"><%=  number_to_currency(@investor.total_invested, precision: 0 ) %></span> </div>
-      </div>
-    </div>
 	</div>
 </div>
 
