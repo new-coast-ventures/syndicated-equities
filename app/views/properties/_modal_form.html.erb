@@ -77,7 +77,7 @@
 
           <fieldset class="form-group">
             <label>Property Description</label>
-            <%= f.text_area :description, value: @property&.description %>
+            <%= f.text_area :description, value: @property&.description&.html_safe, :class => "tinymce"  %>
           </fieldset>
          
           <fieldset class="form-group">
@@ -124,7 +124,7 @@
     </div>
   </div>
 </div>
-
+<%= tinymce %>
 <script>
 
   $('#property-form-modal input[required]').on('change', function() {

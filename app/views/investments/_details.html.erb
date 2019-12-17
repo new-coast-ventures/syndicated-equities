@@ -82,7 +82,8 @@
 </div>
 <div class="card investor-card-container">
   <h5 class="show-investment-card-title">Investment Summary</h5>
-  <p>
-    <%= @investment&.deal&.property&.description %>
-  </p>
+  <div class="grey-divider"></div>
+  <div style="padding: 15px">
+    <%= @investment&.deal&.property&.description&.html_safe %>
+  </div>
 </div>
