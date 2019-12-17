@@ -7,7 +7,7 @@
         <div class="col-lg-4 col-md-6" >
           <div class="card investor-card-container">
              <% if investment&.deal&.property&.avatar&.attached? %>
-              <div style="background-image: url(<%= asset_url(investment&.deal&.property&.avatar.attachment) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0"></div>
+              <div style="background-image: url(<%= rails_blob_url(investment&.deal&.property&.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0"></div>
             <% else %>
               <div style="background-image: url(<%= asset_url('empty-property-image.png') %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0"></div>
             <% end %>
