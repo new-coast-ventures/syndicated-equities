@@ -2,9 +2,14 @@ default:
   plugins:
     - image
     - link
+    - lists
+    - advlist
+  toolbar: bold italic underline | fontsizeselect | alignleft aligncenter alignright alignjustify | numlist bullist 
 
 alternate:
   selector: textarea.table-editor
-  toolbar: styleselect | bold italic | undo redo | table
+  toolbar: styleselect | bold italic underline | undo redo | table | numlist bullist
   plugins:
     - table
+    - lists
+    - advlist
