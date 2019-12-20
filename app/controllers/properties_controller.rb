@@ -25,6 +25,7 @@ class PropertiesController < ApplicationController
     @property = Property.find(params[:id])
 
     @investment = Investment.new
+    @note = Note.new
 
     if @property && current_user
       render 'show'

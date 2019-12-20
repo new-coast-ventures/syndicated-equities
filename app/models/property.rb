@@ -6,6 +6,7 @@ class Property < ActiveRecord::Base
   has_one  :address, as: :addressable, dependent: :destroy
   has_many :forms, as: :owner, dependent: :destroy
   has_many :deals
+  has_many :notes
   has_many :investments, through: :deals
 
   PROPERTY_TYPE_OPTIONS = {government: 'government', hospitality: 'hospitality', industrial: 'industrial', medical: 'medical', multifamily: 'multifamily', office: 'office', parking: 'parking', retail: 'retail', student_housing: 'student housing}'}

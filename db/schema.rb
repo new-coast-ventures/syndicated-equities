@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_28_201048) do
+ActiveRecord::Schema.define(version: 2019_12_20_163152) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -102,6 +102,8 @@ ActiveRecord::Schema.define(version: 2019_08_28_201048) do
     t.string "document_content_type"
     t.integer "document_file_size"
     t.datetime "document_updated_at"
+    t.bigint "property_id"
+    t.index ["property_id"], name: "index_notes_on_property_id"
   end
 
   create_table "properties", id: :serial, force: :cascade do |t|
@@ -143,4 +145,5 @@ ActiveRecord::Schema.define(version: 2019_08_28_201048) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "deals", "properties"
+  add_foreign_key "notes", "properties"
 end

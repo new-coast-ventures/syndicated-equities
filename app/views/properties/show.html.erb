@@ -1,4 +1,5 @@
 <%= render partial: "modal_form", property: @property %>
+<%= render partial: "/notes/modal_form", note: @note, property: @property %>
 <div id="investment-form-modal"></div>
 
 <div class="container-fluid" style="margin-top: 38px">
@@ -25,63 +26,70 @@
     <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.list_name %></h4>
 
   <div class="investment-desktop-container">
-    <div class="card investor-card-container col-md-8" style="font-size: 0.8em; line-height: 2.5em">
-      <h5 class="show-investment-card-title">Details</h5>
-      <div class="investment-divider" style="margin-bottom: 15px"></div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Created</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.created_at.strftime("%m/%d/%y") %></strong></div>
-        </div>
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Closing Date</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.closing_date&.strftime("%m/%d/%y") %></strong></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Updated</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.updated_at.strftime("%m/%d/%y") %></strong></div>
-        </div>
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Investor Equity</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property&.deal_equity, precision: 0) %></strong></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Property Type</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property&.property_type&.humanize&.titleize %></strong></div>
-        </div>
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Gross Distributions</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property.total_gross_distribution, precision: 0) || 'N/A' %></strong></div>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Status</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.status&.humanize %></strong></div>
-        </div>
-        <% if !@property.internal_rate_of_return.blank? %>
+    <div class="col-md-8" style="font-size: 0.8em; line-height: 2.5em; padding:0;">
+      <div class="card investor-card-container">
+        <h5 class="show-investment-card-title">Details</h5>
+        <div class="investment-divider" style="margin-bottom: 15px"></div>
+        <div class="row">
           <div class="col-sm-6">
-            <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong></div>
+            <div class='col-sm-6' style="text-align: left">Created</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property.created_at.strftime("%m/%d/%y") %></strong></div>
           </div>
-        <% end %>
-      </div>
-      <div class="row" style="margin-bottom: 15px">
-        <div class="col-sm-6">
-          <div class='col-sm-6' style="text-align: left">Property Legal Name</div>
-          <div class='col-sm-6' style="text-align: right"><strong><%= @property.name %></strong></div>
-        </div>
-        <% if !@property.equity_multiple.blank? %>
           <div class="col-sm-6">
-            <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
+            <div class='col-sm-6' style="text-align: left">Closing Date</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property.closing_date&.strftime("%m/%d/%y") %></strong></div>
           </div>
-        <% end %>
-      </div>              
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Updated</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property.updated_at.strftime("%m/%d/%y") %></strong></div>
+          </div>
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Investor Equity</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property&.deal_equity, precision: 0) %></strong></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Property Type</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property&.property_type&.humanize&.titleize %></strong></div>
+          </div>
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Gross Distributions</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property.total_gross_distribution, precision: 0) || 'N/A' %></strong></div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Status</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property.status&.humanize %></strong></div>
+          </div>
+          <% if !@property.internal_rate_of_return.blank? %>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
+              <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong></div>
+            </div>
+          <% end %>
+        </div>
+        <div class="row" style="margin-bottom: 15px">
+          <div class="col-sm-6">
+            <div class='col-sm-6' style="text-align: left">Property Legal Name</div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= @property.name %></strong></div>
+          </div>
+          <% if !@property.equity_multiple.blank? %>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
+              <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
+            </div>
+          <% end %>
+        </div>
+      </div>
+      <div class="card investor-card-container">
+        <h5 class="show-investment-card-title">Description</h5>
+        <div class="investment-divider" style="margin-bottom: 15px"></div>
+        <div style="padding: 0 15px"><%= @property&.description&.html_safe %></div>              
+      </div>
     </div>
     <div class="col-md-4" style="padding-left: 15px">
       <div class="card investor-card-container">
@@ -98,12 +106,29 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="investment-desktop-container">
-    <div class="card investor-card-container col-md-8" style="font-size: 0.8em; line-height: 2.5em">
-      <h5 class="show-investment-card-title">Description</h5>
-      <div class="investment-divider" style="margin-bottom: 15px"></div>
-      <div style="padding: 0 15px"><%= @property&.description&.html_safe %></div>
+    <div class="col-md-4" style="padding-left: 15px">
+      <div class="card investor-card-container notes-card">
+        <button type="button" class="table button" style="width: 50px ;background: transparent; color: #0E77D9; padding:15px; padding-right: 40px" data-toggle="modal" data-target="#note-form-modal"> Add </button>
+        <h5 class="show-investment-card-title">Notes & Updates</h5>
+        <div class="investment-divider"></div>
+        <% if !@property.notes.empty? %>
+          <% @property&.notes.each do |note| %>
+            <div class="property-note-container">
+              <div class="note-title">
+                <%= note.title %> <span><%= note.created_at.to_formatted_s(:long_ordinal) %></span>
+              </div>          
+              <div class="note-preview">
+                <%= note.content %>
+              </div>          
+              <div class="note-options">
+                <%= link_to "View" %> | <%= link_to "Edit" %> | <%= link_to "Delete" %>
+              </div>          
+            </div>
+          <% end %>
+        <% else %>
+          <div class='col-sm-12' style="text-align: left">There are currently no notes.</div>
+        <% end %>
+      </div>
     </div>
   </div>
 
