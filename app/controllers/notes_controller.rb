@@ -13,6 +13,19 @@ class NotesController < ApplicationController
     redirect_back(fallback_location: root_path)
   end
 
+  def update
+    note = Note.find(params[:id])
+    note.update(note_params)
+    
+    redirect_back(fallback_location: root_path)
+  end
+
+  def destroy
+    Note.find(params['id']).destroy
+    
+    redirect_back(fallback_location: root_path)
+  end
+
   # ----------------------------------------------
   # SHOW -----------------------------------------
   # ----------------------------------------------

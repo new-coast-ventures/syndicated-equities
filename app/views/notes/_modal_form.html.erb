@@ -5,7 +5,7 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h5 class="modal-title" id="noteForm"><% if @note.title %>Edit <%= @note.tite %><% else %>New Note<% end %></h5>
+        <h5 class="modal-title" id="noteForm">New Note</h5>
       </div>
       <div class="modal-body">
         <% if @note %>
@@ -18,7 +18,7 @@
 
             <fieldset class="form-group">
               <label>Content<span style="color:red">*</span></label>
-              <%= f.text_field :content, value: @note.content, required: true %>
+              <%= f.text_area :content, :class => "tinymce" %>
             </fieldset>
 
             <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
