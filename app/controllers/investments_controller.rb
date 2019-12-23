@@ -57,7 +57,9 @@ class InvestmentsController < ApplicationController
 
   def show
     @investment = Investment.find_by(id: params[:id])
-    @property_investments = Property.find(@investment&.deal&.property&.id).investments.where(user_id: current_user.id)
+    prop = Property.find(@investment&.deal&.property&.id)
+    @property_investments = prop.investments.where(user_id: current_user.id)
+    @property_notes = prop&.notes
     if @investment && current_user && @investment.investor == current_user || current_user.admin?
       render 'show'
     else
@@ -65,6 +67,7 @@ class InvestmentsController < ApplicationController
       redirect_to main_app.root_path
     end
   rescue => e  
+    puts "%%%%%%%%%%%%%%%%%%#{e}%%%%%%%%%%%%%%%%%%%%%%%%"
     flash[:alert] = 'Sorry, that investment is not available.'
     redirect_to main_app.root_path
   end
