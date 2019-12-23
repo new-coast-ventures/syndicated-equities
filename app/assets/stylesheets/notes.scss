@@ -9,3 +9,12 @@
   padding: 15px;
   padding-bottom: 0px;
 }
+
+.note-preview {
+   p{
+     width: 100%;
+     white-space: nowrap;
+     overflow: hidden;
+     text-overflow: ellipsis;
+   }
+}

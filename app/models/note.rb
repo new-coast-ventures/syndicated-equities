@@ -7,7 +7,7 @@ class Note < ActiveRecord::Base
   
   # has_attached_file :document
 
-  validates_presence_of :deal
+  # validates_presence_of :deal
   # validates_presence_of :property
   validates_presence_of :title
   validates_presence_of :content

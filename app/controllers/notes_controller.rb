@@ -14,9 +14,13 @@ class NotesController < ApplicationController
   end
 
   def update
-    note = Note.find(params[:id])
-    note.update(note_params)
-    
+    begin
+      note = Note.find(params[:id])
+      note.update!(note_params)
+    rescue => e 
+      flash[:alert] = 'We were unable to update the Note. Please try again.'
+      puts "%%%%%%%%%% #{e} %%%%%%%%%%%%%%%%%"
+    end
     redirect_back(fallback_location: root_path)
   end
 
