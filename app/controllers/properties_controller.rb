@@ -26,6 +26,7 @@ class PropertiesController < ApplicationController
 
     @investment = Investment.new
     @note = Note.new
+    @doc = Form.new
 
     if @property && current_user
       render 'show'

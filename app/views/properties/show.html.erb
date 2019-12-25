@@ -1,5 +1,6 @@
 <%= render partial: "modal_form", property: @property %>
 <%= render partial: "/notes/modal_form", note: @note, property: @property %>
+<%= render partial: "/forms/modal_form", doc: @doc, property: @property %>
 <div id="investment-form-modal"></div>
 
 <div class="container-fluid" style="margin-top: 38px">
@@ -26,6 +27,7 @@
     <h4 style="font-weight: bolder; margin-bottom: 25px"><%= @property.list_name %></h4>
 
   <div class="investment-desktop-container">
+    <%# Details Container %>
     <div class="col-md-8" style="font-size: 0.8em; line-height: 2.5em; padding:0;">
       <div class="card investor-card-container">
         <h5 class="show-investment-card-title">Details</h5>
@@ -91,6 +93,8 @@
         <div style="padding: 0 15px"><%= @property&.description&.html_safe %></div>              
       </div>
     </div>
+
+    <%# Locations Container %>
     <div class="col-md-4" style="padding-left: 15px">
       <div class="card investor-card-container">
         <h5 class="show-investment-card-title">Locations</h5>
@@ -106,6 +110,8 @@
         </div>
       </div>
     </div>
+    
+    <%# Notes Container %>
     <div class="col-md-4" style="padding-left: 15px">
       <div class="card investor-card-container notes-card">
         <button type="button" class="table button" style="width: 50px ;background: transparent; color: #0E77D9; padding:15px; padding-right: 40px" data-toggle="modal" data-target="#note-form-modal"> Add </button>
@@ -173,9 +179,88 @@
         <% end %>
       </div>
     </div>
+
+    <%# Document Container %>
+    <div class="col-md-12" style="padding-left: 0px">
+      <div class="card investor-card-container notes-card">
+        <button type="button" class="table button" style="width: 150px ;background: transparent; color: #0E77D9; padding:15px" data-toggle="modal" data-target="#docu-form-modal">Add Document</button>
+        <h5 class="show-investment-card-title">Documents</h5>
+        <div class="investment-divider"></div>
+        <% if !@property.forms.empty? %>
+          <% @property&.forms.order(updated_at: :desc).each do |form| %>
+            <div class="property-note-container">
+              <table>
+                <tr>
+                  <td>
+                    <%= form.title %>
+                  </td>
+                  <td>
+                    <%= link_to "Download/View" %>
+                  </td>
+                  <td>
+                    <%= link_to "Edit" %>
+                  </td>
+                  <td>
+                    <%= link_to "Delete" %>
+                  </td>
+                </tr>
+              </table>         
+              <div class="note-options">
+                <%= link_to 'View',  '#', 'data-target' => "#myFormModal_#{form.id}", 'data-toggle' => 'modal'  %>
+                <div class="modal fade" id='<%= "myFormModal_#{form.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content" style="margin-top:100px">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myFormModalLabel"><%= form.title %></h4>
+                      </div>
+                      <div class="modal-body">
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->  
+                | 
+                <%= link_to 'Edit',  '#', 'data-target' => "#myFormEditModal_#{form.id}", 'data-toggle' => 'modal'  %>
+                <div class="modal fade" id='<%= "myFormEditModal_#{form.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myFormModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content" style="margin-top:100px">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Update Document</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= form_for form do |f| %>
+                          <%= f.hidden_field :property_id, value: @property.id %> 
+                          <fieldset class="form-group">
+                            <label>Title<span style="color:red">*</span></label>
+                            <%= f.text_field :title, value: form.title, required: true %>
+                          </fieldset>
+
+                          <fieldset class="form-group">
+                            <label>Document<span style="color:red">*</span></label>
+                            <%= f.file_field :document, value: form.document,  required: true %>
+                          </fieldset>
+
+                          <%= f.submit class: "btn btn-primary", id: "submit" %>
+                        <% end %>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal --> 
+                | 
+                <%= link_to "Delete", form_path(form.id), :method => :delete, data: {confirm: "Are you sure you want to delete this document?"} %>
+              </div>          
+            </div>
+          <% end %>
+        <% else %>
+          <div class="investment-property-address" style="text-align: center; padding: 15px; color: #ccc">No Documents</div>
+        <% end %>
+      </div>
+    </div>
   </div>
   <%= tinymce %>
 
+  <%# Investor Section %>
 	<div class="row">
 		<div class="col-md-12">
 			<div class="table-page-header" style="margin-top: 20px">

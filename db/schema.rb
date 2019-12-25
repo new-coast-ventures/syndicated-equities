@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_20_163152) do
+ActiveRecord::Schema.define(version: 2019_12_23_190254) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -72,6 +72,8 @@ ActiveRecord::Schema.define(version: 2019_12_20_163152) do
     t.datetime "updated_at", null: false
     t.boolean "generic", default: false
     t.string "owner_type"
+    t.bigint "property_id"
+    t.index ["property_id"], name: "index_forms_on_property_id"
   end
 
   create_table "investments", id: :serial, force: :cascade do |t|
@@ -145,5 +147,6 @@ ActiveRecord::Schema.define(version: 2019_12_20_163152) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "deals", "properties"
+  add_foreign_key "forms", "properties"
   add_foreign_key "notes", "properties"
 end

@@ -19,7 +19,7 @@
 require 'simplecov'
 SimpleCov.start
 require 'capybara/rspec'
-require 'paperclip/matchers'
+# require 'paperclip/matchers'
 require 'factory_girl_rails'
 require 'support/factory_girl'
 RSpec.configure do |config|

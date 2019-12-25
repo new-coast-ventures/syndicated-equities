@@ -4,7 +4,7 @@ class Property < ActiveRecord::Base
   include Filterable
 
   has_one  :address, as: :addressable, dependent: :destroy
-  has_many :forms, as: :owner, dependent: :destroy
+  has_many :forms, dependent: :destroy
   has_many :deals
   has_many :notes
   has_many :investments, through: :deals
