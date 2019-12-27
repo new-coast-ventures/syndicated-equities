@@ -186,7 +186,7 @@
         <button type="button" class="table button" style="width: 150px ;background: transparent; color: #0E77D9; padding:15px" data-toggle="modal" data-target="#docu-form-modal">Add Document</button>
         <h5 class="show-investment-card-title">Documents</h5>
         <div class="form-table-container table-bordered">
-          <% if !@property.forms.empty? %>
+          <% if !@property&.forms&.empty? %>
             <table class="form-table">
               <% @property&.forms.order(updated_at: :desc).each do |form| %>
                 <tr>
