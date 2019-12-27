@@ -46,7 +46,7 @@
 // Add borders all around the table and between all the columns.
 
 .table-bordered {
-  border: $table-border-width solid $table-border-color;
+  // border: $table-border-width solid $table-border-color;
 
   th,
   td {

@@ -70,53 +70,6 @@
     <% end %>
 	</div>
 
-<!-- <% if @user.approved? %>
-  <hr/>
-  <% if @user.investments.active.any? %>
-    <div class="table-responsive">
-      <table class="table table-hover table-bordered" id="sortable-table" cellspacing="0" width="100%">
-        <thead class="thead-default">
-          <tr>
-            <th>Investment</th>
-            <th>Amount Invested</th>
-            <th>Investing Entity</th>
-            <th>Closing Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @user.investments.active.each do |investment| %>
-            <tr>
-              <td><%= link_to investment.deal.title, investment_path(investment) %></td>
-              <td><%= humanized_money_with_symbol investment.amount %></td>
-              <td><%= investment.investing_entity %></td>
-              <td><%= investment.display_date %></td>
-            </tr>
-          <% end %>
-      </tbody>
-      </table>
-    </div>
-  <% else %>
-    <p>None</p>
-  <% end %>
-
-  <% if @notes.any? %>
-    <h4 class="mb-1">Latest Updates</h4>
-    <div class="list-group col-xs-12 col-md-6">
-    <% @notes.each do |note| %>
-      <%= link_to note_path(note), class: "list-group-item list-group-item-action" do %>
-        <h5 class="list-group-item-heading"><%= note.title %></h5>
-        <h6 class="list-group-item-heading"><%= note.created_at.to_formatted_s(:long_ordinal) %></h6>
-        <p class="list-group-item-text"><%= strip_tags(note.content.truncate(100)) %></p>
-        <% end %>
-    <% end %>
-    </div>
-  <% end %>
-
-<% else %>
-  <p>Thank you for registering for the Investor Portal!</p>
-  <p>Your account is currently under review. We will send you an email with more information once your account is approved.</p>
-<% end %> -->
-
 <script>
   $(document).ready(function() {
     $('#sortable-table').DataTable({

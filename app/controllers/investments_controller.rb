@@ -57,9 +57,9 @@ class InvestmentsController < ApplicationController
 
   def show
     @investment = Investment.find_by(id: params[:id])
-    prop = Property.find(@investment&.deal&.property&.id)
-    @property_investments = prop.investments.where(user_id: current_user.id)
-    @property_notes = prop&.notes
+    @property = Property.find(@investment&.deal&.property&.id)
+    @property_investments = @property.investments.where(user_id: current_user.id)
+    @property_notes = @property&.notes
     if @investment && current_user && @investment.investor == current_user || current_user.admin?
       render 'show'
     else

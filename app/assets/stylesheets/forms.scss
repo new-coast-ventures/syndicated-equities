@@ -84,3 +84,22 @@ input[type='search']{
     display: none;
   }
 }
+
+.table-bordered {
+  border: none;
+}
+.form-table-container {
+  margin: 15px;
+
+  .form-table {
+    width: 100%;
+    margin-bottom: 1rem;
+    .form-title {
+      width: 60%;
+    }
+    
+    td {
+      padding: 12px;
+    }
+  }
+}

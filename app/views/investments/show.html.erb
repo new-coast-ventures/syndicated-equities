@@ -34,23 +34,24 @@
 
     <div class="card investor-card-container info-cards">
       <h5 class="show-investment-card-title">Documents</h5>
-      <div class="investment-divider"></div>
-      <div class="documents-list">
-        <% @investment.forms.each do |form| %>
-            <p class="investment-property-address document-download"><i class="far fa-file" style="margin-right: 10px"></i><%= link_to form.title, form.document.url, target: "_blank" %></p>
-        <% end %>
-        <% if @investment.forms.empty? %>
-          <tr style="color:#cccccc;font-size:0.8rem;">
-            <td>No documents available</td>
-          </tr>
-        <% end %>
-      </div>
-      <div class="investment-divider"></div>
-      <div class="investment-property-address" style="padding:15px; text-align: right">
-        <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
-          Download All
-        </a>
-      </div>
+        <div class="form-table-container table-bordered">
+          <% if !@property.forms.empty? %>
+            <table class="form-table">
+              <% @property&.forms.order(updated_at: :desc).each do |form| %>
+                <tr>
+                  <td class="form-title">
+                    <%= form.title %>
+                  </td>
+                  <td>
+                    <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>            
+          <% else %>
+            <div class="investment-property-address" style="text-align: center; padding: 15px; color: #ccc">No Documents</div>
+          <% end %>
+        </div>
     </div>
 
     <div class="card investor-card-container info-cards">
@@ -110,22 +111,23 @@
       </div>
       <div class="col-sm-5 card investor-card-container info-cards">
         <h5 class="show-investment-card-title">Documents</h5>
-        <div class="investment-divider"></div>
-        <div class="documents-list">
-          <% @investment.forms.each do |form| %>
-              <p class="investment-property-address document-download"><i class="far fa-file" style="margin-right: 10px"></i><%= link_to form.title, form.document.url, target: "_blank" %></p>
+        <div class="form-table-container table-bordered">
+          <% if !@property.forms.empty? %>
+            <table class="form-table">
+              <% @property&.forms.order(updated_at: :desc).each do |form| %>
+                <tr>
+                  <td class="form-title">
+                    <%= form.title %>
+                  </td>
+                  <td>
+                    <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
+                  </td>
+                </tr>
+              <% end %>
+            </table>            
+          <% else %>
+            <div class="investment-property-address" style="text-align: center; padding: 15px; color: #ccc">No Documents</div>
           <% end %>
-          <% if @investment.forms.empty? %>
-            <tr style="color:#cccccc;font-size:0.8rem;">
-              <td>No documents available</td>
-            </tr>
-          <% end %>
-        </div>
-        <div class="investment-divider"></div>
-        <div class="investment-property-address" style="padding:15px; text-align: right">
-          <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
-            Download All
-          </a>
         </div>
       </div>
 
@@ -186,22 +188,23 @@
 
         <div class="card investor-card-container info-cards">
           <h5 class="show-investment-card-title">Documents</h5>
-          <div class="investment-divider"></div>
-          <div class="documents-list">
-            <% @investment.forms.each do |form| %>
-                <p class="investment-property-address document-download"><i class="far fa-file" style="margin-right: 10px"></i><%= link_to form.title, form.document.url, target: "_blank" %></p>
+          <div class="form-table-container table-bordered">
+            <% if !@property.forms.empty? %>
+              <table class="form-table">
+                <% @property&.forms.order(updated_at: :desc).each do |form| %>
+                  <tr>
+                    <td class="form-title">
+                      <%= form.title %>
+                    </td>
+                    <td>
+                      <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
+                    </td>
+                  </tr>
+                <% end %>
+              </table>            
+            <% else %>
+              <div class="investment-property-address" style="text-align: center; padding: 15px; color: #ccc">No Documents</div>
             <% end %>
-            <% if @investment.forms.empty? %>
-              <tr style="color:#cccccc;font-size:0.8rem;">
-                <td>No documents available</td>
-              </tr>
-            <% end %>
-          </div>
-          <div class="investment-divider"></div>
-          <div class="investment-property-address" style="padding:15px; text-align: right">
-            <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
-              Download All
-            </a>
           </div>
         </div>
           <div class="card investor-card-container notes-card">
