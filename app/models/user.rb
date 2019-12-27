@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   end
 
   def name
-    [first_name.to_s, last_name.to_s].compact.join(" ")
+    [first_name.to_s, last_name.to_s].compact.join(" ").strip
   end
 
   def investment_entity
@@ -54,6 +54,10 @@ class User < ActiveRecord::Base
 
   def self.insert_with(attributes = {})
     User.find_by(attributes.slice(:first_name, :last_name, :email)) || User.create(attributes)
+  end
+
+  def total_investments
+    investments.count
   end
 
   def send_admin_email

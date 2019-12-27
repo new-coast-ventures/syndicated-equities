@@ -19,10 +19,10 @@
       <tbody>
         <% @investors.each do |investor| %>
           <tr>
-            <td><%= link_to investor.name.strip, investor_show_path(investor.id) %></td>
+            <td><%= link_to investor.name, investor_show_path(investor.id) %></td>
             <td><%= investor&.email %></td>
             <td><%= investor&.investor_entity %></td>
-            <td><%= investor&.investments&.count %></td>
+            <td><%= investor&.total_investments %></td>
             <td><%= number_to_currency(investor&.total_invested, precision: 0) %></td>
           </tr>
         <% end %>
