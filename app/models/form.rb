@@ -9,5 +9,5 @@ class Form < ActiveRecord::Base
 
   validates_presence_of :title
   validates_presence_of :document
-  validates :document, content_type: ['application/pdf','application/msword','	application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+  # validates :document, content_type: ['application/pdf','application/msword','	application/vnd.openxmlformats-officedocument.wordprocessingml.document']
 end
