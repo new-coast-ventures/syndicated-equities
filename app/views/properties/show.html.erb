@@ -217,12 +217,12 @@
                               </fieldset>
 
                               <fieldset class="form-group">
-                                <label>Document<span style="color:red">*</span></label>
+                                <label>File<span style="color:red">*</span></label>
                                 <%= form&.document&.filename %>
                                 <%= f.file_field :document %>
                               </fieldset>
 
-                              <%= f.submit class: "btn btn-primary", id: "submit" %>
+                              <%= f.submit "Upload Document", class: "btn btn-primary", id: "submit" %>
                             <% end %>
                           </div>
                         </div><!-- /.modal-content -->
