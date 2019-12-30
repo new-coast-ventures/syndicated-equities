@@ -11,10 +11,12 @@
 }
 
 .note-preview {
-   p{
+   p {
      width: 100%;
      white-space: nowrap;
      overflow: hidden;
      text-overflow: ellipsis;
+     margin-bottom: 8px;
+     margin-top: 8px;
    }
 }

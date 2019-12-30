@@ -15,7 +15,10 @@
               <label>Title<span style="color:red">*</span></label>
               <%= f.text_field :title, value: @note.title, required: true %>
             </fieldset>
-
+            <fieldset class="form-group">
+              <label>Note Preivew<span style="color:red">*</span></label>
+              <%= f.text_field :note_preview, value: @note.note_preview, required: true, maxlength: 50 %>
+            </fieldset>
             <fieldset class="form-group">
               <label>Content<span style="color:red">*</span></label>
               <%= f.text_area :content, :class => "tinymce" %>

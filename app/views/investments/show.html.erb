@@ -217,10 +217,10 @@
                     <strong><%= note.title %></strong> (<%= note.updated_at.strftime("%m/%d/%Y") %>)
                   </div>          
                   <div class="note-preview">
-                    <%= note.content&.html_safe %>
+                    <%= note.note_preview %>
                   </div>          
                   <div class="note-options">
-                    <%= link_to 'View',  '#', 'data-target' => "#myModal_#{note.id}", 'data-toggle' => 'modal'  %>
+                    <span style="font-size: 0.8em"><%= link_to 'View',  '#', 'data-target' => "#myModal_#{note.id}", 'data-toggle' => 'modal'  %></span>
                     <div class="modal fade" id='<%= "myModal_#{note.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog">
                         <div class="modal-content" style="margin-top:100px">

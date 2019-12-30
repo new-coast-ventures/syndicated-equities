@@ -123,11 +123,11 @@
               <div class="note-title">
                 <strong><%= note.title %></strong> (<%= note.updated_at.strftime("%m/%d/%Y") %>)
               </div>          
-              <div class="note-preview">
-                <%= note.content&.html_safe %>
+              <div class="note-preview" style="margin-top:8px">
+                <%= note.note_preview %>
               </div>          
               <div class="note-options">
-                <%= link_to 'View',  '#', 'data-target' => "#myModal_#{note.id}", 'data-toggle' => 'modal'  %>
+                <span style="font-size: 0.8em"><%= link_to 'View',  '#', 'data-target' => "#myModal_#{note.id}", 'data-toggle' => 'modal'  %></span>
                 <div class="modal fade" id='<%= "myModal_#{note.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content" style="margin-top:100px">
@@ -141,8 +141,8 @@
                     </div><!-- /.modal-content -->
                   </div><!-- /.modal-dialog -->
                 </div><!-- /.modal -->  
-                | 
-                <%= link_to 'Edit',  '#', 'data-target' => "#myEditModal_#{note.id}", 'data-toggle' => 'modal'  %>
+                <span style="font-size: 0.8em">| 
+                <%= link_to 'Edit',  '#', 'data-target' => "#myEditModal_#{note.id}", 'data-toggle' => 'modal'  %></span>
                 <div class="modal fade" id='<%= "myEditModal_#{note.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog">
                     <div class="modal-content" style="margin-top:100px">
@@ -157,7 +157,10 @@
                             <label>Title<span style="color:red">*</span></label>
                             <%= f.text_field :title, value: note.title, required: true %>
                           </fieldset>
-
+                          <fieldset class="form-group">
+                            <label>Note Preivew<span style="color:red">*</span></label>
+                            <%= f.text_field :note_preview, value: @note.note_preview, required: true, maxlength: 50 %>
+                          </fieldset>
                           <fieldset class="form-group">
                             <label>Content<span style="color:red">*</span></label>
                             <%= f.text_area :content, value: note&.content&.html_safe, :class => "tinymce",  required: true %>
@@ -169,8 +172,8 @@
                     </div><!-- /.modal-content -->
                   </div><!-- /.modal-dialog -->
                 </div><!-- /.modal --> 
-                | 
-                <%= link_to "Delete", note_path(note.id), :method => :delete, data: {confirm: "Are you sure you want to delete this note?"} %>
+                <span style="font-size: 0.8em">| 
+                <%= link_to "Delete", note_path(note.id), :method => :delete, data: {confirm: "Are you sure you want to delete this note?"} %></span>
               </div>          
             </div>
           <% end %>
