@@ -1,5 +1,11 @@
 <!-- <h5 class="dashboard-title">Your Dashboard</h5> -->
-<h5 class="dashboard-title" style="font-size: 1.75rem">Investments</h5>
+<h5 class="dashboard-title" style="font-size: 1.75rem">Investments
+  <span class='form-container status-dropdown closing-date-dropdown'>	Closing Date:
+    <%= form_tag(user_path, :method => "get") do %>	
+      <%= select_tag :order, options_for_select([['Newest to Oldest', 'desc'], ['Oldest to Newest', 'asc']], @order), {:onchange => "this.form.submit();", :class => "form-group"} %>	
+    <% end %>	
+  </span>
+</h5>
 
 	<div class="row xs-row">
     <% if @investments %>
@@ -34,6 +40,8 @@
                   <p>
                     Investment Type
                     <br>
+                    Closing Date
+                    <br>
                     Investor Equity
                     <br>
                     Gross Distributions
@@ -42,6 +50,8 @@
                 <div class="col-xs-6">
                   <p class="text-right" style="font-weight: bold; text-align: right">
                     <%= investment&.deal&.property&.property_type&.humanize&.titleize %>
+                    <br>
+                    <%= investment&.deal&.property&.closing_date&.strftime("%m/%d/%Y") %>
                     <br>
                     <%= number_to_currency(investment.amount_invested, precision: 0) %>
                     <br>
