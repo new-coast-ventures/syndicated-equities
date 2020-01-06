@@ -56,28 +56,6 @@
       <%= number_to_currency(Investment.total_gross_distribution(@property_investments.pluck(:gross_distribution)), precision: 0) %>
     </div>
   </div>
-  <div class="grey-divider"></div>
-  <div class="row row-margin" style="padding-bottom: 15px">
-    <p class="investment-section-title">
-      CAPITAL OUTSTANDING
-    </p>
-    <% @property_investments.each do |investment| %>
-      <div class="col-xs-6 no-padding">
-        <%= investment&.investor_entity %>
-      </div>
-      <div class="col-xs-6 no-padding" style="text-align:right">
-        <%= number_to_currency((investment.amount_invested.to_i - @investment&.deal&.property&.gross_distributions.to_i), precision: 0) %>
-      </div>
-    <% end %>
-  </div>
-  <div class="row row-margin" style="margin-bottom: 20px">
-    <div class="col-xs-6 no-padding" style="margin-top: 10px">
-      <b>Total</b>
-    </div>
-    <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
-      <%= number_to_currency((@property_investments.pluck(:amount_invested).sum - @investment&.deal&.property&.gross_distributions.to_i), precision: 0) %>
-    </div>
-  </div>
 </div>
 </div>
 <div class="card investor-card-container">
