@@ -2,10 +2,10 @@
 <div class="container">
   <div class="investment-mobile-container">
     <div class="row">
-      <% if @investment&.deal&.property&.avatar.attached? %>
-        <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
+      <% if @investment&.deal&.property&.avatar&.attached? && !Rails.env.development? %>
+        <div style="background-image: url(<%= rails_blob_url(@investment&.deal&.property&.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 400px; border-radius: .25rem; margin-bottom: 24px"></div>
       <% else %>
-        <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
+        <div style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 400px; border-radius: .25rem; margin-bottom: 24px"></div>
       <% end %>
     </div>
     <div class="row">
@@ -79,10 +79,10 @@
 
   <div class="investment-tablet-container">
     <div class="row">
-      <% if @investment&.deal&.property&.avatar&.attachment  %>
-        <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
+      <% if @investment&.deal&.property&.avatar&.attached? && !Rails.env.development? %>
+        <div style="background-image: url(<%= rails_blob_url(@investment&.deal&.property&.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 400px; border-radius: .25rem; margin-bottom: 24px"></div>
       <% else %>
-        <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
+        <div style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 400px; border-radius: .25rem; margin-bottom: 24px"></div>
       <% end %>
     </div>
     <div class="row">
@@ -158,12 +158,12 @@
   <div class="investment-desktop-container">
     <div class="row">
       <div class="col-sm-7">
-        <% if @investment&.deal&.property&.avatar&.attachment  %>
-          <%= image_tag url_for(@investment&.deal&.property&.avatar), alt: "Property Image", class: 'investment-card-image' %>
+        <% if @investment&.deal&.property&.avatar&.attached? && !Rails.env.development? %>
+          <div style="background-image: url(<%= rails_blob_url(@investment&.deal&.property&.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 400px; border-radius: .25rem; margin-bottom: 24px"></div>
         <% else %>
-          <%= image_tag asset_url('empty_property_image.png'), class: 'investment-card-image' %>
+          <div style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 400px; border-radius: .25rem; margin-bottom: 24px"></div>
         <% end %>
-            <%= render partial: "details" %>
+        <%= render partial: "details" %>
       </div>
       <div  class="col-sm-5" style="display: flex; flex-direction: column;">
         <div class="card investor-card-container info-cards">
