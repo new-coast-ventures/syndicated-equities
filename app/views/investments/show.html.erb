@@ -197,7 +197,11 @@
                       <%= form.title %>
                     </td>
                     <td>
-                      <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
+                      <% if form.document.filename.to_s.downcase.include?('.pdf') %>
+                        <%= link_to "Download/View", rails_blob_path(form.document), target: "_blank" %>
+                      <% else %>
+                        <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
+                      <% end %>
                     </td>
                   </tr>
                 <% end %>
