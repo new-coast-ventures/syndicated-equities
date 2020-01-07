@@ -9,7 +9,8 @@ class FormsController < ApplicationController
   # ----------------------------------------------
 
   def index
-    @forms = Form.where(owner: nil)
+    @doc = Form.new
+    @forms = Form.where(property_id: nil)
   end
 
   def create
