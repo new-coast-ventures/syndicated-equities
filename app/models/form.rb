@@ -3,7 +3,7 @@
 # ================================================
 class Form < ActiveRecord::Base
   # belongs_to :owner, polymorphic: true
-  belongs_to :property
+  belongs_to :property, optional: true
   
   has_one_attached :document
 
