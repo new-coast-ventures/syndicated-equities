@@ -63,7 +63,7 @@ class Investment < ActiveRecord::Base
         investor_entity: row[mapping["investor_entity"]],
         gross_distribution_percentage: row[mapping["gross_distribution_percentage"]],
         amount_invested: row[mapping["amount_invested"]],
-        user_id: get_user_id(row, mapping)
+        user_id: get_user(row, mapping)
       }
       puts investor_hash
       Investment.create! investor_hash
@@ -104,44 +104,6 @@ class Investment < ActiveRecord::Base
     Deal.pluck(:id, :title).map { |d| @deals[d[1]] = d[0] } 
   end
 
-  def self.create_investments(file)  
-    puts "create Investments from file #{file}."
-
-    investments = []
-    xlsx = Roo::Spreadsheet.open(file)
-    xlsx.each_row_streaming(offset: 1) do |row|
-      next if row.length < 4
-      title  = sanitized_string_from(row[0])
-      first  = sanitized_string_from(row[1])
-      last   = sanitized_string_from(row[2])
-      entity = sanitized_string_from(row[3])
-      amount = sanitized_int_from(row[4])
-      
-      deal_id = @deals[title]
-
-      if !deal_id.blank?
-        next unless amount.to_i > 0
-        print "."
-        investments << {
-          deal_id: deal_id, 
-          amount_invested: amount, 
-          investor_first_name: first,
-          investor_last_name: last,
-          investing_entity: entity
-        }
-      end
-    end
-
-    if !investments.empty?
-      # ActiveRecord::Base.connection.execute(
-      #   "INSERT INTO investments (deal_id, amount_invested, investor_first_name, investor_last_name, investing_entity, created_at, updated_at) VALUES #{investments.join(',')}"
-      # )
-      investments.each do |invest_hash|
-        Investment.create(invest_hash)
-      end
-    end
-  end
-
   def self.sanitized_int_from(key)
     key&.value || 0
   end
@@ -153,8 +115,9 @@ class Investment < ActiveRecord::Base
   def self.get_user(row, mapping)
     first_name = row[mapping["investor_first_name"]]&.strip
     last_name = row[mapping["investor_last_name"]]&.strip
-    email = row[mapping["investor_email"]] ? row[mapping["investor_email"]] : "#{first_name}_#{last_name}#{rand(1000)}@syndicatedequities.com"
-    user = User.find_by(email: email)
+    email = row[mapping["investor_email"]]&.strip ? row[mapping["investor_email"]]&.strip : "#{first_name}_#{last_name}#{rand(1000)}@syndicatedequities.com"
+    user = User.find_by(email: email&.downcase)
+    p user
     if !user
       user = User.create(
         email: email, 
@@ -165,6 +128,8 @@ class Investment < ActiveRecord::Base
     end
 
     user
+  rescue => e  
+    puts "[get_user]ERROR for #{email}: #{e}"
   end
 
   def self.create_temp_csv(file)
