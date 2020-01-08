@@ -75,7 +75,7 @@ class Investment < ActiveRecord::Base
   end
 
   def calc_gross_distribution
-    deal.property.gross_distributions.to_i * (gross_distribution_percentage.to_f / 100)
+    deal.property.gross_distributions.to_i * gross_distribution_percentage.to_f 
   rescue => e  
     return  "N/A"
   end
