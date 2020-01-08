@@ -58,6 +58,8 @@ class PropertiesController < ApplicationController
 
   def update
     @property = Property.find(params["id"])
+    @note = Note.new
+    @doc = Form.new
     if @property
       @property.update(property_params)
     else

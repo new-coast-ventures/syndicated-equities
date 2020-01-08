@@ -61,7 +61,7 @@ class Investment < ActiveRecord::Base
         investor_email: row[mapping["investor_email"]],
         investing_entity: row[mapping["investing_entity"]],
         investor_entity: row[mapping["investor_entity"]],
-        gross_distribution: row[mapping["gross_distribution"]],
+        gross_distribution_percentage: row[mapping["gross_distribution_percentage"]],
         amount_invested: row[mapping["amount_invested"]],
         user_id: get_user_id(row, mapping)
       }
@@ -72,6 +72,12 @@ class Investment < ActiveRecord::Base
     puts e.backtrace.join("\n")
     puts e
     # end
+  end
+
+  def calc_gross_distribution
+    deal.property.gross_distributions.to_i * (gross_distribution_percentage.to_f / 100)
+  rescue => e  
+    return  "N/A"
   end
 
   private

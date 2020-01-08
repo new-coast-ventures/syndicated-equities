@@ -59,7 +59,7 @@
           </div>
           <div class="col-sm-6">
             <div class='col-sm-6' style="text-align: left">Gross Distributions</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property.total_gross_distribution, precision: 0) || 'N/A' %></strong></div>
+            <div class='col-sm-6' style="text-align: right"><strong><%= number_to_currency(@property.gross_distributions, precision: 0) || 'N/A' %></strong></div>
           </div>
         </div>
         <div class="row">
@@ -282,11 +282,11 @@
                   </fieldset>
 
                   <fieldset class="form-group">
-                    <label>Gross Distribution</label>
-                    <%= f.text_field :gross_distribution %>
+                    <label>Gross Distribution Percentage</label>
+                    <%= f.text_field :gross_distribution_percentage %>
                   </fieldset>
 
-                  <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
+                  <%= f.submit class: "btn btn-primary", id: "submit" %>
 
                 <% end %>
               </div>
@@ -317,6 +317,9 @@
             </th>
             <th>
               Investment
+            </th>
+            <th>
+              %
             </th>
             <th>
               Gross Distributions
@@ -350,7 +353,10 @@
                 <%= number_to_currency(invst.amount_invested, precision: 0) %>
               </td>
               <td>
-                <%= number_to_currency(invst&.gross_distribution, precision: 0) %>
+                <%= invst.gross_distribution_percentage %>
+              </td>
+              <td>
+                <%= number_to_currency(invst.calc_gross_distribution, precision: 0) %>
               </td>
               <td>
                 <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{invst.id}", 'data-toggle' => 'modal'  %>
@@ -379,8 +385,13 @@
                           </fieldset>
 
                           <fieldset class="form-group">
+                            <label>Gross Distribution Percentage</label>
+                            <%= f.text_field :gross_distribution_percentage, value: invst.gross_distribution_percentage %>
+                          </fieldset>
+
+                          <fieldset class="form-group">
                             <label>Gross Distribution</label>
-                            <%= f.text_field :gross_distribution, value: invst.gross_distribution %>
+                            <%= f.text_field :gross_distribution, value: invst.calc_gross_distribution, disabled: true %>
                           </fieldset>
 
                           <%= f.submit class: "btn btn-primary", id: "submit" %>

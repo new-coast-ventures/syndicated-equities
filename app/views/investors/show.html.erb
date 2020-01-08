@@ -58,8 +58,8 @@
                   </fieldset>
 
                   <fieldset class="form-group">
-                    <label>Gross Distribution</label>
-                    <%= f.text_field :gross_distribution %>
+                    <label>Gross Distribution Percentage</label>
+                    <%= f.text_field :gross_distribution_percentage %>
                   </fieldset>
 
                   <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
@@ -86,6 +86,9 @@
                 </th>
                 <th>
                   Investment
+                </th>
+                <th>
+                  %
                 </th>
                 <th>
                   Gross Distributions
@@ -117,7 +120,10 @@
                     <%= number_to_currency(invst.amount_invested, precision: 0) %>
                   </td>
                   <td>
-                    <%= number_to_currency(invst.gross_distribution, precision: 0) %>
+                    <%= invst.gross_distribution_percentage %>
+                  </td>
+                  <td>
+                    <%= number_to_currency(invst.calc_gross_distribution, precision: 0) %>
                   </td>
                   <td>
                     <%= invst&.deal&.property&.closing_date&.strftime("%m/%d/%Y") %>
@@ -149,8 +155,13 @@
                               </fieldset>
 
                               <fieldset class="form-group">
+                                <label>Gross Distribution Percentage</label>
+                                <%= f.text_field :gross_distribution_percentage, value: invst.gross_distribution %>
+                              </fieldset>
+
+                              <fieldset class="form-group">
                                 <label>Gross Distribution</label>
-                                <%= f.text_field :gross_distribution, value: invst.gross_distribution %>
+                                <%= f.text_field :gross_distribution, value: invst.calc_gross_distribution, disabled: true %>
                               </fieldset>
 
                               <%= f.submit class: "btn btn-primary", id: "submit" %>
