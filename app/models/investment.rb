@@ -80,6 +80,10 @@ class Investment < ActiveRecord::Base
     return  "N/A"
   end
 
+  def gross_distribution_view
+    "#{gross_distribution_percentage.to_f * 100 }%"
+  end
+
   private
 
   def self.create_deals(file, property_id)
