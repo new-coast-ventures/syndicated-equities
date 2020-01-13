@@ -16,18 +16,26 @@
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Property NickName<span style="color:red">*</span></label>
+            <label>Property Nickname<span style="color:red">*</span></label>
             <%= f.text_field :nickname, value: @property.nickname, required: true %>
           </fieldset>
 
           <fieldset class="form-group">
             <label>Closing Date</label>
-            <%= f.date_field :closing_date, value: @property.closing_date&.strftime('%m/%d/%Y') %>
+            <% if @property.closing_date %>
+              <%= f.date_field :closing_date, value: Date.strptime(@property.closing_date.to_s) %>
+            <% else %>
+              <%= f.date_field :closing_date %>
+            <% end %>
           </fieldset>
 
           <fieldset class="form-group">
-            <label>Sale Date</label>
-            <%= f.date_field :sale_date, value: @property.sale_date&.strftime('%m/%d/%Y') %>
+            <label>Sale Date</lab
+            <% if @property.sale_date %>
+              <%= f.date_field :sale_date, value: Date.strptime(@property.sale_date.to_s) %>
+            <% else %>
+              <%= f.date_field :sale_date %>
+            <% end %>
           </fieldset>
 
           <fieldset class="form-group">
