@@ -61,7 +61,8 @@ class Investment < ActiveRecord::Base
         investor_email: row[mapping["investor_email"]],
         investing_entity: row[mapping["investing_entity"]],
         investor_entity: row[mapping["investor_entity"]],
-        gross_distribution_percentage: row[mapping["gross_distribution_percentage"]],
+        gross_distribution: row[mapping["gross_distribution"]],
+        # gross_distribution_percentage: row[mapping["gross_distribution_percentage"]],
         amount_invested: row[mapping["amount_invested"]],
         user_id: get_user(row, mapping)
       }

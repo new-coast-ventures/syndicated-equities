@@ -26,8 +26,8 @@
             </fieldset>
 
             <fieldset class="form-group">
-              <label>Gross Distribution Percent</label>
-              <%= f.number_field :gross_distribution_percentage, value: @investment.gross_distribution_percentage, disabled: true %> %
+              <label>Gross Distribution</label>
+              <%= f.number_field :gross_distribution, value: @investment.gross_distribution %> %
             </fieldset>
 
             <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>

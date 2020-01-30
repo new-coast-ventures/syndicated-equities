@@ -42,7 +42,7 @@
     </div>
     <div class="col-xs-6 no-padding" style="text-align:right">
       <% unless @investment&.gross_distribution.blank? %>
-        <%= number_to_currency(@investment&.calc_gross_distribution, precision: 0) %>
+        <%= number_to_currency(@investment&.gross_distribution, precision: 0) %>
       <% else %>
         $0.00
       <% end %>
@@ -53,7 +53,7 @@
       <b>Total</b>
     </div>
     <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
-        <%= number_to_currency(@investment&.calc_gross_distribution, precision: 0) %>
+        <%= number_to_currency(@investment&.gross_distribution, precision: 0) %>
     </div>
   </div>
 </div>

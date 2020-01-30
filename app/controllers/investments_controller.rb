@@ -38,7 +38,7 @@ class InvestmentsController < ApplicationController
       investor_email: investor.email,
       investing_entity:invst_params["investing_entity"]&.strip,
       investor_entity: invst_params["investor_entity"]&.strip,
-      gross_distribution_percentage: invst_params["gross_distribution_percentage"]&.strip,
+      gross_distribution: invst_params["gross_distribution"]&.strip,
       amount_invested: invst_params["amount_invested"]&.strip&.to_i,
       user_id: investor.id
     }
@@ -78,7 +78,7 @@ class InvestmentsController < ApplicationController
     @property_id = params[:id]
     @investment = Investment.new
     @headers = CSV.read(@investment_file, headers: true).headers << ['No Mapping', nil]
-    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_entity', 'investing_entity', 'amount_invested', 'gross_distribution_percentage']
+    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_entity', 'investing_entity', 'amount_invested', 'gross_distribution']
     
     render 'properties/import_headers'
   rescue => e  
@@ -102,7 +102,7 @@ class InvestmentsController < ApplicationController
           investor_first_name: row[mapping["investor_first_name"]]&.strip,
           investing_entity: row[mapping["investing_entity"]]&.strip,
           investor_entity: row[mapping["investor_entity"]]&.strip,
-          gross_distribution_percentage: row[mapping["gross_distribution_percentage"]]&.strip,
+          gross_distribution: row[mapping["gross_distribution"]]&.strip&.gsub(/[^\d\.]/, ''),
           amount_invested: row[mapping["amount_invested"]]&.strip&.gsub(/[^\d\.]/, '').to_i,
           user_id: user.id,
           investor_email: user.email
@@ -125,6 +125,6 @@ class InvestmentsController < ApplicationController
   private
 
   def investment_params
-    params.require(:investment).permit(:user_id, :deal_id, :amount_invested, :invested_on, :investing_entity, :investor_email, :investor_first_name, :investor_last_name, :amount_cents, :amount_currency, :investor_entity, :gross_distribution_percentage)
+    params.require(:investment).permit(:user_id, :deal_id, :amount_invested, :invested_on, :investing_entity, :investor_email, :investor_first_name, :investor_last_name, :amount_cents, :amount_currency, :investor_entity, :gross_distribution_percentage, :gross_distribution)
   end
 end

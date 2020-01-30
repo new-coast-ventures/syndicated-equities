@@ -56,7 +56,7 @@
                     <%= number_to_currency(investment.amount_invested, precision: 0) %>
                     <br>
                     <% if !investment&.deal&.property&.gross_distributions&.blank? %>
-                      <%= number_to_currency(investment&.calc_gross_distribution, precision: 0) %>
+                      <%= number_to_currency(investment&.gross_distribution, precision: 0) %>
                     <% else %>
                       $0.00
                     <% end %>
