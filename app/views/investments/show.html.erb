@@ -9,20 +9,12 @@
       <% end %>
     </div>
     <div class="row">
-      <div class="card location-container">
+      <div class="card location-container" style="padding-bottom: 10px">
         <h5 class="show-investment-card-title">Locations</h5>
         <% if @investment.deal.property %>
-          <p>
-            <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
-          </p>
-          <div class="col-xs-6" style="padding-left:0;">
-            More Locations
-          </div>
-          <div class="col-xs-6" style="padding-right:0; text-align: right">
-            <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
-              View Map
-            </a>
-          </div>
+          <a class='investment-property-address' style="padding-bottom: 15px; color: inherit"  href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
+            <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= @investment&.deal&.property&.address&.line1 %>, <%= @investment&.deal&.property&.address&.location %>
+          </a>
         <% else %>
           <p>
             No Property Information
@@ -92,17 +84,9 @@
       <div class="col-sm-5 card location-container">
         <% if @investment.deal.property %>
           <h5 class="show-investment-card-title">Locations</h5>
-          <p>
-            <%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>
-          </p>
-          <div class="col-xs-6" style="padding-left:0;">
-            More Locations
-          </div>
-          <div class="col-xs-6" style="padding-right:0; text-align: right">
-            <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
-              View Map
-            </a>
-          </div>
+          <a class='investment-property-address' style="padding-bottom: 15px; color: inherit"  href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
+            <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= @investment&.deal&.property&.address&.line1 %>, <%= @investment&.deal&.property&.address&.location %>
+          </a>
         <% else %>
           <p>
             No Property Information
@@ -166,19 +150,13 @@
         <%= render partial: "details" %>
       </div>
       <div  class="col-sm-5" style="display: flex; flex-direction: column;">
-        <div class="card investor-card-container info-cards">
+        <div class="card investor-card-container info-cards" style="padding-bottom: 10px">
           <h5 class="show-investment-card-title">Locations</h5>
-          <div class="investment-divider"></div>
+          <div class="investment-divider" style="padding-bottom: 10px"></div>
           <% if @investment.deal.property %>
-            <p class='investment-property-address' style="padding: 15px; margin-bottom: 0">
+            <a class='investment-property-address' style="padding: 15px; padding-bottom: 15px; color: inherit" style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
               <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= @investment&.deal&.property&.address&.line1 %>, <%= @investment&.deal&.property&.address&.location %>
-            </p>
-            <div class="investment-divider"></div>
-            <div class="investment-property-address" style="padding:15px; text-align: right">
-              <a style="text-decoration:none" href="http://maps.google.com/maps?q=<%= @investment&.deal&.property&.address&.line1 %> <%= @investment&.deal&.property&.address&.location %>" target="_blank">
-                View Map
-              </a>
-            </div>
+            </a>
           <% else %>
             <p>
               No Property Information
