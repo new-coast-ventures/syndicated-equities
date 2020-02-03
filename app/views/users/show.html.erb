@@ -13,9 +13,9 @@
         <div class="col-lg-4 col-md-6" >
           <div class="card investor-card-container">
              <% if investment&.deal&.property&.avatar&.attached? && !Rails.env.development? %>
-              <div onclick="location.href='/investments/<%= investment.id %>'" style="background-image: url(<%= rails_blob_url(investment&.deal&.property&.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0"></div>
+              <div onclick="location.href='/investments/<%= investment.id %>'" style="background-image: url(<%= rails_blob_url(investment&.deal&.property&.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
             <% else %>
-              <div onclick="location.href='/investments/<%= investment.id %>'" style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0"></div>
+              <div onclick="location.href='/investments/<%= investment.id %>'" style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
             <% end %>
             <div class='card-padding investor-card-address'>
               <% if investment.deal.property %>
