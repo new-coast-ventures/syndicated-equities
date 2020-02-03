@@ -21,6 +21,7 @@
 				<th>City</th>
 				<th>State</th>
 				<th>Investor Equity</th>
+				<th>Gross Distribution</th>
 				<th>Property Type</th>
 				<th>Closing Date</th>
 				<th>Sale Date</th>
@@ -34,6 +35,7 @@
 					<td><%= prop&.address&.city %></td>
 					<td><%= prop&.address&.state %></td>
 					<td><%= number_to_currency(prop&.deal_equity, precision: 0) %></td>
+					<td><%= number_to_currency(prop.total_gross_distribution, precision: 0) || 'N/A' %></td>
 					<td><%= prop&.property_type&.humanize&.titleize %></td>
 					<td><%= prop&.closing_date&.strftime("%m/%d/%Y") %></td>
 					<td><%= prop&.sale_date&.strftime("%m/%d/%Y") %></td>
