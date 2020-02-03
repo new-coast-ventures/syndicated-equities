@@ -122,6 +122,15 @@ class InvestmentsController < ApplicationController
     end
   end
 
+  def delete_all
+    prop = Property.find(params[:id])
+    prop.deals.destroy_all
+    prop.investments.destroy_all
+    flash[:notice] = 'Investments have been successfully deleted.'
+
+    redirect_to property_path(params[:id])
+  end
+
   private
 
   def investment_params

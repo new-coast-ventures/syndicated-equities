@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :notes
   resources :users
   resources :investments
+  
+  get '/delete-investments/:id', to: 'investments#delete_all', as: 'delete-all-investments'
+
   resources :properties
   resources :contacts, only: [:index]
   resources :addresses, only: [:create, :update, :destroy]
