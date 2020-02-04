@@ -37,23 +37,21 @@
     <p class="investment-section-title">
       GROSS DISTRIBUTIONS
     </p>
-    <div class="col-xs-6 no-padding">
-        <%= @investment&.investor_entity %>
-    </div>
-    <div class="col-xs-6 no-padding" style="text-align:right">
-      <% unless @investment&.gross_distribution.blank? %>
-        <%= number_to_currency(@investment&.gross_distribution, precision: 0) %>
-      <% else %>
-        $0.00
-      <% end %>
-    </div>
+   <% @property_investments.each do |investment| %>
+      <div class="col-xs-6 no-padding">
+        <%= investment&.investing_entity %>
+      </div>
+      <div class="col-xs-6 no-padding" style="text-align:right">
+        <%= number_to_currency(investment.gross_distribution, precision: 0) %>
+      </div>
+    <% end %>
   </div>
   <div class="row row-margin">
     <div class="col-xs-6 no-padding" style="margin-top: 10px">
       <b>Total</b>
     </div>
     <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
-        <%= number_to_currency(@investment&.gross_distribution, precision: 0) %>
+        <%= number_to_currency(@user_gross_distribution, precision: 0) %>
     </div>
   </div>
 </div>

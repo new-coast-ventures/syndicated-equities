@@ -43,6 +43,14 @@ class Property < ActiveRecord::Base
     total
   end
 
+  def total_user_gross_distribution(user_id)
+    total = 0
+    self.investments.where(user_id: user_id).pluck(:gross_distribution).each do |gross|
+      total += gross.to_i
+    end
+    total
+  end
+
   def return_on_equity
     begin
       if !self.gross_distributions.blank? && !self.equity_multiple.blank?
