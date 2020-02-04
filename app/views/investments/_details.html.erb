@@ -16,10 +16,10 @@
       INVESTOR EQUITY
     </p>
     <% @property_investments.each do |investment| %>
-      <div class="col-xs-6 no-padding">
+      <div class="col-xs-10 no-padding">
         <%= investment&.investor_entity %>
       </div>
-      <div class="col-xs-6 no-padding" style="text-align:right">
+      <div class="col-xs-2 no-padding" style="text-align:right">
         <%= number_to_currency(investment.amount_invested, precision: 0) %>
       </div>
     <% end %>
@@ -38,10 +38,10 @@
       GROSS DISTRIBUTIONS
     </p>
    <% @property_investments.each do |investment| %>
-      <div class="col-xs-6 no-padding">
+      <div class="col-xs-10 no-padding">
         <%= investment&.investing_entity %>
       </div>
-      <div class="col-xs-6 no-padding" style="text-align:right">
+      <div class="col-xs-2 no-padding" style="text-align:right">
         <%= number_to_currency(investment.gross_distribution, precision: 0) %>
       </div>
     <% end %>
