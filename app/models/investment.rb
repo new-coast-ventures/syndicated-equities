@@ -148,4 +148,31 @@ class Investment < ActiveRecord::Base
     end
     total
   end
+
+  def self.combine_investments(user_id, order)
+    user_investments = Investment.joins(deal: :property).where(user_id: user_id).order("properties.closing_date #{order}")
+    investments = {}
+    property_ids =[]
+    user_investments.each do |investment|
+      property = investment&.deal&.property
+      if investments[property.id].nil? 
+        property_ids << property.id
+        investments[property.id] = {
+          type: property.property_type&.humanize&.titleize,
+          closing_date: property&.closing_date&.strftime("%m/%d/%Y"),
+          investor_equity: investment&.amount_invested.to_i,
+          gross_distribution: investment&.gross_distribution.to_i,
+          property_id: property&.id,
+          investment_id: investment.id,
+          property_img: property&.avatar,
+          property_nickname: property&.nickname,
+          address: "#{property.address.line1}, #{property.address.location}"
+        }
+      else
+        investments[property.id][:investor_equity] += investment.amount_invested.to_i
+        investments[property.id][:gross_distribution] += investment.gross_distribution.to_i
+      end
+    end
+    {investments: investments,  property_ids: property_ids}
+  end
 end

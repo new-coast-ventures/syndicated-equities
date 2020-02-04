@@ -8,23 +8,23 @@
 </h5>
 
 	<div class="row xs-row">
-    <% if @investments %>
-      <% @investments.each do |investment| %>
+    <% if @property_ids %>
+      <% @property_ids.each do |prop_id| %>
         <div class="col-lg-4 col-md-6" >
           <div class="card investor-card-container">
-             <% if investment&.deal&.property&.avatar&.attached? && !Rails.env.development? %>
-              <div onclick="location.href='/investments/<%= investment.id %>'" style="background-image: url(<%= rails_blob_url(investment&.deal&.property&.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
+             <% if @investments[prop_id][:property_img] && !Rails.env.development? %>
+              <div onclick="location.href='/investments/<%= @investments[prop_id][:investment_id] %>'" style="background-image: url(<%= rails_blob_url(@investments[prop_id][:property_img]) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
             <% else %>
-              <div onclick="location.href='/investments/<%= investment.id %>'" style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
+              <div onclick="location.href='/investments/<%= @investments[prop_id][:investment_id] %>'" style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
             <% end %>
             <div class='card-padding investor-card-address'>
-              <% if investment.deal.property %>
+              <% if @investments[prop_id] %>
                 <div class="investor-card-name">
-                  <%= link_to "#{investment&.deal&.property&.nickname}", investment_path(investment.id) %>
+                  <%= link_to "#{@investments[prop_id][:property_nickname]}", investment_path(@investments[prop_id][:investment_id]) %>
                 </div>
-                <%if investment&.deal&.property&.address%>
+                <%if @investments[prop_id][:address]%>
                 <p class="investment-property-address">
-                  <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= investment&.deal&.property&.address&.line1 %>, <%= investment&.deal&.property&.address&.location %>
+                  <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= @investments[prop_id][:address] %>
                 </p>
                 <% end %>
               <% else %>
@@ -49,22 +49,18 @@
                 </div>
                 <div class="col-xs-6">
                   <p class="text-right" style="font-weight: bold; text-align: right">
-                    <%= investment&.deal&.property&.property_type&.humanize&.titleize %>
+                    <%= @investments[prop_id][:type] %>
                     <br>
-                    <%= investment&.deal&.property&.closing_date&.strftime("%m/%d/%Y") %>
+                    <%= @investments[prop_id][:closing_date] %>
                     <br>
-                    <%= number_to_currency(investment.amount_invested, precision: 0) %>
+                    <%= number_to_currency(@investments[prop_id][:investor_equity], precision: 0) %>
                     <br>
-                    <% if !investment&.deal&.property&.gross_distributions&.blank? %>
-                      <%= number_to_currency(investment&.gross_distribution, precision: 0) %>
-                    <% else %>
-                      $0.00
-                    <% end %>
+                    <%= number_to_currency(@investments[prop_id][:gross_distribution], precision: 0) %>
                   </p>
                 </div>
               </div>
               <div>
-                <form action="<%= investment_path(investment.id) %>">
+                <form action="<%= investment_path(@investments[prop_id][:investment_id]) %>">
                   <button class="btn btn-primary investment-button" type="submit">View Details</button>
                 </form>
               </div>

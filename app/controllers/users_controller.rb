@@ -49,7 +49,11 @@ class UsersController < ApplicationController
     @order = params['order'] ? params['order'] : 'DESC'
 
     @user = User.find_by(id: params[:id])
-    @investments = Investment.joins(deal: :property).where(user_id: @user.id).order("properties.closing_date #{@order}") 
+
+    user_investments = Investment.combine_investments(@user.id, @order)
+    @investments = user_investments[:investments]
+    @property_ids = user_investments[:property_ids]
+    
     @investment = Investment.new
     if @user.admin
       redirect_to users_path and return
