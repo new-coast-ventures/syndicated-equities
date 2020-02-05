@@ -12,7 +12,7 @@
       <% @property_ids.each do |prop_id| %>
         <div class="col-lg-4 col-md-6" >
           <div class="card investor-card-container">
-             <% if @investments[prop_id][:property_img] && !Rails.env.development? %>
+             <% if @investments[prop_id][:property_img].attached? && Rails.env.development? %>
               <div onclick="location.href='/investments/<%= @investments[prop_id][:investment_id] %>'" style="background-image: url(<%= rails_blob_url(@investments[prop_id][:property_img]) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
             <% else %>
               <div onclick="location.href='/investments/<%= @investments[prop_id][:investment_id] %>'" style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
