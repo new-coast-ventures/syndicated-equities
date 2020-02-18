@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_03_164334) do
+ActiveRecord::Schema.define(version: 2020_02_18_201338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -73,6 +73,7 @@ ActiveRecord::Schema.define(version: 2020_01_03_164334) do
     t.boolean "generic", default: false
     t.string "owner_type"
     t.bigint "property_id"
+    t.integer "sort"
     t.index ["property_id"], name: "index_forms_on_property_id"
   end
 

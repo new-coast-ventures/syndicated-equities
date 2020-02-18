@@ -29,7 +29,7 @@
         <div class="form-table-container table-bordered">
           <% if !@property.forms.empty? %>
             <table class="form-table">
-              <% @property&.forms.order(updated_at: :desc).each do |form| %>
+              <% @property&.forms.order(:sort).each do |form| %>
                 <tr>
                   <td class="form-title">
                     <%= form.title %>

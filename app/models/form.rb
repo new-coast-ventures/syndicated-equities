@@ -2,6 +2,8 @@
 # RUBY->MODEL->FORM ==============================
 # ================================================
 class Form < ActiveRecord::Base
+  include RailsSortable::Model
+  set_sortable :sort  # Indicate a sort column
   # belongs_to :owner, polymorphic: true
   belongs_to :property, optional: true
   

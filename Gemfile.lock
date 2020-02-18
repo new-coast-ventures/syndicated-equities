@@ -956,6 +956,7 @@ GEM
       rails (>= 3.2)
       rails_admin (>= 0.4)
     rails_serve_static_assets (0.0.5)
+    rails_sortable (1.4.0)
     rails_stdout_logging (0.0.5)
     railties (5.2.2)
       actionpack (= 5.2.2)
@@ -1063,6 +1064,7 @@ DEPENDENCIES
   dotenv-rails
   ffaker
   jquery-rails
+  jquery-ui-rails
   letter_opener
   mini_magick
   money-rails (~> 1)
@@ -1073,6 +1075,7 @@ DEPENDENCIES
   rails_12factor
   rails_admin (~> 1.0)
   rails_admin_become_user
+  rails_sortable
   recaptcha
   roo (~> 2.7.0)
   rspec-rails (~> 3.5)
