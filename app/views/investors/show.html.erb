@@ -94,9 +94,6 @@
               Investment
             </th>
             <th>
-              %
-            </th>
-            <th>
               Gross Distributions
             </th>
             <th>
@@ -126,10 +123,7 @@
               <%= number_to_currency(invst.amount_invested, precision: 0) %>
             </td>
             <td>
-              <%= invst.gross_distribution_view %>
-            </td>
-            <td>
-              <%= number_to_currency(invst.calc_gross_distribution, precision: 0) %>
+              <%= number_to_currency(invst.gross_distribution, precision: 0) %>
             </td>
             <td data-sort="<%= invst&.deal&.property&.closing_date&.strftime("%Y/%m/%d") %>">
               <%= invst&.deal&.property&.closing_date&.strftime("%m/%d/%Y") %>
