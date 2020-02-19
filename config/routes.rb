@@ -12,7 +12,6 @@ Rails.application.routes.draw do
   get '/delete-investments/:id', to: 'investments#delete_all', as: 'delete-all-investments'
 
   resources :properties
-  resources :gross_distributions
   resources :contacts, only: [:index]
   resources :addresses, only: [:create, :update, :destroy]
 
