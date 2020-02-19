@@ -30,14 +30,16 @@
           <% if !@property.forms.empty? %>
             <table class="form-table">
               <% @property&.forms.order(:sort).each do |form| %>
-                <tr>
-                  <td class="form-title">
-                    <%= form.title %>
-                  </td>
-                  <td>
-                    <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
-                  </td>
-                </tr>
+                <% if form.document.attached? %>
+                  <tr>
+                    <td class="form-title">
+                      <%= form.title %>
+                    </td>
+                    <td>
+                      <%= link_to "Download/View", rails_blob_path(form&.document, disposition: 'attachment') %>
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
             </table>            
           <% else %>
