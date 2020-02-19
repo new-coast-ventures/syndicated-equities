@@ -1,0 +1,80 @@
+<div class="modal fade" id="investor-form-modal" tabindex="-1" role="dialog" aria-labelledby="investorForm" aria-hidden="true">
+  <div class="modal-dialog" style="top: 100px" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="investorForm"><% if @investor&.first_name %>Edit <%= @investor&.name %><% else %>New investor<% end %></h5>
+      </div>
+      <div class="modal-body">
+        <%= form_for @investor do |f| %>
+
+          <fieldset class="form-group">
+            <label>First Name<span style="color:red">*</span></label>
+            <%= f.text_field :first_name, value: @investor.first_name, required: true %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Last Name<span style="color:red">*</span></label>
+            <%= f.text_field :last_name, value: @investor.last_name, required: true %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Email<span style="color:red">*</span></label>
+            <%= f.text_field :email, value: @investor.email, required: true %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Approved</label>
+            <%= f.check_box :approved, value: @investor.approved %>
+          </fieldset>
+          
+          <fieldset class="form-group">
+            <label>Admin</label>
+            <%= f.check_box :admin, value: @investor.admin %>
+          </fieldset>
+
+          <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  $('#investor-form-modal input[required]').on('change', function() {
+      console.log('here');
+      
+      var investorEmpty = false;
+      $('#investor-form-modal input[required]').each(function() {
+          if ($(this).val() == '') {
+              investorEmpty = true;
+          }
+      });
+
+      if (investorEmpty) {
+          $('#investor-form-modal #submit').attr('disabled', 'disabled');
+      } else {
+          $('#investor-form-modal #submit').removeAttr('disabled');
+      }
+  });
+
+  $(document).ready(function(){
+
+      var investorEmpty = false;
+      $('#investor-form-modal input[required]').each(function() {
+          if ($(this).val() == '') {
+              investorEmpty = true;
+          }
+      });
+
+      if (investorEmpty) {
+          $('#investor-form-modal #submit').attr('disabled', 'disabled');
+      } else {
+          $('#investor-form-modal #submit').removeAttr('disabled');
+      }
+  });
+</script>
