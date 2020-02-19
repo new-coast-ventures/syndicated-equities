@@ -101,14 +101,16 @@
           <% if !@property.forms.empty? %>
             <table class="form-table">
               <% @property&.forms.order(updated_at: :desc).each do |form| %>
-                <tr>
-                  <td class="form-title">
-                    <%= form.title %>
-                  </td>
-                  <td>
-                    <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
-                  </td>
-                </tr>
+                <% if form.document.attached? %>
+                  <tr>
+                    <td class="form-title">
+                      <%= form.title %>
+                    </td>
+                    <td>
+                      <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
+                    </td>
+                  </tr>
+                <% end %>
               <% end %>
             </table>            
           <% else %>
@@ -172,18 +174,20 @@
             <% if !@property.forms.empty? %>
               <table class="form-table">
                 <% @property&.forms.order(updated_at: :desc).each do |form| %>
-                  <tr>
-                    <td class="form-title">
-                      <%= form.title %>
-                    </td>
-                    <td>
-                      <% if form.document.filename.to_s.downcase.include?('.pdf') %>
-                        <%= link_to "Download/View", rails_blob_path(form.document), target: "_blank" %>
-                      <% else %>
-                        <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
-                      <% end %>
-                    </td>
-                  </tr>
+                  <% if form.document.attached? %>
+                    <tr>
+                      <td class="form-title">
+                        <%= form.title %>
+                      </td>
+                      <td>
+                        <% if form.document.filename.to_s.downcase.include?('.pdf') %>
+                          <%= link_to "Download/View", rails_blob_path(form.document), target: "_blank" %>
+                        <% else %>
+                          <%= link_to "Download/View", rails_blob_path(form.document, disposition: 'attachment') %>
+                        <% end %>
+                      </td>
+                    </tr>
+                  <% end %>
                 <% end %>
               </table>            
             <% else %>
