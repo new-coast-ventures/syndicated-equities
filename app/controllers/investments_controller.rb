@@ -69,7 +69,7 @@ class InvestmentsController < ApplicationController
     end
   rescue => e  
     puts "%%%%%%%%%%%%%%%%%%#{e}%%%%%%%%%%%%%%%%%%%%%%%%"
-    puts "%%%%%%%%%%%%%%%%%%#{e.trace}%%%%%%%%%%%%%%%%%%%%%%%%"
+    puts "%%%%%%%%%%%%%%%%%%#{e.backtrace.join "\n"}%%%%%%%%%%%%%%%%%%%%%%%%"
     flash[:alert] = 'Sorry, that investment is not available.'
     redirect_to main_app.root_path
   end
