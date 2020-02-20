@@ -86,6 +86,14 @@ class Investment < ActiveRecord::Base
     "#{(gross_distribution_percentage.to_f * 100).round(4) }%"
   end
 
+  def total_gross_distribution
+    total = 0
+    gross_distributions.each do |gross|
+      total += gross.amount.to_i
+    end
+    total
+  end
+
   private
 
   def self.create_deals(file, property_id)
@@ -142,14 +150,6 @@ class Investment < ActiveRecord::Base
     FileUtils.cp(file, "lib/imports")
   end
 
-  def self.total_gross_distribution(gross_distributions)
-    total = 0
-    gross_distributions.each do |gross|
-      total += gross.to_i
-    end
-    total
-  end
-
   def self.combine_investments(user_id, order)
     user_investments = Investment.joins(deal: :property).where(user_id: user_id).order("properties.closing_date #{order}")
     investments = {}
@@ -162,7 +162,7 @@ class Investment < ActiveRecord::Base
           type: property.property_type&.humanize&.titleize,
           closing_date: property&.closing_date&.strftime("%m/%d/%Y"),
           investor_equity: investment&.amount_invested.to_i,
-          gross_distribution: investment&.gross_distribution.to_i,
+          gross_distribution: investment.total_gross_distribution,
           property_id: property&.id,
           investment_id: investment.id,
           property_img: property&.avatar,

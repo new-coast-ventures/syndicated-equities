@@ -415,11 +415,8 @@
           <td>
             <%= number_to_currency(invst.amount_invested, precision: 0) %>
           </td>
-          <!-- <td>
-            <%= invst.gross_distribution_view %>
-          </td> -->
           <td>
-            <%= link_to number_to_currency(invst.gross_distribution, precision: 0), gross_distribution_path(invst.id) %>
+            <%= link_to number_to_currency(invst.total_gross_distribution, precision: 0), gross_distribution_path(invst.id) %>
           </td>
           <td>
             <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{invst.id}", 'data-toggle' => 'modal'  %>
