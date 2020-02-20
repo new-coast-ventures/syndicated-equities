@@ -57,6 +57,7 @@ class InvestmentsController < ApplicationController
 
   def show
     @investment = Investment.find_by(id: params[:id])
+    @gross_distributions = @investment.gross_distributions
     @property = Property.find(@investment&.deal&.property&.id)
     @property_investments = @property.investments.where(user_id: current_user.id)
     @user_gross_distribution = @property.total_user_gross_distribution(current_user.id)
