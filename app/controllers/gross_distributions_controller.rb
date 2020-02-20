@@ -9,6 +9,28 @@ class GrossDistributionsController < ApplicationController
     @gross_distribution = GrossDistribution.new()
   end
 
+  def create
+    gd = GrossDistribution.create(gross_distribution_params)
+    if !gd.save
+      flash[:alert] = 'Something went wrong. Please try again.)'
+    end
+      
+    redirect_back(fallback_location: root_path)
+  end
+
+  def update
+    gd = GrossDistribution.find(params['id'])
+    gd.update(gross_distribution_params)
+
+    redirect_back(fallback_location: root_path)
+  end
+
+  def destroy
+    GrossDistribution.find(params['id']).destroy
+    
+    redirect_back(fallback_location: root_path)
+  end
+
   private
   
   def gross_distribution_params

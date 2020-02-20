@@ -1,6 +1,5 @@
-<%= render partial: "modal_form", investment: @investment %>
 <div class="container-fluid" style="margin-top: 35px">
-  <%= link_to "< Back to Property", properties_path(@property.id), { :class=>"back-button" } %>
+  <%= link_to "< Back to Property", property_path(@property.id), { :class=>"back-button" } %>
 	<div class=" row page-header">
     <div class="col-md-12" style="padding-left: 0px;margin-top: 20px">
       <h2 class="text-left">
@@ -15,41 +14,32 @@
     <div class="table-page-header" style="padding-top: 20px">
       <span style="font-size: 24px; font-weight: 500">Gross Distributions</span>
       <button type="button" class="table-button" style="margin-left: 10px" data-toggle="modal"
-        data-target="#addInvestment">Add Gross Distribution</button>
+        data-target="#addGrossDistribution">Add Gross Distribution</button>
 
-      <div class="modal fade" id="addInvestment" tabindex="-1" role="dialog" aria-labelledby="addInvestment"
+<%# Add GD form %>
+      <div class="modal fade" id="addGrossDistribution" tabindex="-1" role="dialog" aria-labelledby="addGrossDistribution"
         aria-hidden="true">
         <div class="modal-dialog">
           <div class="modal-content" style="margin-top:100px">
             <div class="modal-header">
               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-              <h4 class="modal-title" id="addInvestment">Add Gross Distribution</h4>
+              <h4 class="modal-title" id="addGrossDistribution">Add Gross Distribution</h4>
             </div>
             <div class="modal-body">
               <%= form_for @gross_distribution do |f| %>
               <%= f.hidden_field :investment_id, value: @investment.id %>
               <fieldset class="form-group">
-                <label>Property<span style="color:red">*</span></label>
-                <%= select :property, :id, Property.all.order("name ASC").map {|property| ["#{property.list_name}", property.id]}, prompt: 'Select Property...', required: true %>
+                <label>Description<span style="color:red">*</span></label>
+                <%= f.text_field :description, required: true %>
               </fieldset>
               <fieldset class="form-group">
-                <label>Investor Entity<span style="color:red">*</span></label>
-                <%= f.text_field :investor_entity, required: true %>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>Investment Entity<span style="color:red">*</span></label>
-                <%= f.text_field :investing_entity, required: true %>
+                <label>Amount<span style="color:red">*</span></label>
+                <%= f.text_field :amount, required: true %>
               </fieldset>
 
               <fieldset class="form-group">
-                <label>Investment</label>
-                <%= f.text_field :amount_invested %>
-              </fieldset>
-
-              <fieldset class="form-group">
-                <label>Gross Distribution </label>
-                <%= f.text_field :gross_distribution %>
+                <label>Distribution Date<span style="color:red">*</span></label>
+                <%= f.text_field :distribution_date, required: true, placeholder: "MM/DD/YYYY" %>
               </fieldset>
 
               <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
@@ -60,28 +50,19 @@
         </div><!-- /.modal-dialog -->
       </div><!-- /.modal -->
     </div>
-    <% if !@investor&.investments.nil? %>
+    <% if !@gross_distributions.nil? %>
     <div class="table-responsive investor-table-container">
       <table class="display investor-table" id="sortable-table" cellspacing="0" width="100%">
         <thead class="thead-default">
           <tr>
             <th>
-              Property Name
+              Description
             </th>
             <th>
-              Investor Entity
+              Amount
             </th>
             <th>
-              Investment Entity
-            </th>
-            <th>
-              Investment
-            </th>
-            <th>
-              Gross Distributions
-            </th>
-            <th>
-              Closing Date
+              Distribution Date
             </th>
             <th>
             </th>
@@ -90,64 +71,43 @@
           </tr>
         </thead>
         <tbody>
-          <% @investor&.investments.each do |invst| %>
+          <% @gross_distributions.each do |gd| %>
           <tr class="investor-table">
             <td>
-              <% if invst&.deal&.property&.id %>
-              <%= link_to "#{invst&.deal&.property&.list_name}", property_path(invst&.deal&.property&.id) %>
-              <% end %>
+              <%= gd.description %>
             </td>
             <td>
-              <%= invst.investor_entity %>
+              <%= number_to_currency(gd.amount, precision: 0) %>
             </td>
             <td>
-              <%= invst.investing_entity ? invst.investing_entity : invst&.deal&.title %>
+              <%= gd.distribution_date %>
             </td>
             <td>
-              <%= number_to_currency(invst.amount_invested, precision: 0) %>
-            </td>
-            <td>
-              <%= number_to_currency(invst.gross_distribution, precision: 0) %>
-            </td>
-            <td data-sort="<%= invst&.deal&.property&.closing_date&.strftime("%Y/%m/%d") %>">
-              <%= invst&.deal&.property&.closing_date&.strftime("%m/%d/%Y") %>
-            </td>
-            <td>
-              <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{invst.id}", 'data-toggle' => 'modal'  %>
-              <div class="modal fade" id='<%= "myModal_#{invst.id}" %>' tabindex="-1" role="dialog"
+              <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{gd.id}", 'data-toggle' => 'modal'  %>
+              <div class="modal fade" id='<%= "myModal_#{gd.id}" %>' tabindex="-1" role="dialog"
                 aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-dialog"
                   style="margin-top:100px;background:white; border-radius:0.3rem;border: 1px solid rgba(0, 0, 0, 0.2)">
                   <div class="modal-content"></div>
                   <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Update Investment</h4>
+                    <h4 class="modal-title" id="myModalLabel">Update Gross Distribution</h4>
                   </div>
                   <div class="modal-body">
-                    <%= form_for invst do |f| %>
+                    <%= form_for gd do |f| %>
                     <fieldset class="form-group">
-                      <label>Investor Entity<span style="color:red">*</span></label>
-                      <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
+                      <label>Description<span style="color:red">*</span></label>
+                      <%= f.text_field :description, value: gd.description, required: true %>
                     </fieldset>
 
                     <fieldset class="form-group">
-                      <label>Investment Entity<span style="color:red">*</span></label>
-                      <%= f.text_field :investing_entity, value: invst.investing_entity %>
+                      <label>Amount<span style="color:red">*</span></label>
+                      <%= f.text_field :amount, value: gd.amount %>
                     </fieldset>
 
                     <fieldset class="form-group">
-                      <label>Investment</label>
-                      <%= f.text_field :amount_invested, value: invst.amount_invested %>
-                    </fieldset>
-
-                    <!-- <fieldset class="form-group">
-                                <label>Gross Distribution Percentage</label>
-                                <%= f.text_field :gross_distribution_percentage, value: invst.gross_distribution %>
-                              </fieldset> -->
-
-                    <fieldset class="form-group">
-                      <label>Gross Distribution</label>
-                      <%= f.text_field :gross_distribution, value: invst.calc_gross_distribution, disabled: true %>
+                      <label>Distribution Date</label>
+                      <%= f.text_field :distribution_date, value: gd.distribution_date %>
                     </fieldset>
 
                     <%= f.submit class: "btn btn-primary", id: "submit" %>
@@ -156,18 +116,18 @@
                   </div>
                 </div><!-- /.modal-content -->
               </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
-    </td>
-    <td>
-      <%= link_to "Delete", investment_path(invst.id), :method => :delete, data: {confirm: "Are you sure you want to delete this investment?"} %>
-    </td>
-    </tr>
-    <% end %>
+            </div><!-- /.modal -->
+          </td>
+        <td>
+          <%= link_to "Delete", gross_distribution_path(gd.id), :method => :delete, data: {confirm: "Are you sure you want to delete this Gross Distribution?"} %>
+        </td>
+      </tr>
+      <% end %>
     </tbody>
     </table>
   </div>
   <% else %>
-  No Investments on this investor.
+  No Gross Distributions on this Property.
   <% end %>
 </div>
 </div>
@@ -181,10 +141,10 @@
     });
   });
 
-  $('#addInvestment input[required]').on('change', function () {
+  $('#addGrossDistribution input[required]').on('change', function () {
 
     var empty = false;
-    $('#addInvestment input[required]').each(function () {
+    $('#addGrossDistribution input[required]').each(function () {
       console.log($(this), $(this).val())
 
       if ($(this).val() == '') {
@@ -193,16 +153,16 @@
     });
     console.log(empty)
     if (empty) {
-      $('#addInvestment #submit').attr('disabled', 'disabled');
+      $('#addGrossDistribution #submit').attr('disabled', 'disabled');
     } else {
-      $('#addInvestment #submit').removeAttr('disabled');
+      $('#addGrossDistribution #submit').removeAttr('disabled');
     }
   });
 
   $(document).ready(function () {
 
     var empty = false;
-    $('#addInvestment input[required]').each(function () {
+    $('#addGrossDistribution input[required]').each(function () {
       console.log($(this))
       if ($(this).val() == '') {
         empty = true;
@@ -210,9 +170,9 @@
     });
 
     if (empty) {
-      $('#addInvestment #submit').attr('disabled', 'disabled');
+      $('#addGrossDistribution #submit').attr('disabled', 'disabled');
     } else {
-      $('#addInvestment #submit').removeAttr('disabled');
+      $('#addGrossDistribution #submit').removeAttr('disabled');
     }
   });
 </script>
