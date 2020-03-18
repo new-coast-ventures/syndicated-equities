@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_19_185716) do
+ActiveRecord::Schema.define(version: 2020_02_18_201338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,16 +75,6 @@ ActiveRecord::Schema.define(version: 2020_02_19_185716) do
     t.bigint "property_id"
     t.integer "sort"
     t.index ["property_id"], name: "index_forms_on_property_id"
-  end
-
-  create_table "gross_distributions", force: :cascade do |t|
-    t.bigint "investment_id"
-    t.string "amount"
-    t.string "distribution_date"
-    t.string "description"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["investment_id"], name: "index_gross_distributions_on_investment_id"
   end
 
   create_table "investments", id: :serial, force: :cascade do |t|
@@ -161,6 +151,5 @@ ActiveRecord::Schema.define(version: 2020_02_19_185716) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "deals", "properties"
   add_foreign_key "forms", "properties"
-  add_foreign_key "gross_distributions", "investments"
   add_foreign_key "notes", "properties"
 end
