@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby "2.4.4"
+ruby "2.6.1"
 
 gem 'dotenv-rails', require: 'dotenv/rails-now'
 gem 'dotenv', :require => 'dotenv/load'
