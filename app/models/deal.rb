@@ -3,7 +3,7 @@
 # ================================================
 class Deal < ActiveRecord::Base
   belongs_to :property
-  has_many :investments, inverse_of: :deal
+  has_many :investments, inverse_of: :deal, dependent: :destroy
   has_many :investors, through: :investments, inverse_of: :investments
   has_many :notes, inverse_of: :deal
   has_many :forms, as: :owner, dependent: :destroy

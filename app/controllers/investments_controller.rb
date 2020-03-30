@@ -16,8 +16,10 @@ class InvestmentsController < ApplicationController
   end
 
   def destroy
-    Investment.find(params['id']).destroy
-    
+    inv = Investment.find(params['id']).destroy
+    inv.gross_distributions.destroy_all
+    inv.destroy
+
     redirect_back(fallback_location: root_path)
   end
 
@@ -128,7 +130,6 @@ class InvestmentsController < ApplicationController
   def delete_all
     prop = Property.find(params[:id])
     prop.deals.destroy_all
-    prop.investments.destroy_all
     flash[:notice] = 'Investments have been successfully deleted.'
 
     redirect_to property_path(params[:id])

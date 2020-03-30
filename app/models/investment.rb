@@ -24,7 +24,7 @@ require "set"
 class Investment < ActiveRecord::Base
   belongs_to :investor, class_name: 'User', foreign_key: :user_id, inverse_of: :investments
   belongs_to :deal, inverse_of: :investors
-  has_many :gross_distributions
+  has_many :gross_distributions, dependent: :destroy
 
   validates_presence_of :deal
 
