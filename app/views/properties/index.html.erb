@@ -2,7 +2,9 @@
 <div class='table-page-header'>
   <h3 class="dashboard-title">Properties (<%= @properties.count %> <%= @status.capitalize %>)
 		<span>
-			<button type="button" data-toggle="modal" data-target="#property-form-modal" class="table-button"> Add Property</button>
+		  <% if @master_admin %>
+				<button type="button" data-toggle="modal" data-target="#property-form-modal" class="table-button"> Add Property</button>
+			<% end %>
 			<span class='form-container status-dropdown'>	
 				<%= form_tag(properties_path, :method => "get", id: "search-form") do %>	
 					<%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['All Statuses', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	

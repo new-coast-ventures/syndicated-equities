@@ -1,5 +1,6 @@
 class PropertiesController < ApplicationController
   before_action :authenticate_user! unless Rails.env.development?
+  before_action :check_master_admin
 
   # ----------------------------------------------
   # INDEX ----------------------------------------

@@ -1,6 +1,8 @@
 <%= render partial: "investors/modal_form" %>
 <div class="table-page-header">
-  <button type="button" class="table-button" data-toggle="modal" data-target="#investor-form-modal"">Add Investor</button>
+  <% if @master_admin %>
+    <button type="button" class="table-button" data-toggle="modal" data-target="#investor-form-modal"">Add Investor</button>
+  <% end %>
   <h5 class="dashboard-title">Investors</h5>
 </div>
 

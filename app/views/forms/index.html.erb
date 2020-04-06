@@ -1,6 +1,8 @@
 <% if current_user.admin %>
 	<%= render partial: "modal_form", doc: @doc %>
-	<button type="button" class="table button" style="width: 150px ;background: transparent; color: #0E77D9; padding:15px" data-toggle="modal" data-target="#docu-form-modal">Add Document</button>
+	<% if @master_admin %>
+		<button type="button" class="table button" style="width: 150px ;background: transparent; color: #0E77D9; padding:15px" data-toggle="modal" data-target="#docu-form-modal">Add Document</button>
+	<% end%>
 <% end%>
 <h5 class="dashboard-title">Form Library</h5>
 <% if @forms.any? %>
@@ -10,7 +12,7 @@
 				<th>Form Name</th>
 				<th>Date</th>
 				<th>Link</th>
-				<% if current_user.admin %>
+				<% if @master_admin %>
 					<th></th>
 					<th></th>
 				<% end %>
@@ -28,7 +30,7 @@
 							<%= link_to "Download/View", rails_blob_path(form&.document) %>
 						<% end %>
 					</td>
-					<% if current_user.admin %>
+					<% if @master_admin %>
 						<td>
 							<%= link_to 'Edit',  '#', 'data-target' => "#myFormEditModal_#{form.id}", 'data-toggle' => 'modal'  %>
 							<div class="modal fade" id='<%= "myFormEditModal_#{form.id}" %>' tabindex="-1" role="dialog" aria-labelledby="myFormModalLabel" aria-hidden="true">

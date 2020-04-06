@@ -13,8 +13,10 @@
   <div class="col-md-12">
     <div class="table-page-header" style="padding-top: 20px">
       <span style="font-size: 24px; font-weight: 500">Gross Distributions</span>
-      <button type="button" class="table-button" style="margin-left: 10px" data-toggle="modal"
-        data-target="#addGrossDistribution">Add Gross Distribution</button>
+      <% if @master_admin %>
+        <button type="button" class="table-button" style="margin-left: 10px" data-toggle="modal"
+          data-target="#addGrossDistribution">Add Gross Distribution</button>
+      <% end %>
 
 <%# Add GD form %>
       <div class="modal fade" id="addGrossDistribution" tabindex="-1" role="dialog" aria-labelledby="addGrossDistribution"
@@ -64,10 +66,12 @@
             <th>
               Distribution Date
             </th>
-            <th>
-            </th>
-            <th>
-            </th>
+            <% if @master_admin %>
+              <th>
+              </th>
+              <th>
+              </th>
+            <% end  %>
           </tr>
         </thead>
         <tbody>
@@ -82,45 +86,47 @@
             <td>
               <%= gd.distribution_date %>
             </td>
+            <% if @master_admin %>
+              <td>
+                <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{gd.id}", 'data-toggle' => 'modal'  %>
+                <div class="modal fade" id='<%= "myModal_#{gd.id}" %>' tabindex="-1" role="dialog"
+                  aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog"
+                    style="margin-top:100px;background:white; border-radius:0.3rem;border: 1px solid rgba(0, 0, 0, 0.2)">
+                    <div class="modal-content"></div>
+                    <div class="modal-header">
+                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                      <h4 class="modal-title" id="myModalLabel">Update Gross Distribution</h4>
+                    </div>
+                    <div class="modal-body">
+                      <%= form_for gd do |f| %>
+                      <fieldset class="form-group">
+                        <label>Description<span style="color:red">*</span></label>
+                        <%= f.text_field :description, value: gd.description, required: true %>
+                      </fieldset>
+
+                      <fieldset class="form-group">
+                        <label>Amount<span style="color:red">*</span></label>
+                        <%= f.text_field :amount, value: gd.amount %>
+                      </fieldset>
+
+                      <fieldset class="form-group">
+                        <label>Distribution Date</label>
+                        <%= f.text_field :distribution_date, value: gd.distribution_date %>
+                      </fieldset>
+
+                      <%= f.submit class: "btn btn-primary", id: "submit" %>
+
+                      <% end %>
+                    </div>
+                  </div><!-- /.modal-content -->
+                </div><!-- /.modal-dialog -->
+              </div><!-- /.modal -->
+            </td>
             <td>
-              <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{gd.id}", 'data-toggle' => 'modal'  %>
-              <div class="modal fade" id='<%= "myModal_#{gd.id}" %>' tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog"
-                  style="margin-top:100px;background:white; border-radius:0.3rem;border: 1px solid rgba(0, 0, 0, 0.2)">
-                  <div class="modal-content"></div>
-                  <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title" id="myModalLabel">Update Gross Distribution</h4>
-                  </div>
-                  <div class="modal-body">
-                    <%= form_for gd do |f| %>
-                    <fieldset class="form-group">
-                      <label>Description<span style="color:red">*</span></label>
-                      <%= f.text_field :description, value: gd.description, required: true %>
-                    </fieldset>
-
-                    <fieldset class="form-group">
-                      <label>Amount<span style="color:red">*</span></label>
-                      <%= f.text_field :amount, value: gd.amount %>
-                    </fieldset>
-
-                    <fieldset class="form-group">
-                      <label>Distribution Date</label>
-                      <%= f.text_field :distribution_date, value: gd.distribution_date %>
-                    </fieldset>
-
-                    <%= f.submit class: "btn btn-primary", id: "submit" %>
-
-                    <% end %>
-                  </div>
-                </div><!-- /.modal-content -->
-              </div><!-- /.modal-dialog -->
-            </div><!-- /.modal -->
+              <%= link_to "Delete", gross_distribution_path(gd.id), :method => :delete, data: {confirm: "Are you sure you want to delete this Gross Distribution?"} %>
           </td>
-        <td>
-          <%= link_to "Delete", gross_distribution_path(gd.id), :method => :delete, data: {confirm: "Are you sure you want to delete this Gross Distribution?"} %>
-        </td>
+          <% end %>
       </tr>
       <% end %>
     </tbody>

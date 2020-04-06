@@ -4,6 +4,7 @@
 class UsersController < ApplicationController
   
   before_action :authenticate_user!
+  before_action :check_master_admin
 
   # investor index
   def index
