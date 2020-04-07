@@ -2,8 +2,8 @@
 # RUBY->MODEL->INVESTMENT ========================
 # ================================================
 class Note < ActiveRecord::Base
-  belongs_to :deal
-  belongs_to :property
+  belongs_to :deal, optional: true
+  belongs_to :property, optional: true
   
   # has_attached_file :document
 

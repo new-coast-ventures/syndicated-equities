@@ -44,9 +44,12 @@
                 <li class="nav-item">
                   <%= link_to "Properties", properties_path(current_user), class: "nav-link" %>
                 </li>
+                <li class="nav-item">
+                  <%= link_to "Resources", forms_path, class: "nav-link" %>
+                </li>
               <% else %>
                 <li class="nav-item">
-                  <%= link_to "Dashboard", user_path(current_user), class: "nav-link" %>
+                  <%= link_to "Dashboard", forms_path, class: "nav-link" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Investments", user_path(current_user), class: "nav-link" %>
@@ -54,9 +57,6 @@
               <% end %>
               <li class="nav-item">
                 <%= link_to "Edit Profile", edit_registration_path(current_user), class: "nav-link" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Form Library", forms_path, class: "nav-link" %>
               </li>
               <li class="nav-item float-md-right">
                 <%= link_to "Log out", destroy_session_path(current_user), :method => :delete, class: "nav-link" %>

@@ -12,6 +12,8 @@ class FormsController < ApplicationController
   def index
     @doc = Form.new
     @forms = Form.where(property_id: nil)
+    @note = Note.new
+    @notes = Note.where(property_id: nil)
   end
 
   def create

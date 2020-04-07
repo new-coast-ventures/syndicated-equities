@@ -10,7 +10,7 @@
       <div class="modal-body">
         <% if @note %>
           <%= form_for @note do |f| %>
-            <%= f.hidden_field :property_id, value: @property.id %> 
+            <%= f.hidden_field :property_id, value: @property&.id %> 
             <fieldset class="form-group">
               <label>Title<span style="color:red">*</span></label>
               <%= f.text_field :title, value: @note.title, required: true %>
@@ -32,6 +32,7 @@
     </div>
   </div>
 </div>
+<%= tinymce %>
 
 <script>
 
