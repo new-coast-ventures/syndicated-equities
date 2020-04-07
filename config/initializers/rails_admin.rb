@@ -141,6 +141,6 @@ RailsAdmin.config do |config|
   end
 
   def custom_investment_label
-    "#{self.investor_first_name} #{self.investor_last_name} | #{self.deal.title}"
+    "#{self.investor_first_name} #{self.investor_last_name} | #{self&.deal&.title}"
   end
 end
