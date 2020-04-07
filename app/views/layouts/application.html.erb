@@ -37,7 +37,7 @@
         <% if current_user %>
           <div class="collapse navbar-toggleable-md" id="navbarResponsive">
             <ul class="nav navbar-nav">
-              <% if current_user.admin %>
+              <% if current_user.admin || current_user.employee %>
                 <li class="nav-item">
                   <%= link_to "Investors", users_path(current_user), class: "nav-link" %>
                 </li>

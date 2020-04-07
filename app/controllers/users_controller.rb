@@ -56,13 +56,13 @@ class UsersController < ApplicationController
     @property_ids = user_investments[:property_ids]
     
     @investment = Investment.new
-    if @user.admin
+    if @user.admin || @user.employee
       redirect_to users_path and return
     end
     
     @notes = Note.global
     
-    if @user && current_user && @user.id == current_user.id || current_user.admin?
+    if @user && current_user && @user.id == current_user.id || current_user.admin? || current_user.employee
       @view = "dashboard"
       render 'show'
     else

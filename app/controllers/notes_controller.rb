@@ -36,7 +36,7 @@ class NotesController < ApplicationController
   
   def show
     @note = Note.find_by(id: params[:id])
-    if @note && current_user && @note.deal.investors.include?(current_user) || current_user.admin?
+    if @note && current_user && @note.deal.investors.include?(current_user) || current_user.admin? || current_user.employee
       render 'show'
     else
       flash[:alert] = 'Not authorized'

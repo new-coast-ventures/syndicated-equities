@@ -4,7 +4,7 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
   
   def check_master_admin
-    if ENV['MASTER_ADMINS'] && ENV['MASTER_ADMINS'].include?(current_user.email)
+    if current_user.admin
       @master_admin = true
     end
   end

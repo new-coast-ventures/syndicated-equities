@@ -65,7 +65,7 @@ class InvestmentsController < ApplicationController
     @property_investments = @property.investments.where(user_id: current_user.id)
     @user_gross_distribution = @property.total_user_gross_distribution(current_user.id)
     @property_notes = @property&.notes
-    if @investment && current_user && @investment.investor == current_user || current_user.admin?
+    if @investment && current_user && @investment.investor == current_user || current_user.admin? || current_user.employee
       render 'show'
     else
       flash[:alert] = 'Not authorized'
