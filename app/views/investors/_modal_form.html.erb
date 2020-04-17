@@ -35,6 +35,11 @@
             <%= f.check_box :admin, value: @investor.admin %>
           </fieldset>
 
+          <fieldset class="form-group">
+            <label>Employee</label>
+            <%= f.check_box :employee, value: @investor.employee %>
+          </fieldset>
+
           <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
 
         <% end %>
