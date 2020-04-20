@@ -37,7 +37,7 @@
         <% if current_user %>
           <div class="collapse navbar-toggleable-md" id="navbarResponsive">
             <ul class="nav navbar-nav">
-              <% if current_user.admin || current_user.employee %>
+              <% if (current_user.admin || current_user.employee) && !current_user.investor_view %>
                 <li class="nav-item">
                   <%= link_to "Investors", users_path(current_user), class: "nav-link" %>
                 </li>
@@ -62,7 +62,19 @@
                 <%= link_to "Log out", destroy_session_path(current_user), :method => :delete, class: "nav-link" %>
               </li>
               <li class="nav-item float-md-right">
-                <span class="nav-text"><%= image_tag('icon-user.png', style:"width: 16px;margin-right: 4px;") %> <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
+                <% if current_user.admin || current_user.employee %>
+                  <div class="dropdown">
+                    <button class="btn-primary dropdown-toggle" type="button" data-toggle="dropdown">                
+                      <span class="nav-text"><%= image_tag('icon-user.png', style:"width: 16px;margin-right: 4px;") %> <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                      <li><%= link_to "Admin", user_path(current_user, investor_view: false) %></li>
+                      <li><%= link_to "Investor", user_path(current_user, investor_view: true) %></li>
+                    </ul>
+                  </div>
+                <% else %>
+                  <span class="nav-text"><%= image_tag('icon-user.png', style:"width: 16px;margin-right: 4px;") %> <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
+                <% end %>
               </li>
             </ul>
           </div>

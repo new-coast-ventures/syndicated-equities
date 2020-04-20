@@ -79,9 +79,6 @@ RailsAdmin.config do |config|
       field :password
       field :admin
       field :employee
-      field :viewer do
-        label "Investor"
-      end
       field :investments do
         searchable [:investor_first_name, :investor_last_name, :investing_entity]
       end

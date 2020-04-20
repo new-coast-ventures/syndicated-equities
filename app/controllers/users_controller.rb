@@ -48,21 +48,26 @@ class UsersController < ApplicationController
 
   def show
     @order = params['order'] ? params['order'] : 'DESC'
-
+   
     @user = User.find_by(id: params[:id])
+
+    if params['investor_view']
+      @user.update(investor_view: ActiveModel::Type::Boolean.new.cast(params['investor_view']))
+    end
 
     user_investments = Investment.combine_investments(@user.id, @order)
     @investments = user_investments[:investments]
     @property_ids = user_investments[:property_ids]
     
     @investment = Investment.new
-    if @user.admin || @user.employee
+    
+    if (@user.admin || @user.employee) && !@user.investor_view
       redirect_to users_path and return
     end
     
     @notes = Note.global
     
-    if @user && current_user && @user.id == current_user.id || current_user.admin? || current_user.employee
+    if @user && current_user && @user.id == current_user.id
       @view = "dashboard"
       render 'show'
     else
