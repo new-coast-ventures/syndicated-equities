@@ -3,8 +3,12 @@ class AdminMailer < ActionMailer::Base
 
   def new_user_sign_up(user)
     @user = user
-
-    mail(to: ENV['ADMIN_EMAILS'], subject: 'New User Sign Up for Syndicated Equities Investor Portal')
+    subject = if Rails.env.staging? || Rails.env.development?
+                "[STAGING] New User Sign Up for Syndicated Equities Investor Portal"
+              else
+                "New User Sign Up for Syndicated Equities Investor Portal"
+              end
+    mail(to: ENV['ADMIN_EMAILS'], subject: subject)
   end
 
   def user_email_changed(user, old_email)
