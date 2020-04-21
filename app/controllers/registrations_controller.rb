@@ -46,12 +46,12 @@ class RegistrationsController < Devise::RegistrationsController
 
   def sign_up_params
     address_params = [:id, :line1, :line2, :city, :state, :zip]
-    params.require(:user).permit(:first_name, :last_name, :email, :password, :password_confirmation, [address_attributes: address_params])
+    params.require(:user).permit(:first_name, :last_name, :phone, :address_1, :address_2, :city, :state, :country, :zip_code, :email, :password, :password_confirmation, [address_attributes: address_params])
   end
 
   def account_update_params
     address_params = [:id, :line1, :line2, :city, :state, :zip]
-    params.require(:user).permit(:first_name, :last_name, :email, [address_attributes: address_params])
+    params.require(:user).permit(:first_name, :last_name, :phone, :address_1, :address_2, :city, :state, :country, :zip_code, :email, [address_attributes: address_params])
   end
 
   def password_update_params
