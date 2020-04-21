@@ -23,8 +23,12 @@
           style="float:right"><%= @investor.updated_at.strftime("%B %d, %Y") %></span> </div>
       <div class="investor-details-item">Investments <span style="float:right"><%= @investor.investments.count%></span>
       </div>
-      <div class="investor-details-item">Invested <span
-          style="float:right"><%=  number_to_currency(@investor.total_invested, precision: 0 ) %></span> </div>
+      <div class="investor-details-item">Invested<span
+          style="float:right"><%=  number_to_currency(@investor.total_invested, precision: 0 ) %></span> 
+      </div>
+      <div class="investor-details-item">Approved<span
+          style="float:right"><% if @investor.approved %>Yes<% else %>No<% end %></span> 
+      </div>
     </div>
   </div>
 </div>
