@@ -446,23 +446,26 @@
                     </div>
                     <div class="modal-body">
                       <%= form_for invst do |f| %>
-                      <fieldset class="form-group">
-                        <label>Investor Entity<span style="color:red">*</span></label>
-                        <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
-                      </fieldset>
+                        <fieldset class="form-group">
+                          <label>Investor<span style="color:red">*</span></label>
+                            <%= select :investment, :user_id, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user.id]}, prompt: 'Select Investor...', required: true, selected: invst.investor.id %>                        
+                        </fieldset>
+                        <fieldset class="form-group">
+                          <label>Investor Entity<span style="color:red">*</span></label>
+                          <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
+                        </fieldset>
 
-                      <fieldset class="form-group">
-                        <label>Investment Entity<span style="color:red">*</span></label>
-                        <%= f.text_field :investing_entity, value: invst.investing_entity %>
-                      </fieldset>
+                        <fieldset class="form-group">
+                          <label>Investment Entity<span style="color:red">*</span></label>
+                          <%= f.text_field :investing_entity, value: invst.investing_entity %>
+                        </fieldset>
 
-                      <fieldset class="form-group">
-                        <label>Investment</label>
-                        <%= f.text_field :amount_invested, value: invst.amount_invested %>
-                      </fieldset>
+                        <fieldset class="form-group">
+                          <label>Investment</label>
+                          <%= f.text_field :amount_invested, value: invst.amount_invested %>
+                        </fieldset>
 
-                      <%= f.submit class: "btn btn-primary", id: "submit" %>
-
+                        <%= f.submit class: "btn btn-primary", id: "submit" %>
                       <% end %>
                     </div>
                   </div><!-- /.modal-content -->

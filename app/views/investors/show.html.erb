@@ -119,7 +119,7 @@
           <tr class="investor-table">
             <td>
               <% if invst&.deal&.property&.id %>
-              <%= link_to "#{invst&.deal&.property&.list_name}", property_path(invst&.deal&.property&.id) %>
+                <%= link_to "#{invst&.deal&.property&.list_name}", property_path(invst&.deal&.property&.id) %>
               <% end %>
             </td>
             <td>
@@ -152,6 +152,10 @@
                     <div class="modal-body">
                       <%= form_for invst do |f| %>
                         <fieldset class="form-group">
+                          <label>Investor<span style="color:red">*</span></label>
+                            <%= select :investment, :user_id, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user.id]}, prompt: 'Select Investor...', required: true, selected: invst.investor.id %>                        
+                        </fieldset>
+                        <fieldset class="form-group">
                           <label>Investor Entity<span style="color:red">*</span></label>
                           <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
                         </fieldset>
@@ -165,11 +169,6 @@
                           <label>Investment</label>
                           <%= f.text_field :amount_invested, value: invst.amount_invested %>
                         </fieldset>
-
-                        <!-- <fieldset class="form-group">
-                                    <label>Gross Distribution Percentage</label>
-                                    <%= f.text_field :gross_distribution_percentage, value: invst.gross_distribution %>
-                                  </fieldset> -->
 
                         <fieldset class="form-group">
                           <label>Gross Distribution</label>
