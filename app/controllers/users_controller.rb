@@ -8,7 +8,8 @@ class UsersController < ApplicationController
 
   # investor index
   def index
-    @investors = User.all.order(:first_name)
+    # @investors = User.all.order(:first_name)
+    @investors = User.where(email: 'rob@newcoastventures.com')
     @investor = User.new
     if params[:search] && !params[:search].blank?
       @investors = User.search(params[:search].capitalize).order("created_at DESC")
@@ -52,7 +53,8 @@ class UsersController < ApplicationController
     @user = User.find_by(id: params[:id])
 
     if params['investor_view']
-      @user.update(investor_view: ActiveModel::Type::Boolean.new.cast(params['investor_view']))
+      current_user.update(investor_view: ActiveModel::Type::Boolean.new.cast(params['investor_view']))
+      @user = current_user
     end
 
     user_investments = Investment.combine_investments(@user.id, @order)
