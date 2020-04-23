@@ -64,8 +64,8 @@
               <li class="nav-item float-md-right">
                 <% if current_user.admin || current_user.employee %>
                   <div class="dropdown">
-                    <button class="btn-primary dropdown-toggle" type="button" data-toggle="dropdown">                
-                      <span class="nav-text"><%= image_tag('icon-user.png', style:"width: 16px;margin-right: 4px;") %> <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
+                    <button class="btn-primary" type="button" data-toggle="dropdown">                
+                      <span class="nav-text  dropdown-toggle"><%= "#{current_user.first_name} #{current_user.last_name}" %></span>
                     </button>
                     <ul class="dropdown-menu">
                       <li><%= link_to "Admin", user_path(current_user, investor_view: false) %></li>
@@ -73,7 +73,7 @@
                     </ul>
                   </div>
                 <% else %>
-                  <span class="nav-text"><%= image_tag('icon-user.png', style:"width: 16px;margin-right: 4px;") %> <%= "#{current_user.first_name} #{current_user.last_name}" %></span>
+                  <span class="nav-text"><%= "#{current_user.first_name} #{current_user.last_name}" %></span>
                 <% end %>
               </li>
             </ul>
