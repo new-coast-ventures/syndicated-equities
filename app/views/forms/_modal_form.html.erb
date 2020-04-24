@@ -20,6 +20,11 @@
             <%= f.file_field :document %>
           </fieldset>
 
+          <fieldset class="form-group">
+            <label>Form Library<span style="color:red">*</span></label>
+            <%= f.check_box :form_library %>
+          </fieldset>          
+
           <%= f.submit "Upload Document", class: "btn btn-primary", id: "submit" %>
 
         <% end %>

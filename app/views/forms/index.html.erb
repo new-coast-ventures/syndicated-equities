@@ -42,19 +42,24 @@
 														</div>
 														<div class="modal-body">
 															<%= form_for form do |f| %>
-															<%= f.hidden_field :property_id, value: @property&.id %>
-															<fieldset class="form-group">
-																<label>Title<span style="color:red">*</span></label>
-																<%= f.text_field :title, value: form&.title %>
-															</fieldset>
+																<%= f.hidden_field :property_id, value: @property&.id %>
+																<fieldset class="form-group">
+																	<label>Title<span style="color:red">*</span></label>
+																	<%= f.text_field :title, value: form&.title %>
+																</fieldset>
 
-															<fieldset class="form-group">
-																<label>File<span style="color:red">*</span></label>
-																<%= form&.document&.filename %>
-																<%= f.file_field :document %>
-															</fieldset>
+																<fieldset class="form-group">
+																	<label>File<span style="color:red">*</span></label>
+																	<%= form&.document&.filename %>
+																	<%= f.file_field :document %>
+																</fieldset>
 
-															<%= f.submit "Upload Document", class: "btn btn-primary", id: "submit" %>
+																<fieldset class="form-group">
+																	<label>Form Library<span style="color:red">*</span></label>
+																	<%= f.check_box :form_library, value: form&.form_library %>
+																</fieldset>
+
+																<%= f.submit "Upload Document", class: "btn btn-primary", id: "submit" %>
 															<% end %>
 														</div>
 													</div><!-- /.modal-content -->
@@ -78,8 +83,8 @@
 		</div>
 	</div>
 
-	<%# Notes Container %>
-	<div class="col-md-12" style="padding-left: 15px">
+	<%# Notes Container - hidden for now%>
+	<div style="display:none" class="col-md-12" style="padding-left: 15px">
 		<div class="card investor-card-container notes-card">
 			<% if @master_admin %>
 				<button type="button" class="table button"

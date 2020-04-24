@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   resources :forms do
     get :download
   end
+  get '/form-library', to: 'forms#form_library'
 
   resources :deals
   resources :notes
