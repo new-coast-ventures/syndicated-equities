@@ -11,14 +11,14 @@ class FormsController < ApplicationController
 
   def index
     @doc = Form.new
-    @forms = Form.where(property_id: nil, form_library: [nil, false])
+    @forms = Form.where(property_id: nil, form_library: [nil, false]).order("created_at DESC")
     @note = Note.new
     @notes = Note.where(property_id: nil)
   end
 
   def form_library
     @doc = Form.new
-    @forms = Form.where(form_library: true)
+    @forms = Form.where(form_library: true).order("created_at DESC")
   end
 
   def create
