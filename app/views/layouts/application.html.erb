@@ -39,13 +39,13 @@
             <ul class="nav navbar-nav">
               <% if (current_user.admin || current_user.employee) && !current_user.investor_view %>
                 <li class="nav-item">
+                  <%= link_to "Dashboard", forms_path, class: "nav-link" %>
+                </li>
+                <li class="nav-item">
                   <%= link_to "Investors", users_path(current_user), class: "nav-link" %>
                 </li>
                 <li class="nav-item">
                   <%= link_to "Properties", properties_path(current_user), class: "nav-link" %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Resources", forms_path, class: "nav-link" %>
                 </li>
               <% else %>
                 <li class="nav-item">
