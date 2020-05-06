@@ -20,7 +20,7 @@ class User < ActiveRecord::Base
   accepts_nested_attributes_for :address
   
   after_create :send_admin_email
-  before_save :check_for_email_update
+  # before_save :check_for_email_update
   before_save :check_for_updates
 
   def password_complexity
@@ -68,7 +68,6 @@ class User < ActiveRecord::Base
   end
 
   def check_for_updates
-    byebug
     if self.changed?
       AdminMailer.user_fields_changed(self, self.changes).deliver_now
     end
