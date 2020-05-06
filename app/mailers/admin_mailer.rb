@@ -17,4 +17,10 @@ class AdminMailer < ActionMailer::Base
 
     mail(to: ENV['ADMIN_EMAILS'], subject: "Investor #{user.name} updated their email address")
   end
+
+  def user_fields_changed(user, old_user)
+    @user = user
+
+    mail(to: ENV['ADMIN_EMAILS'], subject: "Investor #{user.name} updated their details")
+  end
 end

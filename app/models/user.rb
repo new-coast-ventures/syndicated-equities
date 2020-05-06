@@ -21,6 +21,7 @@ class User < ActiveRecord::Base
   
   after_create :send_admin_email
   before_save :check_for_email_update
+  before_save :check_for_updates
 
   def password_complexity
     if password.present?
@@ -64,6 +65,13 @@ class User < ActiveRecord::Base
 
   def send_admin_email
     AdminMailer.new_user_sign_up(self).deliver_now
+  end
+
+  def check_for_updates
+    byebug
+    if self.changed?
+      AdminMailer.user_fields_changed(self, self.changes).deliver_now
+    end
   end
 
   def check_for_email_update
