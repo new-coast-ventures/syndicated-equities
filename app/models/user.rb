@@ -68,7 +68,7 @@ class User < ActiveRecord::Base
   end
 
   def check_for_updates
-    if self.changed?
+    if self.email_changed? || self.first_name_changed? || self.last_name_changed? || self.phone_changed? || self.address_1_changed? || self.address_2_changed? || self.city_changed? || self.state_changed? || self.country_changed? || self.zip_code_changed? 
       AdminMailer.user_fields_changed(self, self.changes).deliver_now
     end
   end
