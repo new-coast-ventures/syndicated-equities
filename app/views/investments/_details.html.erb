@@ -13,7 +13,7 @@
   <div class="grey-divider" style="margin-bottom: 15px"></div>
   <div class="row row-margin">
     <p class="investment-section-title">
-      INVESTOR EQUITY
+      Investor Equity
     </p>
     <% @property_investments.each do |investment| %>
       <div class="col-xs-10 no-padding">
@@ -32,6 +32,28 @@
       <%= number_to_currency(@property_investments.pluck(:amount_invested).sum, precision: 0) %>
     </div>
   </div>
+  <div class="grey-divider" style="margin-bottom: 15px"></div>
+  <div class="row row-margin">
+    <p class="investment-section-title">
+      Gross Distributions
+    </p>
+    <% @gross_distributions.each do |gd| %>
+      <div class="col-xs-10 no-padding">
+        <%= gd.description %>
+      </div>
+      <div class="col-xs-2 no-padding" style="text-align:right">
+        <%= number_to_currency(gd.amount, precision: 0) %>
+      </div>
+    <% end %>
+  </div>
+  <div class="row row-margin">
+    <div class="col-xs-6 no-padding" style="margin-top: 10px">
+      <b>Total</b>
+    </div>
+    <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
+      <%= number_to_currency(@investment.total_gross_distribution, precision: 0) %>
+    </div>
+  </div>
 </div>
 </div>
 <div class="card investor-card-container">
@@ -40,48 +62,4 @@
   <div style="padding: 15px; line-height: 1.25rem">
     <%= @investment&.deal&.property&.description&.html_safe %>
   </div>
-</div>
-<div class="card investor-card-container" style="margin-bottom: unset;">
-  <h5 class="show-investment-card-title">Gross Distributions</h5>
- <% if !@gross_distributions.nil? %>
-    <div class="table investor-table-container">
-      <table class="display" id="sortable-table" cellspacing="0" width="100%">
-        <thead class="thead-default">
-          <tr>
-            <th style="border: none;">
-              Description
-            </th>
-            <th style="border: none;">
-              Amount
-            </th>
-            <th style="border: none;">
-              Distribution Date
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <% @gross_distributions.each do |gd| %>
-            <tr>
-              <td>
-                <%= gd.description %>
-              </td>
-              <td>
-                <%= number_to_currency(gd.amount, precision: 0) %>
-              </td>
-              <td>
-                <%= gd.distribution_date %>
-              </td>
-            </tr>
-          <% end %>
-          <tr>
-            <td><strong>Total</strong></td>
-            <td><strong><%= number_to_currency(@investment.total_gross_distribution, precision: 0) %></strong></td>
-            <td></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  <% else %>
-    No Gross Distributions on this Property.
-  <% end %>
 </div>
