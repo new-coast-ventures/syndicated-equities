@@ -39,7 +39,7 @@
     </p>
     <% @gross_distributions.each do |gd| %>
       <div class="col-xs-10 no-padding">
-        <%= gd.description %>
+        <%= gd.investment.investor_entity %>
       </div>
       <div class="col-xs-2 no-padding" style="text-align:right">
         <%= number_to_currency(gd.amount, precision: 0) %>
