@@ -49,7 +49,6 @@ gem 'mini_magick'
 # wysiwyg editor
 gem 'tinymce-rails'
 
-
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end

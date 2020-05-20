@@ -1,6 +1,6 @@
 class GrossDistributionsController < ApplicationController
   before_action :authenticate_user! unless Rails.env.development?
-
+  before_action :check_master_admin
   
   def show
     @investment = Investment.find(params[:id])
@@ -29,6 +29,42 @@ class GrossDistributionsController < ApplicationController
     GrossDistribution.find(params['id']).destroy
     
     redirect_back(fallback_location: root_path)
+  end
+
+  def import_headers
+    @import_file = params[:file].path
+    GrossDistribution.create_temp_xlsx(@import_file)
+    @property_id = params[:id]
+    @gross_distribution = GrossDistribution.new
+    @headers = GrossDistribution.pull_headers(@import_file)
+    @import_fields = ['investor_email', 'investor_entity', 'amount', 'distribution_date']
+    
+    render 'properties/import_distribution_headers'
+  rescue => e  
+    puts "ERROR:: #{e}"
+    flash[:alert] = "Invalid file format, please modify or import a different file."
+    redirect_to property_path(params[:id]) 
+  end
+
+  def import
+    begin
+      invalid_entries = GrossDistribution.import(params[:property_id], params[:import_file], params[:post])
+      property_id = params[:property_id]
+      file = "lib/imports/#{params[:import_file].split("/")[-1]}"
+      
+      File.delete(file) if File.exist?(file)
+      
+      if invalid_entries
+        flash[:notice] = "These Entities failed to load #{invalid_entries.flatten}"
+      else
+        flash[:notice] = 'Distributions have been uploaded successfully.'
+      end
+      redirect_to property_path(params[:property_id])
+    rescue => e  
+      puts "ERROR:: #{e}"
+      # flash[:notice] = "Investments have been imported. If something seems w"
+      redirect_to property_path(params[:property_id])
+    end
   end
 
   private

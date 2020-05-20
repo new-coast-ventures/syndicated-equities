@@ -14,6 +14,9 @@ Rails.application.routes.draw do
 
   resources :properties
   resources :gross_distributions
+  post '/gross-distributions-import', to: 'gross_distributions#import'
+  post '/gross-distributions-headers', to: 'gross_distributions#import_headers', as: 'import-distributions-headers'
+
   resources :contacts, only: [:index]
   resources :addresses, only: [:create, :update, :destroy]
 

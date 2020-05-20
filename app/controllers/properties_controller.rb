@@ -26,6 +26,7 @@ class PropertiesController < ApplicationController
     @property = Property.find(params[:id])
 
     @investment = Investment.new
+    @gross_distributions = GrossDistribution.new
     @note = Note.new
     @doc = Form.new
 
