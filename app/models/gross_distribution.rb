@@ -42,12 +42,12 @@ class GrossDistribution < ActiveRecord::Base
       investment = investments.where(investor_email: row[:email], investor_entity: row[:investor_entity])
       
       if !investment.blank?
-        # create(
-        #   investment_id: investment.first.id,
-        #   amount: row[:amount],
-        #   distribution_date: row[:date],
-        #   description: row[:investor_entity]
-        # )
+        create(
+          investment_id: investment.first.id,
+          amount: row[:amount],
+          distribution_date: row[:date],
+          description: row[:investor_entity]
+        )
       else
         invalid_entities << row[:investor_entity] unless (invalid_entities.include?(row[:investor_entity]) || row[:investor_entity].nil?)
       end
