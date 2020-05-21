@@ -20,7 +20,7 @@
   <body>
 
     <% if notice %>
-      <div class="alert alert-info" role="alert"><%= notice %></div>
+      <div class="alert alert-info" role="alert"><%= notice.html_safe %></div>
     <% end %>
 
     <% if alert %>

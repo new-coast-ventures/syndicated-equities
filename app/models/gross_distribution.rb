@@ -32,21 +32,27 @@ class GrossDistribution < ActiveRecord::Base
     prop = Property.find(property_id)
     investments = prop.investments
     invalid_entities = []
+    invalid_emails = []
+    
     gd_hash.each do |row|
+      if investments.where(investor_email: row[:email]).blank?
+        invalid_emails << row[:email] unless (invalid_emails.include?(row[:email]) || row[:email].nil?)
+      end
+
       investment = investments.where(investor_email: row[:email], investor_entity: row[:investor_entity])
+      
       if !investment.blank?
-        create(
-          investment_id: investment.first.id,
-          amount: row[:amount],
-          distribution_date: row[:date],
-          description: row[:investor_entity]
-        )
+        # create(
+        #   investment_id: investment.first.id,
+        #   amount: row[:amount],
+        #   distribution_date: row[:date],
+        #   description: row[:investor_entity]
+        # )
       else
-        invalid_entities << row[:investor_entity] unless invalid_entities.include?(row[:investor_entity])
+        invalid_entities << row[:investor_entity] unless (invalid_entities.include?(row[:investor_entity]) || row[:investor_entity].nil?)
       end
     end
-
-    invalid_entities
+    {invalid_entities: invalid_entities, invalid_emails: invalid_emails}
   rescue => e
     puts e.backtrace.join("\n")
     puts e

@@ -53,9 +53,18 @@ class GrossDistributionsController < ApplicationController
       file = "lib/imports/#{params[:import_file].split("/")[-1]}"
       
       File.delete(file) if File.exist?(file)
-      
-      if invalid_entries
-        flash[:notice] = "These Entities failed to load #{invalid_entries.flatten}"
+      if !invalid_entries[:invalid_entities].blank? || !invalid_entries[:invalid_emails].blank?
+        notice = ""
+        
+        if !invalid_entries[:invalid_entities].blank?
+          notice += "These Entities failed to load: <br> #{invalid_entries[:invalid_entities].join("<br>")}"
+        end
+        
+        if !invalid_entries[:invalid_emails].blank?
+          notice += "<br> Emails #{invalid_entries[:invalid_emails].join("<br>")} do not belong to any investment"
+        end
+        
+        flash[:notice] = notice.html_safe
       else
         flash[:notice] = 'Distributions have been uploaded successfully.'
       end
