@@ -23,6 +23,20 @@ class GrossDistribution < ActiveRecord::Base
     headers
   end
 
+  def self.create_import_hash(file, mapping)
+     # Loop through .xlsx doc
+     import_file = file.split("/")[-1]
+     local_file = "lib/imports/#{import_file}"
+ 
+     xlsx = Roo::Spreadsheet.open(local_file)
+     sheet = xlsx.sheet(0)
+     gd_hash = sheet.parse(email: mapping["investor_email"], investor_entity: mapping["investor_entity"], amount: mapping["amount"], date: mapping["distribution_date"], clean:true)
+
+     File.delete(local_file) if File.exist?(local_file)
+
+     gd_hash.to_json
+  end
+
   def self.import(property_id, file, mapping)
     # Loop through .xlsx doc
     import_file = file.split("/")[-1]
@@ -58,8 +72,6 @@ class GrossDistribution < ActiveRecord::Base
       end
     end
       
-    File.delete(local_file) if File.exist?(local_file)
-
     {invalid_entities: invalid_entities, invalid_emails: invalid_emails}
   rescue => e
     puts e.backtrace.join("\n")
