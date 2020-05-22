@@ -42,6 +42,6 @@ class ImportDistributionsJob < ApplicationJob
     puts "--------- ERROR with Distributions import for #{prop.name} ---------"
     puts "--------- ERROR: #{e} ---------"
     # remove the local file
-    AdminMailer.distribution_import_error(errors, prop.name).deliver_now
+    AdminMailer.distribution_import_error(e, prop.name).deliver_now
   end
 end
