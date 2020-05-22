@@ -26,11 +26,16 @@ class GrossDistribution < ActiveRecord::Base
   def self.import(property_id, file, mapping)
     # Loop through .xlsx doc
     import_file = file.split("/")[-1]
-    xlsx = Roo::Spreadsheet.open("lib/imports/#{import_file}")
+    local_file = "lib/imports/#{params[:import_file].split("/")[-1]}"
+
+    xlsx = Roo::Spreadsheet.open(local_file)
     sheet = xlsx.sheet(0)
     gd_hash = sheet.parse(email: mapping["investor_email"], investor_entity: mapping["investor_entity"], amount: mapping["amount"], date: mapping["distribution_date"], clean:true)
+   
     prop = Property.find(property_id)
+   
     investments = prop.investments
+   
     invalid_entities = []
     invalid_emails = []
     
@@ -52,6 +57,9 @@ class GrossDistribution < ActiveRecord::Base
         invalid_entities << row[:investor_entity] unless (invalid_entities.include?(row[:investor_entity]) || row[:investor_entity].nil?)
       end
     end
+      
+    File.delete(local_file) if File.exist?(local_file)
+
     {invalid_entities: invalid_entities, invalid_emails: invalid_emails}
   rescue => e
     puts e.backtrace.join("\n")

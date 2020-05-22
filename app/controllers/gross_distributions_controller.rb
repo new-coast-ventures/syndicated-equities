@@ -47,33 +47,13 @@ class GrossDistributionsController < ApplicationController
   end
 
   def import
-    begin
-      invalid_entries = GrossDistribution.import(params[:property_id], params[:import_file], params[:post])
-      property_id = params[:property_id]
-      file = "lib/imports/#{params[:import_file].split("/")[-1]}"
-      
-      File.delete(file) if File.exist?(file)
-      if !invalid_entries[:invalid_entities].blank? || !invalid_entries[:invalid_emails].blank?
-        notice = ""
-        
-        if !invalid_entries[:invalid_entities].blank?
-          notice += "These Entities failed to load: <br> #{invalid_entries[:invalid_entities].join("<br>")}"
-        end
-        
-        if !invalid_entries[:invalid_emails].blank?
-          notice += "<br> Emails #{invalid_entries[:invalid_emails].join("<br>")} do not belong to any investment"
-        end
-        
-        flash[:notice] = notice.html_safe
-      else
-        flash[:notice] = 'Distributions have been uploaded successfully.'
-      end
-      redirect_to property_path(params[:property_id])
-    rescue => e  
-      puts "ERROR:: #{e}"
-      # flash[:notice] = "Investments have been imported. If something seems w"
-      redirect_to property_path(params[:property_id])
-    end
+    mapping = {"investor_email" => params[:post][:investor_email], "investor_entity"=> params[:post][:investor_entity], "amount"=>params[:post][:amount], "distribution_date"=>params[:post][:distribution_date]}
+
+    ImportDistributionsJob.perform_later(params[:property_id], params[:import_file], mapping)
+    
+    flash[:notice] = 'Distributions are being imported. An email will be sent once it is complete.'
+
+    redirect_to property_path(params[:property_id])
   end
 
   private
