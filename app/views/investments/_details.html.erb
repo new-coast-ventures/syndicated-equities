@@ -37,12 +37,12 @@
     <p class="investment-section-title">
       Gross Distributions
     </p>
-    <% @gross_distributions.each do |gd| %>
+    <% @property_investments.each do |investment| %>
       <div class="col-xs-10 no-padding">
-        <%= gd.investment.investor_entity %>
+        <%= investment.investor_entity %>
       </div>
       <div class="col-xs-2 no-padding" style="text-align:right">
-        <%= number_to_currency(gd.amount, precision: 0) %>
+        <%= number_to_currency(investment.total_gross_distribution, precision: 0) %>      
       </div>
     <% end %>
   </div>
@@ -51,7 +51,7 @@
       <b>Total</b>
     </div>
     <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
-      <%= number_to_currency(@investment.total_gross_distribution, precision: 0) %>
+      <%= number_to_currency(@user_gross_distribution, precision: 0) %>
     </div>
   </div>
 </div>

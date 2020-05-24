@@ -43,10 +43,22 @@ class Property < ActiveRecord::Base
     total
   end
 
+  def total_investor_gross_distributions
+    total = 0
+    investments.each do |inv|
+      inv.gross_distributions.each do |gross|
+        total += gross.amount.to_i
+      end
+    end
+    total
+  end
+
   def total_user_gross_distribution(user_id)
     total = 0
-    self.investments.where(user_id: user_id).pluck(:gross_distribution).each do |gross|
-      total += gross.to_i
+    self.investments.where(user_id: user_id).each do |inv|
+      inv.gross_distributions.each do |gross|
+        total += gross.amount.to_i
+      end
     end
     total
   end
