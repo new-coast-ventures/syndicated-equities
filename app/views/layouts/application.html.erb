@@ -54,6 +54,9 @@
                 <li class="nav-item">
                   <%= link_to "Investments", user_path(current_user), class: "nav-link" %>
                 </li>
+                <li class="nav-item">
+                  <%= link_to "Distributions", user_distributions_path(current_user.id), class: "nav-link" %>
+                </li>
               <% end %>
               <li class="nav-item">
                 <%= link_to "Form Library", form_library_path, class: "nav-link" %>

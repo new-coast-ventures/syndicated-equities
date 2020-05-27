@@ -1,0 +1,69 @@
+<div class="container-fluid" style="margin-top: 35px">
+	<div class=" row page-header">
+    <div class="col-md-12" style="padding-left: 0px;margin-top: 20px">
+      <h2 class="text-left">
+        Gross Distributions
+      </h2>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 20px; padding-bottom:20px">
+    <div class="col-md-12">
+      <div class="table-responsive investor-table-container">
+        <% if !@user_investments.nil? %>
+          <table class="display investor-table" id="sortable-table" cellspacing="0" width="100%">
+            <thead class="thead-default">
+              <tr>
+                <th>
+                  Property Name
+                </th>
+                <th>
+                  Entity
+                </th>
+                <th>
+                  Description
+                </th>
+                <th>
+                  Distribution
+                </th>
+                <th>
+                  Date
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @user_investments.each do |investment| %>
+                <% investment.gross_distributions.each do |gd| %>
+                  <tr>
+                    <td><%= investment&.deal&.property&.name %></td>
+                    <td><%= investment&.investor_entity %></td>
+                    <td><%= gd.description %></td>
+                    <td><%= number_to_currency(gd.amount, precision: 0) %></td>
+                    <td><%= gd.distribution_date %></td>
+                  </tr>
+                <% end %>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          No Investments Available.
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    $('#sortable-table').DataTable({
+      "paging": true,
+      "info": false,
+      "columnDefs": [{ "searchable": false, "targets": [1,3,4] }],
+			"language": {
+				"zeroRecords": "There are no search results.",
+				searchPlaceholder: "🔍 Name or investment entity",
+				search: "",
+			}
+    });
+  });
+</script>

@@ -81,6 +81,11 @@ class UsersController < ApplicationController
   def dashboard
   end
 
+  def gross_distributions
+    @user = User.find(params[:user_id])
+    @user_investments = @user.investments
+  end
+
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :phone, :address_1, :address_2, :city, :state, :country, :zip_code, :email, :approved, :admin, :employee)
