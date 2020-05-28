@@ -10,7 +10,7 @@
   <div class="row" style="padding-top: 20px; padding-bottom:20px">
     <div class="col-md-12">
       <div class="table-responsive investor-table-container">
-        <% if !@user_investments.nil? %>
+        <% if !@distributions.nil? %>
           <table class="display investor-table" id="sortable-table" cellspacing="0" width="100%">
             <thead class="thead-default">
               <tr>
@@ -32,21 +32,19 @@
               </tr>
             </thead>
             <tbody>
-              <% @user_investments.each do |investment| %>
-                <% investment.gross_distributions.each do |gd| %>
-                  <tr>
-                    <td><%= investment&.deal&.property&.name %></td>
-                    <td><%= investment&.investor_entity %></td>
-                    <td><%= gd.description %></td>
-                    <td><%= number_to_currency(gd.amount, precision: 0) %></td>
-                    <td><%= gd.distribution_date %></td>
-                  </tr>
-                <% end %>
+              <% @distributions.each do |gd| %>
+                <tr>
+                  <td><%= gd.investment&.deal&.property&.list_name %></td>
+                  <td><%= gd.investment&.investor_entity %></td>
+                  <td><%= gd.description %></td>
+                  <td><%= number_to_currency(gd.amount, precision: 0) %></td>
+                  <td><%= gd.distribution_date %></td>
+                </tr>
               <% end %>
             </tbody>
           </table>
         <% else %>
-          No Investments Available.
+          No Distributions Available.
         <% end %>
       </div>
     </div>

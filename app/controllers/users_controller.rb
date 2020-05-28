@@ -83,7 +83,7 @@ class UsersController < ApplicationController
 
   def gross_distributions
     @user = User.find(params[:user_id])
-    @user_investments = @user.investments
+    @distributions = @user.gross_distributions.order(:created_at)
   end
 
   private
