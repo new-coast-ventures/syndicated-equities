@@ -84,6 +84,7 @@ class UsersController < ApplicationController
   def gross_distributions
     @user = User.find(params[:user_id])
     @distributions = @user.gross_distributions.order(:created_at)
+    @total_distributions = @user.total_distributions
   end
 
   private

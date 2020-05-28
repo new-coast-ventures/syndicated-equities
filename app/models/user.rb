@@ -52,6 +52,10 @@ class User < ActiveRecord::Base
     investments.inject(0) { |sum, i| sum + i.amount_invested }
   end
 
+  def total_distributions
+    gross_distributions.inject(0) { |sum, i| sum + i.amount.to_i }
+  end
+
   def total_properties
     deals.pluck(:property_id).uniq.compact.count
   end
