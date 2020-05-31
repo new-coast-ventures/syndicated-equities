@@ -54,14 +54,22 @@
 <script>
   $(document).ready(function() {
     $('#sortable-table').DataTable({
+      dom: 'Bflitp',
       "paging": true,
-      "info": false,
+      "info": true,
       "columnDefs": [{ "searchable": false, "targets": [1,3,4] }],
 			"language": {
 				"zeroRecords": "There are no search results.",
 				searchPlaceholder: "🔍 Name or investment entity",
 				search: "",
-			}
+			},
+      buttons: [
+        {
+          extend: 'csv',
+          text: 'Download CSV',
+        }
+      ]
     });
   });
+  
 </script>
