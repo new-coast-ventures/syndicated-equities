@@ -11,7 +11,7 @@ class GrossDistribution < ActiveRecord::Base
   attr_reader :investor_entity, :investor_email
   private
   def self.create_temp_xlsx(file)
-    FileUtils.cp(file, "lib/imports")
+    FileUtils.cp(file, "tmp")
   end
 
   def self.pull_headers(file)
@@ -26,7 +26,7 @@ class GrossDistribution < ActiveRecord::Base
   def self.create_import_hash(file, mapping)
      # Loop through .xlsx doc
      import_file = file.split("/")[-1]
-     local_file = "lib/imports/#{import_file}"
+     local_file = "tmp/#{import_file}"
  
      xlsx = Roo::Spreadsheet.open(local_file)
      sheet = xlsx.sheet(0)
@@ -40,7 +40,7 @@ class GrossDistribution < ActiveRecord::Base
   def self.import(property_id, file, mapping)
     # Loop through .xlsx doc
     import_file = file.split("/")[-1]
-    local_file = "lib/imports/#{params[:import_file].split("/")[-1]}"
+    local_file = "tmp/#{params[:import_file].split("/")[-1]}"
 
     xlsx = Roo::Spreadsheet.open(local_file)
     sheet = xlsx.sheet(0)
