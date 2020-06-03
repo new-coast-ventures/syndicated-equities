@@ -117,7 +117,11 @@
           <%= form_tag import_headers_path, multipart: true do %>
             <%= hidden_field_tag 'id', @property.id %>
             <fieldset class="form-group">
-              <label>Upload investors</label>
+              <label style="width:30%">Upload Investments</label>
+              <br>
+              <small>*Only CSV files are accepted</small>
+              <br>
+              <br>
               <%= file_field_tag :file %>
             </fieldset>
             <div class="spacer -space-16"></div>
@@ -139,13 +143,17 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
-        <h5 class="modal-title" id="importForm">Upload Investments for <%= @property.name %></h5>
+        <h5 class="modal-title" id="importForm">Upload Distibutions for <%= @property.name %></h5>
       </div>
       <div class="modal-body">
           <%= form_tag import_distributions_headers_path, multipart: true do %>
             <%= hidden_field_tag 'id', @property.id %>
             <fieldset class="form-group">
               <label>Upload Distibutions</label>
+              <br>
+              <small>*Only XLSX files are accepted.</small>
+              <br>
+              <br>
               <%= file_field_tag :file %>
             </fieldset>
             <div class="spacer -space-16"></div>

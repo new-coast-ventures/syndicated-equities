@@ -1,7 +1,7 @@
 <div class="container">
   <h5 class="dashboard-title">Map Distribution Data</h5>
   <p>
-    Map the Distribution column names to the CSV Column headers
+    Map the Distribution column names to the column headers
   </p>
   <%= form_for(@gross_distribution, :as => :post, :url => gross_distributions_import_path) do |f| %>
     <%= hidden_field_tag 'import_file', @import_file %>

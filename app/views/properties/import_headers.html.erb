@@ -1,7 +1,7 @@
 <div class="container">
   <h5 class="dashboard-title">Map Investment Data</h5>
   <p>
-    Map the Investment column names to the CSV Column headers
+    Map the Investment column names to the column headers
   </p>
   <%= form_for(@investment, :as => :post, :url => investor_import_path) do |f| %>
     <%= hidden_field_tag 'investment_file', @investment_file %>
