@@ -6,6 +6,7 @@ class GrossDistributionsController < ApplicationController
     @investment = Investment.find(params[:id])
     @gross_distributions = @investment.gross_distributions
     @property = @investment.deal.property
+    @investor = @investment.investor.name
     @gross_distribution = GrossDistribution.new()
   end
 

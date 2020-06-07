@@ -24,7 +24,6 @@
               <tr>
                 <th>Property</th>
                 <th>Entity</th>
-                <th>Description</th>
                 <th>Distribution</th>
                 <th>Date</th>
               </tr>
@@ -34,7 +33,6 @@
                 <tr>
                   <td><%= gd.investment&.deal&.property&.list_name %></td>
                   <td><%= gd.investment&.investor_entity %></td>
-                  <td><%= gd.description %></td>
                   <td><%= number_to_currency(gd.amount, precision: 0) %></td>
                   <td><%= gd.distribution_date %></td>
                 </tr>
