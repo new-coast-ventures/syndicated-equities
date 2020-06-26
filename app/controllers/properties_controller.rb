@@ -22,6 +22,14 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def open_properties
+    @open_properties = Property.where(status: 'open')
+  end
+
+  def open_property
+    @open_property = Property.find(params[:id])
+  end
+
   def show
     @property = Property.find(params[:id])
 
@@ -92,7 +100,7 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar, :sale_date, :gross_distributions, :internal_rate_of_return, :equity_multiple, :property_type, :description)
+    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar, :sale_date, :gross_distributions, :internal_rate_of_return, :equity_multiple, :property_type, :description, :funding_amount, :target_irr, :average_annual_return)
   end
 
   def address_params

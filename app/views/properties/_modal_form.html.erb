@@ -75,7 +75,22 @@
           
           <fieldset class="form-group">
             <label>Status<span style="color:red">*</span></label>
-            <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold']], @property&.status), {:class => "form-group", required: true} %>
+            <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Open', 'open']], @property&.status), {:class => "form-group", required: true} %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Funding Amount</label>
+            <%= f.text_field :funding_amount, value: @property&.funding_amount %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Target IRR</label>
+            <%= f.text_field :target_irr, value: @property&.target_irr %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Average Annual Return</label>
+            <%= f.text_field :equity_multiple, value: @property&.equity_multiple %>
           </fieldset>
 
           <fieldset class="form-group">

@@ -1,0 +1,70 @@
+<h5 class="dashboard-title" style="font-size: 1.75rem">Open Properties</h5>
+
+<div class="row xs-row">
+  <% if !@open_properties.nil? %>
+    <% @open_properties.each do |prop| %>
+      <div class="col-lg-4 col-md-6" >
+        <div class="card investor-card-container">
+          <% if prop&.avatar&.attached? && !Rails.env.development? %>
+            <div onclick="location.href='/open-property/<%= prop.id %>'" style="background-image: url(<%= rails_blob_url(prop.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
+          <% else %>
+            <div onclick="location.href='/open-property/<%= prop.id %>'" style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
+          <% end %>
+          <div class='card-padding investor-card-address'>
+            <% if prop %>
+              <div class="investor-card-name">
+                <%= link_to "#{prop.list_name}", open_property_path(prop.id) %>
+              </div>
+              <%if prop.address%>
+              <p class="investment-property-address">
+                <i class="fas fa-map-marker-alt" style="margin-right: 5px"></i> <%= "#{prop.address.line1}, #{prop.address.location}" %>
+              </p>
+              <% end %>
+            <% else %>
+              <p>
+                No Property Information
+              </p>
+            <% end %>
+          </div>
+          <div class="grey-divider"></div>
+          <div class='card-padding'>
+            <div class="row" style="padding-top: 8px; font-size: small">
+              <div class="col-xs-6">
+                <p>
+                  Investment Type
+                  <br>
+                  Funding Amount
+                  <br>
+                  Target Gross IRR
+                  <br>
+                  Net Equity Multiple
+                </p>
+              </div>
+              <div class="col-xs-6">
+                <p class="text-right" style="font-weight: bold; text-align: right">
+                  <%= prop.property_type.capitalize %>
+                  <br>
+                  <%= number_to_currency(prop&.funding_amount, precision: 0) %>
+                  <br>
+                  <%= "#{prop&.target_irr}%" %>
+                  <br>
+                  <%= "#{prop&.equity_multiple}x" %>
+                </p>
+              </div>
+            </div>
+            <div>
+              <form action="<%= open_property_path(prop.id) %>">
+                <button class="btn btn-primary investment-button" type="submit">View Details</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %> 
+  </div> 
+  <% else %>
+    <p>
+      No Open Properties
+    </p>
+  <% end %>
+</div>

@@ -1,3 +1,19 @@
+# t.string "name"
+# t.datetime "closing_date"
+# t.datetime "created_at", null: false
+# t.datetime "updated_at", null: false
+# t.string "nickname"
+# t.string "status"
+# t.datetime "sale_date"
+# t.string "gross_distributions"
+# t.string "internal_rate_of_return"
+# t.string "equity_multiple"
+# t.string "property_type"
+# t.text "description"
+# t.string "funding_amount"
+# t.string "target_irr"
+# t.string "average_annual_return"
+
 class Property < ActiveRecord::Base
   has_one_attached :avatar
 
