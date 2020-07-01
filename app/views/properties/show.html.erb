@@ -84,26 +84,50 @@
             <div class='col-sm-6' style="text-align: right"><strong><%= @property.status&.humanize %></strong></div>
           </div>
           <% if !@property.internal_rate_of_return.blank? %>
-          <div class="col-sm-6">
-            <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
+              <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong>
+              </div>
             </div>
-          </div>
           <% end %>
         </div>
-        <div class="row" style="margin-bottom: 15px">
+        <div class="row" <% if @property.status&.humanize != "Open" %> style="margin-bottom: 15px" <% end %>>
           <div class="col-sm-6">
             <div class='col-sm-6' style="text-align: left">Property Legal Name</div>
-            <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;padding-bottom: 20px;">
+            <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;">
               <strong><%= @property.name %></strong></div>
           </div>
           <% if !@property.equity_multiple.blank? %>
-          <div class="col-sm-6">
-            <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
-          </div>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
+              <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
+            </div>
           <% end %>
         </div>
+        <% if @property.status&.humanize == "Open" %>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Funding Amount</div>
+              <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;">
+                <strong><%= number_to_currency(@property.funding_amount, precision: 0) || 'N/A' %></strong>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Targer IRR</div>
+              <div class='col-sm-6' style="text-align: right">
+                <strong><%= @property.target_irr %></strong>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 15px">
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Average Annual Return</div>
+              <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;padding-bottom: 20px;">
+                <strong>x<%= @property.average_annual_return %></strong>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
       <div class="card investor-card-container">
         <h5 class="show-investment-card-title">Description</h5>

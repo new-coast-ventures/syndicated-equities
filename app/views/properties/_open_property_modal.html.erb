@@ -13,10 +13,11 @@
             <fieldset class="form-group">
               <label style="width:100%">Please enter your requested investment details:</label>
               <br>
+              <label style="width:100%; font-weight:bold">Amount</label>
               <%= text_field :potential_investment_amount, params[:potential_investment_amount] %>
               <br>
               <br>
-              <label style="width:100%">Entity</label>
+              <label style="width:100%;  font-weight:bold">Entity</label>
               <br>
               <%= select_tag :investment_entity, options_for_select(@user_entities), prompt: "Select Entity", required: true %>            
             </fieldset>
