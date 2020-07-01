@@ -51,4 +51,13 @@ class AdminMailer < ActionMailer::Base
 
     mail(to: ENV['ADMIN_EMAILS'], subject: "Distribution Import For #{property_name} Failed")
   end
+
+  def open_property_request(amount, entity, user, property)
+    @amount = amount
+    @entity = entity
+    @user = user
+    @property = property
+
+    mail(to: ENV['ADMIN_EMAILS'], subject: "Open Property Inquery")
+  end
 end

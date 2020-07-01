@@ -18,6 +18,8 @@ class Property < ActiveRecord::Base
   has_one_attached :avatar
 
   include Filterable
+  
+  attr_accessor :potential_investment_amount, :investment_entity
 
   has_one  :address, as: :addressable, dependent: :destroy
   has_many :forms, dependent: :destroy

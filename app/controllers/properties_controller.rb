@@ -28,6 +28,22 @@ class PropertiesController < ApplicationController
 
   def open_property
     @open_property = Property.find(params[:id])
+    @user_entities = current_user.investments.pluck(:investor_entity).uniq
+  end
+
+  def open_property_request
+    
+    property = Property.find(params[:id])
+    # send mailer to Admins.
+    AdminMailer.open_property_request(params[:potential_investment_amount][0], params[:investment_entity], current_user, property).deliver_now
+
+    flash[:notice] = "Thank you for your interest in #{property.name}, we will follow up with you shortly to answer any questions you may have."
+
+    redirect_back(fallback_location: root_path)
+  rescue => e
+    flash[:alert] = "There was an issue with your request. Please try again later or email us directly at portal@syneq.com"
+
+    redirect_back(fallback_location: root_path)
   end
 
   def show
