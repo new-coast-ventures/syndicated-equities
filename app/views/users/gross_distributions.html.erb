@@ -31,7 +31,7 @@
             <tbody>
               <% @distributions.each do |gd| %>
                 <tr>
-                  <td><%= gd.investment&.deal&.property&.list_name %></td>
+                  <td><%= link_to gd.investment&.deal&.property&.list_name, investment_path(gd.investment.id)%></td>
                   <td><%= gd.investment&.investor_entity %></td>
                   <td><%= number_to_currency(gd.amount, precision: 0) %></td>
                   <td><%= gd.distribution_date %></td>

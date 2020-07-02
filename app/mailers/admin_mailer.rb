@@ -58,6 +58,6 @@ class AdminMailer < ActionMailer::Base
     @user = user
     @property = property
 
-    mail(to: ENV['ADMIN_EMAILS'], subject: "Open Property Inquery")
+    mail(to: ENV['ADMIN_EMAILS'], subject: "Open Property Inquiry")
   end
 end
