@@ -34,12 +34,12 @@
                   Investment Type
                   <br>
                   Funding Amount
-                  <% if !prop.target_irr.blank? %>
                     <br>
+                  <% if !prop.target_irr.blank? %>
                     Target Gross IRR
                   <% end %>
-                  <% if !prop.equity_multiple.blank? %>
                     <br>
+                  <% if !prop.equity_multiple.blank? %>
                     Net Equity Multiple
                   <% end %>
                 </p>
@@ -49,12 +49,12 @@
                   <%= prop.property_type.capitalize %>
                   <br>
                   <%= number_to_currency(prop&.funding_amount, precision: 0) %>
-                  <% if !prop.target_irr.blank? %>
                     <br>
+                  <% if !prop.target_irr.blank? %>
                     <%= "#{prop&.target_irr}%" %>
                   <% end %>
-                  <% if !prop.equity_multiple.blank? %>
                     <br>
+                  <% if !prop.equity_multiple.blank? %>
                     <%= "#{prop&.equity_multiple}" %>
                   <% end %>
                 </p>
