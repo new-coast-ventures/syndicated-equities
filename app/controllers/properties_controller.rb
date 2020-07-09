@@ -66,7 +66,6 @@ class PropertiesController < ApplicationController
     
     # create property
     property = Property.new(property_params)
-    property.status = "active"
 
     if property.save
 
