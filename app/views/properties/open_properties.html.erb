@@ -34,10 +34,14 @@
                   Investment Type
                   <br>
                   Funding Amount
-                  <br>
-                  Target Gross IRR
-                  <br>
-                  Net Equity Multiple
+                  <% if prop.target_irr %>
+                    <br>
+                    Target Gross IRR
+                  <% end %>
+                  <% if prop.equity_multiple %>
+                    <br>
+                    Net Equity Multiple
+                  <% end %>
                 </p>
               </div>
               <div class="col-xs-6">
@@ -45,16 +49,20 @@
                   <%= prop.property_type.capitalize %>
                   <br>
                   <%= number_to_currency(prop&.funding_amount, precision: 0) %>
-                  <br>
-                  <%= "#{prop&.target_irr}%" %>
-                  <br>
-                  <%= "#{prop&.equity_multiple}x" %>
+                  <% if prop.target_irr %>
+                    <br>
+                    <%= "#{prop&.target_irr}%" %>
+                  <% end %>
+                  <% if prop.equity_multiple %>
+                    <br>
+                    <%= "#{prop&.equity_multiple}" %>
+                  <% end %>
                 </p>
               </div>
             </div>
             <div>
               <form action="<%= open_property_path(prop.id) %>">
-                <button class="btn btn-primary investment-button" type="submit">View Details</button>
+                <button class="btn btn-primary investment-button" type="submit">Invest in this Property</button>
               </form>
             </div>
           </div>
