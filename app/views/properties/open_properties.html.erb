@@ -28,19 +28,20 @@
           </div>
           <div class="grey-divider"></div>
           <div class='card-padding'>
-            <div class="row" style="padding-top: 8px; font-size: small">
+            <div class="row" style="padding-top: 8px; font-size: small; min-height:100px">
               <div class="col-xs-6">
                 <p>
                   Investment Type
                   <br>
                   Funding Amount
-                    <br>
                   <% if !prop.target_irr.blank? %>
+                    <br>
                     Target Gross IRR
                   <% end %>
-                    <br>
                   <% if !prop.equity_multiple.blank? %>
+                    <br>
                     Net Equity Multiple
+
                   <% end %>
                 </p>
               </div>
@@ -49,12 +50,12 @@
                   <%= prop.property_type.capitalize %>
                   <br>
                   <%= number_to_currency(prop&.funding_amount, precision: 0) %>
-                    <br>
                   <% if !prop.target_irr.blank? %>
+                    <br>
                     <%= "#{prop&.target_irr}%" %>
                   <% end %>
-                    <br>
                   <% if !prop.equity_multiple.blank? %>
+                    <br>
                     <%= "#{prop&.equity_multiple}" %>
                   <% end %>
                 </p>
