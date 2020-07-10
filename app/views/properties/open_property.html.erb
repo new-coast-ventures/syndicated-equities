@@ -159,15 +159,45 @@
           <h5 class="show-investment-card-title" style="text-align:center">Open for Funding</h5>
           <div class="investment-divider" style="padding-bottom: 10px"></div>
           <div class="row">
-            <div class="col-sm-6" style="text-align:center; border-right:1px solid lightgray">
-              <%= "#{number_to_currency(@open_property&.funding_amount, precision: 0)}" %>
-              <br>
-              Cash investment required
-            </div>
-            <div class="col-sm-6" style="text-align:center;">
-              <%= "#{@open_property&.target_irr}%" %>
-              <br>
-              Target Gross IRR
+            <div class="row" style="padding: 8px 24px; font-size: 14px; min-height:100px">
+              <div class="col-xs-6" style="max-height: 92px;">
+                <p>
+                  Investment Type
+                  <br>
+                  Funding Amount
+                  <% if !@open_property.target_irr.blank? %>
+                    <br>
+                    Target Gross IRR
+                  <% end %>
+                  <% if !@open_property.equity_multiple.blank? %>
+                    <br>
+                    Net Equity Multiple
+                  <% end %>
+                  <% if !@open_property.average_annual_return.blank? %>
+                    <br>
+                    Average Annual Return
+                  <% end %>
+                </p>
+              </div>
+              <div class="col-xs-6" style="max-height: 92px;">
+                <p class="text-right" style="font-weight: bold; text-align: right">
+                  <%= @open_property.property_type.capitalize %>
+                  <br>
+                  <%= number_to_currency(@open_property&.funding_amount, precision: 0) %>
+                  <% if !@open_property.target_irr.blank? %>
+                    <br>
+                    <%= "#{@open_property&.target_irr}%" %>
+                  <% end %>
+                  <% if !@open_property.equity_multiple.blank? %>
+                    <br>
+                    <%= "#{@open_property&.equity_multiple}" %>
+                  <% end %>
+                  <% if !@open_property.average_annual_return.blank? %>
+                    <br>
+                    <%= "#{@open_property&.average_annual_return}" %>
+                  <% end %>
+                </p>
+              </div>
             </div>
           </div>
           <div class="row" style="display: flex;justify-content: center; margin-top:20px">
