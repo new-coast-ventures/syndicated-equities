@@ -41,7 +41,10 @@
                   <% if !prop.equity_multiple.blank? %>
                     <br>
                     Net Equity Multiple
-
+                  <% end %>
+                  <% if !prop.average_annual_return.blank? %>
+                    <br>
+                    Average Annual Return
                   <% end %>
                 </p>
               </div>
@@ -57,6 +60,10 @@
                   <% if !prop.equity_multiple.blank? %>
                     <br>
                     <%= "#{prop&.equity_multiple}" %>
+                  <% end %>
+                  <% if !prop.average_annual_return.blank? %>
+                    <br>
+                    <%= "#{prop&.average_annual_return}" %>
                   <% end %>
                 </p>
               </div>
