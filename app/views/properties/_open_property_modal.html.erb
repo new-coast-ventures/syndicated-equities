@@ -17,9 +17,12 @@
               <%= text_field :potential_investment_amount, params[:potential_investment_amount] %>
               <br>
               <br>
-              <label style="width:100%;  font-weight:bold">Entity</label>
+              <label style="width:100%;  font-weight:bold">Entity (Select or Enter New)</label>
               <br>
-              <%= select_tag :investment_entity, options_for_select(@user_entities), prompt: "Select Entity", required: true %>            
+              <input type="text" list="investment_entity" name="investment_entity[investment_entity]"/>
+              <datalist id="investment_entity">
+                <%= options_for_select(@user_entities) %>
+              </datalist>
             </fieldset>
             <div class="spacer -space-16"></div>
             <%= submit_tag "Submit", class: 'button -right' %>
