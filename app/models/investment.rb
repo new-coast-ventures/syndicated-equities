@@ -51,7 +51,8 @@ class Investment < ActiveRecord::Base
     puts "import data from file #{file}"
     # create_deals(file, property_id)
     # create_investments(file)
-    CSV.foreach(file, headers: true) do |row|
+    local_file = "lib/imports/#{file.split("/")[-1]}"
+    CSV.foreach(local_file, headers: true) do |row|
       deal = Deal.find_or_create_by(title: row[mapping["investing_entity"]])
       deal.update(property_id: property_id)
 
@@ -69,6 +70,9 @@ class Investment < ActiveRecord::Base
       }
       puts investor_hash
       Investment.create! investor_hash
+    rescue => e
+      puts "Error on row: #{row}: #{e}"
+      next
     end
   rescue => e
     puts e.backtrace.join("\n")

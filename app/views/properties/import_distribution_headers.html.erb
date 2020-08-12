@@ -1,12 +1,12 @@
 <div class="container">
-  <h5 class="dashboard-title">Map Investment Data</h5>
+  <h5 class="dashboard-title">Map Distribution Data</h5>
   <p>
-    Map the Investment column names to the column headers
+    Map the Distribution column names to the column headers
   </p>
-  <%= form_for(@investment, :as => :post, :url => investor_import_path) do |f| %>
-    <%= hidden_field_tag 'investment_file', @investment_file %>
+  <%= form_for(@gross_distribution, :as => :post, :url => gross_distributions_import_path) do |f| %>
+    <%= hidden_field_tag 'import_file', @import_file %>
     <%= hidden_field_tag 'property_id', @property_id %>
-    <% @investment_fields.each do |field| %>
+    <% @import_fields.each do |field| %>
       <div class="row">
         <fieldset class="form-group">
           <label class="col-sm-3" style="font-weight: bold"><%= field.titleize %></label>

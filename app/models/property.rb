@@ -1,7 +1,25 @@
+# t.string "name"
+# t.datetime "closing_date"
+# t.datetime "created_at", null: false
+# t.datetime "updated_at", null: false
+# t.string "nickname"
+# t.string "status"
+# t.datetime "sale_date"
+# t.string "gross_distributions"
+# t.string "internal_rate_of_return"
+# t.string "equity_multiple"
+# t.string "property_type"
+# t.text "description"
+# t.string "funding_amount"
+# t.string "target_irr"
+# t.string "average_annual_return"
+
 class Property < ActiveRecord::Base
   has_one_attached :avatar
 
   include Filterable
+  
+  attr_accessor :potential_investment_amount, :investment_entity
 
   has_one  :address, as: :addressable, dependent: :destroy
   has_many :forms, dependent: :destroy
@@ -43,10 +61,22 @@ class Property < ActiveRecord::Base
     total
   end
 
+  def total_investor_gross_distributions
+    total = 0
+    investments.each do |inv|
+      inv.gross_distributions.each do |gross|
+        total += gross.amount.to_i
+      end
+    end
+    total
+  end
+
   def total_user_gross_distribution(user_id)
     total = 0
-    self.investments.where(user_id: user_id).pluck(:gross_distribution).each do |gross|
-      total += gross.to_i
+    self.investments.where(user_id: user_id).each do |inv|
+      inv.gross_distributions.each do |gross|
+        total += gross.amount.to_i
+      end
     end
     total
   end

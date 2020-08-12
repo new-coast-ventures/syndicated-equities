@@ -84,26 +84,50 @@
             <div class='col-sm-6' style="text-align: right"><strong><%= @property.status&.humanize %></strong></div>
           </div>
           <% if !@property.internal_rate_of_return.blank? %>
-          <div class="col-sm-6">
-            <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Internal Rate of Return</div>
+              <div class='col-sm-6' style="text-align: right"><strong><%= @property.internal_rate_of_return %>%</strong>
+              </div>
             </div>
-          </div>
           <% end %>
         </div>
-        <div class="row" style="margin-bottom: 15px">
+        <div class="row" <% if @property.status&.humanize != "Open" %> style="margin-bottom: 15px" <% end %>>
           <div class="col-sm-6">
             <div class='col-sm-6' style="text-align: left">Property Legal Name</div>
-            <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;padding-bottom: 20px;">
+            <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;">
               <strong><%= @property.name %></strong></div>
           </div>
           <% if !@property.equity_multiple.blank? %>
-          <div class="col-sm-6">
-            <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
-          </div>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Equity Multiple</div>
+              <div class='col-sm-6' style="text-align: right"><strong><%= @property.equity_multiple %></strong></div>
+            </div>
           <% end %>
         </div>
+        <% if @property.status&.humanize == "Open" %>
+          <div class="row">
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Funding Amount</div>
+              <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;">
+                <strong><%= number_to_currency(@property.funding_amount, precision: 0) || 'N/A' %></strong>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Targer IRR</div>
+              <div class='col-sm-6' style="text-align: right">
+                <strong><%= @property.target_irr %></strong>
+              </div>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 15px">
+            <div class="col-sm-6">
+              <div class='col-sm-6' style="text-align: left">Average Annual Return</div>
+              <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;padding-bottom: 20px;">
+                <strong><%= @property.average_annual_return %></strong>
+              </div>
+            </div>
+          </div>
+        <% end %>
       </div>
       <div class="card investor-card-container">
         <h5 class="show-investment-card-title">Description</h5>
@@ -328,11 +352,6 @@
                   <%= f.text_field :amount_invested %>
                 </fieldset>
 
-                <fieldset class="form-group">
-                  <label>Gross Distribution</label>
-                  <%= f.text_field :gross_distribution %>
-                </fieldset>
-
                 <%= f.submit class: "btn btn-primary", id: "submit" %>
 
                 <% end %>
@@ -370,128 +389,131 @@
           <button type="button" class="table button"
             style="width: 100px ;background: transparent; color: #0E77D9; float:right" data-toggle="modal"
             data-target="#investor-import-modal">Import Investments</button>
+          <button type="button" class="table button"
+            style="width: 125px ;background: transparent; color: #0E77D9; float:right" data-toggle="modal"
+            data-target="#gross-distributions-import-modal">Import Distributions</button>
         <% end %>
       </div>
     </div>
   </div>
   <% if !@property&.investments.nil? %>
-  <div class="table-responsive investor-table-container">
-    <table class="investor-table display" id="sortable-table" cellspacing="0" width="100%">
-      <thead style="border-collapse: collapse !important" class="thead-default">
-        <tr>
-          <th>
-            Name
-          </th>
-          <th>
-            Email
-          </th>
-          <th>
-            Investor Entity
-          </th>
-          <th>
-            Investment Entity
-          </th>
-          <th>
-            Investment
-          </th>
-          <!-- <th>
-            %
-          </th> -->
-          <th>
-            Gross Distributions
-          </th>
-          <% if @master_admin %>
+    <div class="table-responsive investor-table-container">
+      <table class="investor-table display" id="sortable-table" cellspacing="0" width="100%">
+        <thead style="border-collapse: collapse !important" class="thead-default">
+          <tr>
             <th>
+              Name
             </th>
             <th>
+              Email
             </th>
-          <% end %>
-        </tr>
-      </thead>
-      <tbody>
-        <% @property&.investments.each do |invst| %>
-        <tr class="investor-table">
-          <td>
-            <% if invst.user_id  %>
-            <%= link_to "#{invst&.investor_first_name} #{invst&.investor_last_name}", investor_show_path(invst.user_id) %>
-            <% else %>
-            <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+            <th>
+              Investor Entity
+            </th>
+            <th>
+              Investment Entity
+            </th>
+            <th>
+              Investment
+            </th>
+            <!-- <th>
+              %
+            </th> -->
+            <th>
+              Gross Distributions
+            </th>
+            <% if @master_admin %>
+              <th>
+              </th>
+              <th>
+              </th>
             <% end %>
-          </td>
-          <td>
-            <%= invst.investor_email %>
-          </td>
-          <td>
-            <%= invst.investor_entity %>
-          </td>
-          <td>
-            <%= invst.investing_entity ? invst.investing_entity : invst&.deal&.title %>
-          </td>
-          <td>
-            <%= number_to_currency(invst.amount_invested, precision: 0) %>
-          </td>
-          <td>
-            <%= link_to number_to_currency(invst.total_gross_distribution, precision: 0), gross_distribution_path(invst.id) %>
-          </td>
-          <% if @master_admin %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @property&.investments.each do |invst| %>
+          <tr class="investor-table">
             <td>
-              <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{invst.id}", 'data-toggle' => 'modal'  %>
-              <div class="modal fade" id='<%= "myModal_#{invst.id}" %>' tabindex="-1" role="dialog"
-                aria-labelledby="myModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                  <div class="modal-content" style="margin-top:100px">
-                    <div class="modal-header">
-                      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                      <h4 class="modal-title" id="myModalLabel">Update Investment</h4>
-                    </div>
-                    <div class="modal-body">
-                      <%= form_for invst do |f| %>
-                        <fieldset class="form-group">
-                          <label>Investor<span style="color:red">*</span></label>
-                            <%= select :investment, :user_id, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user&.id]}, prompt: 'Select Investor...', required: true, selected: invst.investor&.id %>                        
-                        </fieldset>
-                        <fieldset class="form-group">
-                          <label>Investor Entity<span style="color:red">*</span></label>
-                          <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
-                        </fieldset>
-
-                        <fieldset class="form-group">
-                          <label>Investment Entity<span style="color:red">*</span></label>
-                          <%= f.text_field :investing_entity, value: invst.investing_entity %>
-                        </fieldset>
-
-                        <fieldset class="form-group">
-                          <label>Investment</label>
-                          <%= f.text_field :amount_invested, value: invst.amount_invested %>
-                        </fieldset>
-
-                        <%= f.submit class: "btn btn-primary", id: "submit" %>
-                      <% end %>
-                    </div>
-                  </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-              </div><!-- /.modal -->
+              <% if invst.user_id  %>
+              <%= link_to "#{invst&.investor_first_name} #{invst&.investor_last_name}", investor_show_path(invst.user_id) %>
+              <% else %>
+              <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+              <% end %>
             </td>
             <td>
-              <%= link_to "Delete", investment_path(invst.id), :method => :delete, data: {confirm: "Are you sure you want to delete this investment?"} %>
+              <%= invst.investor_email %>
             </td>
+            <td>
+              <%= invst.investor_entity %>
+            </td>
+            <td>
+              <%= invst.investing_entity ? invst.investing_entity : invst&.deal&.title %>
+            </td>
+            <td>
+              <%= number_to_currency(invst.amount_invested, precision: 0) %>
+            </td>
+            <td>
+              <%= link_to number_to_currency(invst.total_gross_distribution, precision: 0), gross_distribution_path(invst.id) %>
+            </td>
+            <% if @master_admin %>
+              <td>
+                <%= link_to 'Edit',  '#', 'data-target' => "#myModal_#{invst.id}", 'data-toggle' => 'modal'  %>
+                <div class="modal fade" id='<%= "myModal_#{invst.id}" %>' tabindex="-1" role="dialog"
+                  aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content" style="margin-top:100px">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">Update Investment</h4>
+                      </div>
+                      <div class="modal-body">
+                        <%= form_for invst do |f| %>
+                          <fieldset class="form-group">
+                            <label>Investor<span style="color:red">*</span></label>
+                              <%= select :investment, :user_id, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user&.id]}, prompt: 'Select Investor...', required: true, selected: invst.investor&.id %>                        
+                          </fieldset>
+                          <fieldset class="form-group">
+                            <label>Investor Entity<span style="color:red">*</span></label>
+                            <%= f.text_field :investor_entity, value: invst.investor_entity, required: true %>
+                          </fieldset>
+
+                          <fieldset class="form-group">
+                            <label>Investment Entity<span style="color:red">*</span></label>
+                            <%= f.text_field :investing_entity, value: invst.investing_entity %>
+                          </fieldset>
+
+                          <fieldset class="form-group">
+                            <label>Investment</label>
+                            <%= f.text_field :amount_invested, value: invst.amount_invested %>
+                          </fieldset>
+
+                          <%= f.submit class: "btn btn-primary", id: "submit" %>
+                        <% end %>
+                      </div>
+                    </div><!-- /.modal-content -->
+                  </div><!-- /.modal-dialog -->
+                </div><!-- /.modal -->
+              </td>
+              <td>
+                <%= link_to "Delete", investment_path(invst.id), :method => :delete, data: {confirm: "Are you sure you want to delete this investment?"} %>
+              </td>
+            <% end %>
+          </tr>
           <% end %>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
+        </tbody>
+      </table>
+    </div>
   <% else %>
-  No Investments on this Property.
+    No Investments on this Property.
   <% end %>
 </div>
 
 <script>
 
   $(document).ready(function () {
-    $(function() {
-      $('.sortable').railsSortable();
-    });
+    // $(function() {
+    //   $('.sortable').railsSortable();
+    // });
     $('#sortable-table').DataTable({
       "dom": 'Bfrtip',
       "buttons": ['copy'],

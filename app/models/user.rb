@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
 
   has_one  :address, as: :addressable, dependent: :destroy
   has_many :investments, inverse_of: :investor
+  has_many :gross_distributions, through: :investments
   has_many :deals, through: :investments, inverse_of: :investors
 
   validates_presence_of :first_name
@@ -49,6 +50,10 @@ class User < ActiveRecord::Base
 
   def total_invested
     investments.inject(0) { |sum, i| sum + i.amount_invested }
+  end
+
+  def total_distributions
+    gross_distributions.inject(0) { |sum, i| sum + i.amount.to_i }
   end
 
   def total_properties

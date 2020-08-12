@@ -7,7 +7,7 @@
 			<% end %>
 			<span class='form-container status-dropdown'>	
 				<%= form_tag(properties_path, :method => "get", id: "search-form") do %>	
-					<%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['All Statuses', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
+					<%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Open', 'open'], ['All Statuses', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
 				<% end %>	
 			</span>
 		</span>

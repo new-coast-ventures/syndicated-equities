@@ -75,7 +75,22 @@
           
           <fieldset class="form-group">
             <label>Status<span style="color:red">*</span></label>
-            <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold']], @property&.status), {:class => "form-group", required: true} %>
+            <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Open', 'open']], @property&.status), {:class => "form-group", required: true} %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Funding Amount</label>
+            <%= f.text_field :funding_amount, value: @property&.funding_amount %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Target IRR</label>
+            <%= f.text_field :target_irr, value: @property&.target_irr %>
+          </fieldset>
+
+          <fieldset class="form-group">
+            <label>Average Annual Return</label>
+            <%= f.text_field :average_annual_return, value: @property&.average_annual_return %>
           </fieldset>
 
           <fieldset class="form-group">
@@ -103,6 +118,7 @@
   </div>
 </div>
 
+<%# Import Investments Modal %>
 <div class="modal fade" id="investor-import-modal" tabindex="-1" role="dialog" aria-labelledby="importForm" aria-hidden="true">
   <div class="modal-dialog" style="top: 100px" role="document">
     <div class="modal-content">
@@ -116,7 +132,11 @@
           <%= form_tag import_headers_path, multipart: true do %>
             <%= hidden_field_tag 'id', @property.id %>
             <fieldset class="form-group">
-              <label>Upload investors</label>
+              <label style="width:30%">Upload Investments</label>
+              <br>
+              <small>*Only CSV files are accepted</small>
+              <br>
+              <br>
               <%= file_field_tag :file %>
             </fieldset>
             <div class="spacer -space-16"></div>
@@ -124,6 +144,37 @@
             <br>
             <br>
             <a href="https://syndicated-equities.s3.amazonaws.com/investor_import_template.csv" target="_blank">Download CSV Template</a>
+          <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%# Import Distributions Modal %>
+<div class="modal fade" id="gross-distributions-import-modal" tabindex="-1" role="dialog" aria-labelledby="importForm" aria-hidden="true">
+  <div class="modal-dialog" style="top: 100px" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <h5 class="modal-title" id="importForm">Upload Distibutions for <%= @property.name %></h5>
+      </div>
+      <div class="modal-body">
+          <%= form_tag import_distributions_headers_path, multipart: true do %>
+            <%= hidden_field_tag 'id', @property.id %>
+            <fieldset class="form-group">
+              <label>Upload Distibutions</label>
+              <br>
+              <small>*Only XLSX files are accepted.</small>
+              <br>
+              <br>
+              <%= file_field_tag :file %>
+            </fieldset>
+            <div class="spacer -space-16"></div>
+            <%= submit_tag "Import", class: 'button -right' %>
+            <br>
+            <br>
           <% end %>
       </div>
     </div>

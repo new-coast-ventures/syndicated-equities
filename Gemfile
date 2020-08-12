@@ -49,6 +49,8 @@ gem 'mini_magick'
 # wysiwyg editor
 gem 'tinymce-rails'
 
+# for background jobs
+gem 'sidekiq'
 
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
@@ -69,7 +71,7 @@ group :development, :test, :staging do
 end
 
 group :development do
-  gem 'web-console', '~> 2.0'
+  gem 'web-console'
   gem 'spring'
 end
 

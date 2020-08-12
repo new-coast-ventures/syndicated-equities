@@ -7,20 +7,40 @@
     <%= csrf_meta_tags %>
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="turbolinks-cache-control" content="no-cache">
+    <%# <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> %>
+    <script src="https://code.jquery.com/jquery-2.0.3.min.js" data-semver="2.0.3" data-require="jquery"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+    <%# <script src="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.9.4/jquery.dataTables.js" data-semver="1.9.4" data-require="datatables@*"></script> %>
+
+    
+    <!-- Button plugin -->
     <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.bootstrap4.min.css"/>
+    
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"/>
+    
+    <!-- Select2 plugin -->
+    <link href="https://nightly.datatables.net/css/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+    
     <script src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
     <script src="https://kit.fontawesome.com/7833ba6cd8.js" crossorigin="anonymous"></script>
     <script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>  
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script> 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/buttons.html5.min.js"></script>
+    <!-- Select2 plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 
+    <link data-require="jqueryui@*" data-semver="1.10.0" rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/css/smoothness/jquery-ui-1.10.0.custom.min.css" />
+    <script data-require="jqueryui@*" data-semver="1.10.0" src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.10.0/jquery-ui.js"></script>
   </head>
   <body>
 
     <% if notice %>
-      <div class="alert alert-info" role="alert"><%= notice %></div>
+      <div class="alert alert-info" role="alert"><%= notice.html_safe %></div>
     <% end %>
 
     <% if alert %>
@@ -54,30 +74,38 @@
                 <li class="nav-item">
                   <%= link_to "Investments", user_path(current_user), class: "nav-link" %>
                 </li>
+                <li class="nav-item">
+                  <%= link_to "Distributions", user_distributions_path(current_user.id), class: "nav-link" %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Offerings", open_properties_path, class: "nav-link" %>
+                </li>
               <% end %>
               <li class="nav-item">
                 <%= link_to "Form Library", form_library_path, class: "nav-link" %>
               </li>
-              <li class="nav-item">
-                <%= link_to "Edit Profile", edit_registration_path(current_user), class: "nav-link" %>
-              </li>
               <li class="nav-item float-md-right">
-                <%= link_to "Log out", destroy_session_path(current_user), :method => :delete, class: "nav-link" %>
-              </li>
-              <li class="nav-item float-md-right">
-                <% if current_user.admin || current_user.employee %>
-                  <div class="dropdown nav-text">
-                    <button style="padding:0" class="btn-primary" type="button" data-toggle="dropdown">                
-                      <span class="dropdown-toggle"><%= "#{current_user.first_name} #{current_user.last_name}" %></span>
-                    </button>
-                    <ul class="dropdown-menu">
-                      <li><%= link_to "Admin", user_path(current_user, investor_view: false) %></li>
-                      <li><%= link_to "Investor", user_path(current_user, investor_view: true) %></li>
-                    </ul>
-                  </div>
-                <% else %>
-                  <span class="nav-text"><%= "#{current_user.first_name} #{current_user.last_name}" %></span>
-                <% end %>
+                <div class="dropdown nav-text">
+                  <button style="padding:0;border-color:transparent;" class="btn-primary" type="button" data-toggle="dropdown">                
+                    <span class="dropdown-toggle"><%= "#{current_user.first_name} #{current_user.last_name}" %></span>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <% if current_user.admin || current_user.employee %>
+                      <li class="nav-item" style="margin-left: 1rem;">
+                        <%= link_to "Admin", user_path(current_user, investor_view: false) %>
+                      </li>
+                      <li class="nav-item">
+                        <%= link_to "Investor", user_path(current_user, investor_view: true) %>
+                      </li>
+                    <% end %>
+                    <li class="nav-item" style="margin-left: 1rem;">
+                      <%= link_to "Edit Profile", edit_registration_path(current_user) %>
+                    </li>
+                    <li class="nav-item">
+                      <%= link_to "Log out", destroy_session_path(current_user), :method => :delete %>
+                    </li>
+                  </ul>
+                </div>
               </li>
             </ul>
           </div>
@@ -96,7 +124,7 @@
     </footer>
     <script>
       $(document).ready(function() {
-        $(".alert").fadeTo(2000, 1000).slideUp(1000, function(){
+        $(".alert").fadeTo(5000, 1000).slideUp(1000, function(){
             $(".alert").slideUp(1000);
         });
       });

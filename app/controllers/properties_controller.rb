@@ -22,10 +22,36 @@ class PropertiesController < ApplicationController
     end
   end
 
+  def open_properties
+    @open_properties = Property.where(status: 'open')
+  end
+
+  def open_property
+    @open_property = Property.find(params[:id])
+    # @user_entities = current_user.investments.pluck(:investor_entity).uniq
+    @user_entities = ['test']
+  end
+
+  def open_property_request
+    
+    property = Property.find(params[:id])
+    # send mailer to Admins.
+    AdminMailer.open_property_request(params[:potential_investment_amount][0], params[:investment_entity]["investment_entity"], current_user, property).deliver_now
+
+    flash[:notice] = "Thank you for your interest in #{property.name}, we will follow up with you shortly to answer any questions you may have."
+
+    redirect_back(fallback_location: root_path)
+  rescue => e
+    flash[:alert] = "There was an issue with your request. Please try again later or email us directly at portal@syneq.com"
+
+    redirect_back(fallback_location: root_path)
+  end
+
   def show
     @property = Property.find(params[:id])
 
     @investment = Investment.new
+    @gross_distributions = GrossDistribution.new
     @note = Note.new
     @doc = Form.new
 
@@ -41,7 +67,6 @@ class PropertiesController < ApplicationController
     
     # create property
     property = Property.new(property_params)
-    property.status = "active"
 
     if property.save
 
@@ -91,7 +116,7 @@ class PropertiesController < ApplicationController
   private
 
   def property_params
-    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar, :sale_date, :gross_distributions, :internal_rate_of_return, :equity_multiple, :property_type, :description)
+    params.require(:property).permit(:name, :closing_date, :nickname, :status, :avatar, :sale_date, :gross_distributions, :internal_rate_of_return, :equity_multiple, :property_type, :description, :funding_amount, :target_irr, :average_annual_return)
   end
 
   def address_params

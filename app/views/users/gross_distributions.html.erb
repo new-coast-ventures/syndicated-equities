@@ -1,0 +1,161 @@
+<div class="container-fluid" style="margin-top: 35px">
+	<div class=" row page-header">
+    <div class="col-md-12" style="padding-left: 0px;margin-top: 20px">
+      <h2 class="text-left">
+        Gross Distributions
+      </h2>
+    </div>
+  </div>
+
+  <div class="row" style="padding-top: 20px; padding-bottom:20px">
+    <div class="col-md-12">
+      <div class="table-responsive investor-table-container">
+        <% if !@distributions.nil? %>
+          <table class="display investor-table" id="sortable-table" cellspacing="0" width="100%">
+            <div id="advanced-filters-container">
+              <span><div class="filter-Property"></div>
+              <div class="filter-Entity"></div><span>
+            </div>
+            <div id="date_filter">
+                <span id="date-label-from" class="date-label">From: </span><input class="date_range_filter date" type="text" id="datepicker_from" />
+                <span id="date-label-to" class="date-label">To:<input class="date_range_filter date" type="text" id="datepicker_to" />
+            </div>
+            <thead class="thead-default">
+              <tr>
+                <th>Property</th>
+                <th>Entity</th>
+                <th>Distribution</th>
+                <th>Date</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% @distributions.each do |gd| %>
+                <tr>
+                  <td><%= link_to gd.investment&.deal&.property&.list_name, investment_path(gd.investment.id)%></td>
+                  <td><%= gd.investment&.investor_entity %></td>
+                  <td><%= number_to_currency(gd.amount, precision: 0) %></td>
+                  <td><%= gd.distribution_date %></td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+        <% else %>
+          No Distributions Available.
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function() {
+    var dataTable =$('#sortable-table').DataTable({
+      dom: 'Bflitp',
+      "paging": true,
+      "info": true,
+      "columnDefs": [{ "searchable": false, "targets": [3] }],
+			"language": {
+				"zeroRecords": "There are no search results.",
+				searchPlaceholder: "🔍 Name or investment entity",
+				search: "",
+			},
+      buttons: [
+        {
+          extend: 'csv',
+          text: 'Download CSV',
+        }
+      ],
+      initComplete: function () {
+        count = 0;
+        this.api().columns().every( function () {
+          var title = this.header();
+          //replace spaces with dashes
+          title = $(title).html().replace(/[\W]/g, '');
+          var column = this;
+          
+          var select = $('<select id="' + title + '" class="select2" ></select>')
+            .prependTo( $('.filter-' + title))
+            .on( 'change', function () {
+              //Get the "text" property from each selected data 
+              //regex escape the value and store in array
+              var data = $.map( $(this).select2('data'), function( value, key ) {
+                return value.text ? '^' + $.fn.dataTable.util.escapeRegex(value.text) + '$' : null;
+              });
+              //if no data selected use ""
+              if (data.length === 0) {
+                data = [""];
+              }
+              
+              //join array into string with regex or (|)
+              var val = data.join('|');
+              
+              //search for the option(s) selected
+              column.search( val ? val : '', true, false ).draw();
+            });
+
+            column.data().unique().sort().each( function ( d, j ) {
+                select.append( '<option value="'+d+'">'+d+'</option>' );
+            } );
+            //use column title as selector and placeholder
+            $('#' + title).select2({
+              multiple: true,
+              closeOnSelect: false,
+              placeholder: "Select " + title,
+              width: 'resolve'
+            });
+              
+          //initially clear select otherwise first option is selected
+          $('.select2').val(null).trigger('change');
+        });
+      }
+    });
+
+    $("#datepicker_from").datepicker({
+      "onSelect": function(date) {
+        minDateFilter = new Date(date).getTime();
+        dataTable.draw();
+      }
+    }).keyup(function() {
+      minDateFilter = new Date(this.value).getTime();
+      dataTable.draw();
+    });
+
+    $("#datepicker_to").datepicker({
+      "onSelect": function(date) {
+        maxDateFilter = new Date(date).getTime();
+        dataTable.draw();
+      }
+    }).keyup(function() {
+      maxDateFilter = new Date(this.value).getTime();
+      dataTable.draw();
+    });
+
+    // Date range filter
+    minDateFilter = "";
+    maxDateFilter = "";
+
+    $.fn.dataTableExt.afnFiltering.push(
+      function(oSettings, aData, iDataIndex) {
+        
+        if (typeof aData._date == 'undefined') {
+          aData._date = new Date(aData[4]).getTime();
+        }
+
+        if (minDateFilter && !isNaN(minDateFilter)) {
+          if (aData._date < minDateFilter) {
+            return false;
+          }
+        }
+
+        if (maxDateFilter && !isNaN(maxDateFilter)) {
+          if (aData._date > maxDateFilter) {
+            return false;
+          }
+        }
+
+        return true;
+      }
+    );
+  });
+  
+</script>
