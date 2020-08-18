@@ -51,7 +51,8 @@ class Investment < ActiveRecord::Base
     puts "import data from file #{file}"
     # create_deals(file, property_id)
     # create_investments(file)
-    local_file = "lib/imports/#{file.split("/")[-1]}"
+    local_file = "tmp/#{file.split("/")[-1]}"
+    
     CSV.foreach(local_file, headers: true) do |row|
       deal = Deal.find_or_create_by(title: row[mapping["investing_entity"]])
       deal.update(property_id: property_id)
@@ -65,10 +66,11 @@ class Investment < ActiveRecord::Base
         investor_entity: row[mapping["investor_entity"]],
         gross_distribution: row[mapping["gross_distribution"]],
         # gross_distribution_percentage: row[mapping["gross_distribution_percentage"]],
-        amount_invested: row[mapping["amount_invested"]],
+        amount_invested: row[mapping["amount_invested"]].strip.delete("$").delete(",").to_i,
         user_id: get_user(row, mapping)
       }
       puts investor_hash
+      
       Investment.create! investor_hash
     rescue => e
       puts "Error on row: #{row}: #{e}"
@@ -151,7 +153,7 @@ class Investment < ActiveRecord::Base
   end
 
   def self.create_temp_csv(file)
-    FileUtils.cp(file, "lib/imports")
+    FileUtils.cp(file, "tmp/")
   end
 
   def self.combine_investments(user_id, order)

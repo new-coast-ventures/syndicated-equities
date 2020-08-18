@@ -97,7 +97,7 @@ class InvestmentsController < ApplicationController
     begin
       Investment.import(params[:property_id], params[:investment_file], params[:post])
 
-      file = "lib/imports/#{params[:investment_file].split("/")[-1]}"
+      file = "tmp/#{params[:investment_file].split("/")[-1]}"
       
       File.delete(file) if File.exist?(file)
 
