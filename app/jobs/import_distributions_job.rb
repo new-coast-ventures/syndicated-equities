@@ -16,7 +16,7 @@ class ImportDistributionsJob < ApplicationJob
         invalid_emails << row["email"] unless (invalid_emails.include?(row["email"]) || row["email"].nil?)
       end
 
-      # find investment associated with email AND entity to ensure we ass. the distribution to the correct investment
+      # find investment associated with email AND entity to ensure we associate the distribution to the correct investment
       investment = investments.where(investor_email: row["email"], investor_entity: row["investor_entity"])
       
       if !investment.blank?
