@@ -6,14 +6,14 @@ class GrossDistributionsController < ApplicationController
     @investment = Investment.find(params[:id])
     @gross_distributions = @investment.gross_distributions
     @property = @investment.deal.property
-    @investor = @investment&.investor&.name
+    @investor = @investment.investor_name
     @gross_distribution = GrossDistribution.new()
   end
 
   def create
     gd = GrossDistribution.create(gross_distribution_params)
     if !gd.save
-      flash[:alert] = 'Something went wrong. Please try again.)'
+      flash[:alert] = 'Something went wrong. Please try again.'
     end
       
     redirect_back(fallback_location: root_path)
@@ -52,8 +52,8 @@ class GrossDistributionsController < ApplicationController
     
     import_data = GrossDistribution.create_import_hash(params[:import_file], mapping)
     
-    # ImportDistributionsJob.perform_later(params[:property_id], import_data)
-    ImportDistributionsJob.perform(params[:property_id], import_data)
+    ImportDistributionsJob.perform_later(params[:property_id], import_data)
+    # ImportDistributionsJob.perform(params[:property_id], import_data)
     
     flash[:notice] = 'Distributions are being imported. An email will be sent once it is complete.'
 

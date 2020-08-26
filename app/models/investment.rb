@@ -39,6 +39,10 @@ class Investment < ActiveRecord::Base
     [investor&.name, deal&.title].compact.join(" - ")
   end
 
+  def investor_name
+    "#{investor_first_name} #{investor_last_name}"
+  end
+
   def display_date
     deal&.date&.strftime("%m/%d/%y") || "n/a"
   end

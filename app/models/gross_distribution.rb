@@ -27,7 +27,6 @@ class GrossDistribution < ActiveRecord::Base
      # Loop through .xlsx doc
      import_file = file.split("/")[-1]
      local_file = "tmp/#{import_file}"
- 
      xlsx = Roo::Spreadsheet.open(local_file)
      sheet = xlsx.sheet(0)
      gd_hash = sheet.parse(email: mapping["investor_email"], investor_entity: mapping["investor_entity"], amount: mapping["amount"], date: mapping["distribution_date"], clean:true)
