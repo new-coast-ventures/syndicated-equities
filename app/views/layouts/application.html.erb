@@ -99,7 +99,7 @@
                       </li>
                     <% end %>
                     <li class="nav-item" style="margin-left: 1rem;">
-                      <%= link_to "Edit Profile", edit_registration_path(current_user) %>
+                      <%= link_to "Edit Profile", edit_user_registration_path(current_user) %>
                     </li>
                     <li class="nav-item">
                       <%= link_to "Log out", destroy_session_path(current_user), :method => :delete %>
