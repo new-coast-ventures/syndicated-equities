@@ -20,7 +20,7 @@
         <%= investment&.investor_entity %>
       </div>
       <div class="col-xs-2 no-padding" style="text-align:right">
-        <%= number_to_currency(investment.amount_invested, precision: 0) %>
+        <%= number_to_currency(investment.amount_invested, precision: 2) %>
       </div>
     <% end %>
   </div>
@@ -29,7 +29,7 @@
       <b>Total</b>
     </div>
     <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
-      <%= number_to_currency(@property_investments.pluck(:amount_invested).sum, precision: 0) %>
+      <%= number_to_currency(@property_investments.pluck(:amount_invested).sum, precision: 2) %>
     </div>
   </div>
   <div class="grey-divider" style="margin-bottom: 15px"></div>
@@ -42,7 +42,7 @@
         <%= investment.investor_entity %>
       </div>
       <div class="col-xs-2 no-padding" style="text-align:right">
-        <%= number_to_currency(investment.total_gross_distribution, precision: 0) %>      
+        <%= number_to_currency(investment.total_gross_distribution, precision: 2) %>      
       </div>
     <% end %>
   </div>
@@ -51,7 +51,7 @@
       <b>Total</b>
     </div>
     <div class="col-xs-6 no-padding" style="text-align:right; font-weight: bold; margin-top: 10px">
-      <%= number_to_currency(@user_gross_distribution, precision: 0) %>
+      <%= number_to_currency(@user_gross_distribution, precision: 2) %>
     </div>
   </div>
 </div>
@@ -79,7 +79,7 @@
           <tbody class="investor-table">
             <tr>
               <td class="form-title">
-                <%= number_to_currency(gd.amount, precision: 0) %>
+                <%= number_to_currency(gd.amount, precision: 2) %>
               </td>
               <td>
                 <%= gd.description %>

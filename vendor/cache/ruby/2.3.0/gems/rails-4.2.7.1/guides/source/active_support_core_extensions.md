@@ -1984,7 +1984,7 @@ Produce a string representation of a number as a percentage:
 ```ruby
 100.to_s(:percentage)
 # => 100.000%
-100.to_s(:percentage, precision: 0)
+100.to_s(:percentage, precision: 2)
 # => 100%
 1000.to_s(:percentage, delimiter: '.', separator: ',')
 # => 1.000,000%
@@ -2008,7 +2008,7 @@ Produce a string representation of a number rounded to a precision:
 111.2345.to_s(:rounded)                     # => 111.235
 111.2345.to_s(:rounded, precision: 2)       # => 111.23
 13.to_s(:rounded, precision: 5)             # => 13.00000
-389.32314.to_s(:rounded, precision: 0)      # => 389
+389.32314.to_s(:rounded, precision: 2)      # => 389
 111.2345.to_s(:rounded, significant: true)  # => 111
 ```
 

@@ -81,7 +81,7 @@
               <%= gd.description %>
             </td>
             <td>
-              <%= number_to_currency(gd.amount, precision: 0) %>
+              <%= number_to_currency(gd.amount, precision: 2) %>
             </td>
             <td>
               <%= gd.distribution_date %>
@@ -107,7 +107,7 @@
 
                       <fieldset class="form-group">
                         <label>Amount<span style="color:red">*</span></label>
-                        <%= f.text_field :amount, value: gd.amount %>
+                        <%= f.text_field :amount, value: gd.amount.to_i %>
                       </fieldset>
 
                       <fieldset class="form-group">

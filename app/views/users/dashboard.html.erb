@@ -53,9 +53,9 @@
                   <br>
                   <%= @investments[prop_id][:closing_date] %>
                   <br>
-                  <%= number_to_currency(@investments[prop_id][:investor_equity], precision: 0) %>
+                  <%= number_to_currency(@investments[prop_id][:investor_equity], precision: 2) %>
                   <br>
-                  <%= number_to_currency(@investments[prop_id][:gross_distribution], precision: 0) %>
+                  <%= number_to_currency(@investments[prop_id][:gross_distribution], precision: 2) %>
                 </p>
               </div>
             </div>

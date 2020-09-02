@@ -37,7 +37,7 @@ class Numeric
   #
   #  Percentage:
   #  100.to_s(:percentage)                                  # => 100.000%
-  #  100.to_s(:percentage, precision: 0)                    # => 100%
+  #  100.to_s(:percentage, precision: 2)                    # => 100%
   #  1000.to_s(:percentage, delimiter: '.', separator: ',') # => 1.000,000%
   #  302.24398923423.to_s(:percentage, precision: 5)        # => 302.24399%
   #  1000.to_s(:percentage, locale: :fr)                    # => 1 000,000%
@@ -57,7 +57,7 @@ class Numeric
   #  111.2345.to_s(:rounded)                                      # => 111.235
   #  111.2345.to_s(:rounded, precision: 2)                        # => 111.23
   #  13.to_s(:rounded, precision: 5)                              # => 13.00000
-  #  389.32314.to_s(:rounded, precision: 0)                       # => 389
+  #  389.32314.to_s(:rounded, precision: 2)                       # => 389
   #  111.2345.to_s(:rounded, significant: true)                   # => 111
   #  111.2345.to_s(:rounded, precision: 1, significant: true)     # => 100
   #  13.to_s(:rounded, precision: 5, significant: true)           # => 13.000

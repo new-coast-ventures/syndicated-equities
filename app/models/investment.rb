@@ -99,7 +99,7 @@ class Investment < ActiveRecord::Base
   def total_gross_distribution
     total = 0
     gross_distributions.each do |gross|
-      total += gross.amount.to_i
+      total += gross.amount.to_f
     end
     total
   end

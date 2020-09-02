@@ -183,7 +183,7 @@
                 <p class="text-right" style="font-weight: bold; text-align: right">
                   <%= @open_property.property_type.capitalize %>
                   <br>
-                  <%= number_to_currency(@open_property&.funding_amount, precision: 0) %>
+                  <%= number_to_currency(@open_property&.funding_amount, precision: 2) %>
                   <% if !@open_property.target_irr.blank? %>
                     <br>
                     <%= "#{@open_property&.target_irr}%" %>

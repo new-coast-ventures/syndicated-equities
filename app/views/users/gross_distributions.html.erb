@@ -33,7 +33,7 @@
                 <tr>
                   <td><%= link_to gd.investment&.deal&.property&.list_name, investment_path(gd.investment.id)%></td>
                   <td><%= gd.investment&.investor_entity %></td>
-                  <td><%= number_to_currency(gd.amount, precision: 0) %></td>
+                  <td><%= number_to_currency(gd.amount, precision: 2) %></td>
                   <td><%= gd.distribution_date %></td>
                 </tr>
               <% end %>

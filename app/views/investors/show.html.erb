@@ -24,7 +24,7 @@
       <div class="investor-details-item">Investments <span style="float:right"><%= @investor.investments.count%></span>
       </div>
       <div class="investor-details-item">Invested<span
-          style="float:right"><%=  number_to_currency(@investor.total_invested, precision: 0 ) %></span> 
+          style="float:right"><%=  number_to_currency(@investor.total_invested, precision: 2 ) %></span> 
       </div>
       <div class="investor-details-item">Approved<span
           style="float:right"><% if @investor.approved %>Yes<% else %>No<% end %></span> 
@@ -125,10 +125,10 @@
                 <%= invst.investing_entity ? invst.investing_entity : invst&.deal&.title %>
               </td>
               <td>
-                <%= number_to_currency(invst.amount_invested, precision: 0) %>
+                <%= number_to_currency(invst.amount_invested, precision: 2) %>
               </td>
               <td>
-                <%= link_to number_to_currency(invst.total_gross_distribution, precision: 0), gross_distribution_path(invst.id) %>
+                <%= link_to number_to_currency(invst.total_gross_distribution, precision: 2), gross_distribution_path(invst.id) %>
               </td>
               <td data-sort="<%= invst&.deal&.property&.closing_date&.strftime("%Y/%m/%d") %>">
                 <%= invst&.deal&.property&.closing_date&.strftime("%m/%d/%Y") %>

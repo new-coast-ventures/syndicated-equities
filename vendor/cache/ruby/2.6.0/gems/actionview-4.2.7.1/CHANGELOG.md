@@ -85,7 +85,7 @@
     *Justin Coyne*
 
 *   `number_to_percentage` does not crash with `Float::NAN` or `Float::INFINITY`
-    as input when `precision: 0` is used.
+    as input when `precision: 2` is used.
 
     Fixes #19227.
 

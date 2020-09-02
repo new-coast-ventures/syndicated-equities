@@ -52,7 +52,7 @@
                 <p class="text-right" style="font-weight: bold; text-align: right">
                   <%= prop.property_type.capitalize %>
                   <br>
-                  <%= number_to_currency(prop&.funding_amount, precision: 0) %>
+                  <%= number_to_currency(prop&.funding_amount, precision: 2) %>
                   <% if !prop.target_irr.blank? %>
                     <br>
                     <%= "#{prop&.target_irr}%" %>

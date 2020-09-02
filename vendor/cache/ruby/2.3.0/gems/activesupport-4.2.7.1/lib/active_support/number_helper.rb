@@ -112,7 +112,7 @@ module ActiveSupport
     #
     #   number_to_percentage(100)                                  # => 100.000%
     #   number_to_percentage('98')                                 # => 98.000%
-    #   number_to_percentage(100, precision: 0)                    # => 100%
+    #   number_to_percentage(100, precision: 2)                    # => 100%
     #   number_to_percentage(1000, delimiter: '.', separator: ',') # => 1.000,000%
     #   number_to_percentage(302.24398923423, precision: 5)        # => 302.24399%
     #   number_to_percentage(1000, locale: :fr)                    # => 1 000,000%
@@ -178,7 +178,7 @@ module ActiveSupport
     #   number_to_rounded(111.2345)                                  # => 111.235
     #   number_to_rounded(111.2345, precision: 2)                    # => 111.23
     #   number_to_rounded(13, precision: 5)                          # => 13.00000
-    #   number_to_rounded(389.32314, precision: 0)                   # => 389
+    #   number_to_rounded(389.32314, precision: 2)                   # => 389
     #   number_to_rounded(111.2345, significant: true)               # => 111
     #   number_to_rounded(111.2345, precision: 1, significant: true) # => 100
     #   number_to_rounded(13, precision: 5, significant: true)       # => 13.000

@@ -63,7 +63,7 @@
           <div class="col-sm-6">
             <div class='col-sm-6' style="text-align: left">Investor Equity</div>
             <div class='col-sm-6' style="text-align: right">
-              <strong><%= number_to_currency(@property&.deal_equity, precision: 0) %></strong></div>
+              <strong><%= number_to_currency(@property&.deal_equity, precision: 2) %></strong></div>
           </div>
         </div>
         <div class="row">
@@ -75,7 +75,7 @@
           <div class="col-sm-6">
             <div class='col-sm-6' style="text-align: left">Gross Distributions</div>
             <div class='col-sm-6' style="text-align: right">
-              <strong><%= number_to_currency(@property.total_investor_gross_distributions, precision: 0) || 'N/A' %></strong></div>
+              <strong><%= number_to_currency(@property.total_investor_gross_distributions, precision: 2) || 'N/A' %></strong></div>
           </div>
         </div>
         <div class="row">
@@ -109,7 +109,7 @@
             <div class="col-sm-6">
               <div class='col-sm-6' style="text-align: left">Funding Amount</div>
               <div class='col-sm-6' style="text-align: right; line-height: 18px; padding-top: 8px;">
-                <strong><%= number_to_currency(@property.funding_amount, precision: 0) || 'N/A' %></strong>
+                <strong><%= number_to_currency(@property.funding_amount, precision: 2) || 'N/A' %></strong>
               </div>
             </div>
             <div class="col-sm-6">
@@ -450,10 +450,10 @@
               <%= invst.investing_entity ? invst.investing_entity : invst&.deal&.title %>
             </td>
             <td>
-              <%= number_to_currency(invst.amount_invested, precision: 0) %>
+              <%= number_to_currency(invst.amount_invested, precision: 2) %>
             </td>
             <td>
-              <%= link_to number_to_currency(invst.total_gross_distribution, precision: 0), gross_distribution_path(invst.id) %>
+              <%= link_to number_to_currency(invst.total_gross_distribution, precision: 2), gross_distribution_path(invst.id) %>
             </td>
             <% if @master_admin %>
               <td>
