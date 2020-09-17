@@ -60,6 +60,16 @@ class GrossDistributionsController < ApplicationController
     redirect_to property_path(params[:property_id])
   end
 
+  def delete_latest_distribution_import
+    GrossDistribution.delete_latest_import(params[:id])
+    flash[:notice] = 'The latest Distribution import has been deleted.'
+    redirect_to property_path(params[:id])
+  rescue => e  
+    puts "Latest distribution delete failed: #{e}"
+    flash[:error] = 'Something went wrong, please try again shortly.'
+    redirect_to property_path(params[:id])
+  end
+
   private
   
   def gross_distribution_params

@@ -36,6 +36,13 @@ class GrossDistribution < ActiveRecord::Base
      gd_hash.to_json
   end
 
+  def self.delete_latest_import(property_id)
+    prop = Property.find(property_id)
+    investment_ids = prop.investments.pluck(:id)
+    latest_import = where(investment_id: investment_ids, created_at: (Time.now.utc - 30.minutes)..Time.now.utc)
+    latest_import.destroy_all
+  end
+
   def self.import(property_id, file, mapping)
     # Loop through .xlsx doc
     import_file = file.split("/")[-1]

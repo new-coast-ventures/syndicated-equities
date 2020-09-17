@@ -65,7 +65,7 @@ class Investment < ActiveRecord::Base
         deal_id: deal.id,
         investor_last_name: row[mapping["investor_last_name"]],
         investor_first_name: row[mapping["investor_first_name"]],
-        investor_email: row[mapping["investor_email"]],
+        investor_email: row[mapping["investor_email"]].downcase,
         investing_entity: row[mapping["investing_entity"]],
         investor_entity: row[mapping["investor_entity"]],
         gross_distribution: row[mapping["gross_distribution"]],
@@ -144,7 +144,7 @@ class Investment < ActiveRecord::Base
     p user
     if !user
       user = User.create(
-        email: email, 
+        email: email.downcase, 
         password: "Se1#{SecureRandom.base64(8)}",
         first_name: first_name,
         last_name: last_name

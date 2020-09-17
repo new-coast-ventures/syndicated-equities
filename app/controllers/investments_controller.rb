@@ -38,7 +38,7 @@ class InvestmentsController < ApplicationController
       deal_id: deal.id,
       investor_last_name: investor.last_name,
       investor_first_name: investor.first_name,
-      investor_email: investor.email,
+      investor_email: investor.email.downcase,
       investing_entity:invst_params["investing_entity"]&.strip,
       investor_entity: invst_params["investor_entity"]&.strip,
       gross_distribution: invst_params["gross_distribution"]&.strip,

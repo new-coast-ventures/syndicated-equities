@@ -11,20 +11,22 @@ class ImportDistributionsJob < ApplicationJob
     invalid_emails = []
     
     gd_hash.each do |row|
+      email = row['email'].downcase
+      investor_entity = row['investor_entity'].downcase
       # check if email is associated with an investment, if not add it to the invalid array. Not sure why we need this but it was a requirement
-      if investments.where(investor_email: row["email"]).blank?
-        invalid_emails << row["email"] unless (invalid_emails.include?(row["email"]) || row["email"].nil?)
+      if investments.where(investor_email: email).blank?
+        invalid_emails << email unless (invalid_emails.include?(email) || email.nil?)
       end
 
       # find investment associated with email AND entity to ensure we associate the distribution to the correct investment
-      investment = investments.where(investor_email: row["email"], investor_entity: row["investor_entity"])
+      investment = investments.where(investor_email: email, investor_entity: investor_entity)
       
       if !investment.blank?
         distribution = GrossDistribution.create(
           investment_id: investment.first.id,
           amount: row["amount"],
           distribution_date: row["date"],
-          description: row["investor_entity"]
+          description: investor_entity
         )
         puts distribution.inspect
       else

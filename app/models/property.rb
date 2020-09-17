@@ -27,7 +27,7 @@ class Property < ActiveRecord::Base
   has_many :notes
   has_many :investments, through: :deals
 
-  PROPERTY_TYPE_OPTIONS = {government: 'government', hospitality: 'hospitality', industrial: 'industrial', medical: 'medical', multifamily: 'multifamily', office: 'office', parking: 'parking', retail: 'retail', student_housing: 'student housing}'}
+  PROPERTY_TYPE_OPTIONS = {government: 'government', hospitality: 'hospitality', industrial: 'industrial', medical: 'medical', multifamily: 'multifamily', office: 'office', parking: 'parking', retail: 'retail', student_housing: 'student housing', self_storage: 'self-storage'}
 
 
   validates :avatar, content_type: ['image/png', 'image/jpg', 'image/jpeg']

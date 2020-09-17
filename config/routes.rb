@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   resources :gross_distributions
   post '/gross-distributions-import', to: 'gross_distributions#import'
   post '/gross-distributions-headers', to: 'gross_distributions#import_headers', as: 'import-distributions-headers'
+  get '/delete-latest-distribtuion-import/:id', to: 'gross_distributions#delete_latest_distribution_import', as: 'delete-latest-distribution-import'
   get '/distributions/:user_id', to: 'users#gross_distributions', as: 'user_distributions'
   resources :contacts, only: [:index]
   resources :addresses, only: [:create, :update, :destroy]

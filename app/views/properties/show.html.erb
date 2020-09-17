@@ -392,6 +392,30 @@
           <button type="button" class="table button"
             style="width: 125px ;background: transparent; color: #0E77D9; float:right" data-toggle="modal"
             data-target="#gross-distributions-import-modal">Import Distributions</button>
+          <button 
+            type="button" 
+            class="table button" 
+            style="width: 100px ;background: transparent; color: #0E77D9; margin-left: 8px; float:right" 
+            data-toggle="modal"
+            data-target="#delete-last-import"> 
+            Delete Last Import 
+          </button>
+          <div class="modal fade" id="delete-last-import" tabindex="-1" role="dialog" aria-labelledby="delete-last-import"
+          aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content" style="margin-top:100px">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="property-delete-modal" style="float:left">Delete Last Import</h4>
+              </div>
+              <div class="modal-body" style="text-align: left">
+                <p>Are you sure you would like to delete the last imported distributions for this Property?</p>
+                <%= button_to "Yes", delete_latest_distribution_import_path(@property.id), {method: :get, style: "float: left; margin-right: 8px;"} %>
+                <button type="button" data-dismiss="modal" aria-hidden="true">No</button>
+              </div>
+            </div><!-- /.modal-content -->
+          </div><!-- /.modal-dialog -->
+        </div>
         <% end %>
       </div>
     </div>
