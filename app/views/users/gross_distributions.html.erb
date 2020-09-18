@@ -53,7 +53,7 @@
       dom: 'Blitp',
       "paging": true,
       "info": true,
-      "columnDefs": [{ "searchable": false, "targets": [3] }],
+      // "columnDefs": [{ "searchable": false, "targets": [3] }],
 			"language": {
 				"zeroRecords": "There are no search results.",
 				searchPlaceholder: "🔍 Name or investment entity",
@@ -141,7 +141,7 @@
       function(oSettings, aData, iDataIndex) {
         
         if (typeof aData._date == 'undefined') {
-          aData._date = new Date(aData[4]).getTime();
+          aData._date = new Date(aData[3]).getTime();
         }
 
         if (minDateFilter && !isNaN(minDateFilter)) {
