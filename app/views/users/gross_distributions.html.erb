@@ -50,7 +50,7 @@
 <script>
   $(document).ready(function() {
     var dataTable =$('#sortable-table').DataTable({
-      dom: 'Bflitp',
+      dom: 'Blitp',
       "paging": true,
       "info": true,
       "columnDefs": [{ "searchable": false, "targets": [3] }],
@@ -78,7 +78,7 @@
             .on( 'change', function () {
               //Get the "text" property from each selected data 
               //regex escape the value and store in array
-              var data = $.map( $(this).select2('data'), function( value, key ) {
+              var data = $.map( $(this).select2('data'), function( value, key ) {                
                 return value.text ? '^' + $.fn.dataTable.util.escapeRegex(value.text) + '$' : null;
               });
               //if no data selected use ""
@@ -94,6 +94,9 @@
             });
 
             column.data().unique().sort().each( function ( d, j ) {
+                if (d.includes("href")) {
+                  d = d.split(">")[1].split("<")[0]
+                } 
                 select.append( '<option value="'+d+'">'+d+'</option>' );
             } );
             //use column title as selector and placeholder
