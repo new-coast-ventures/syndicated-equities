@@ -12,7 +12,7 @@ class ImportDistributionsJob < ApplicationJob
     
     gd_hash.each do |row|
       email = row['email']&.downcase
-      investor_entity = row['investor_entity']&.downcase
+      investor_entity = row['investor_entity']
       # check if email is associated with an investment, if not add it to the invalid array. Not sure why we need this but it was a requirement
       if investments.where(investor_email: email).blank?
         invalid_emails << email unless (invalid_emails.include?(email) || email.nil?)
