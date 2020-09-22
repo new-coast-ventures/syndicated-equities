@@ -426,7 +426,7 @@
   </div>
   <% if !@property&.investments.nil? %>
     <div class="table-responsive investor-table-container">
-      <table class="investor-table display" id="sortable-table" cellspacing="0" width="100%">
+      <table class="investor-table display" id="prop-sortable-table" cellspacing="0" width="100%">
         <thead style="border-collapse: collapse !important" class="thead-default">
           <tr>
             <th>
@@ -542,8 +542,8 @@
     // $(function() {
     //   $('.sortable').railsSortable();
     // });
-    $('#sortable-table').DataTable({
-      "dom": 'Bfrtip',
+    $('#prop-sortable-table').DataTable({
+      // "dom": 'Bfrtip',
       // "buttons": ['copy'],
       "paging": true,
       "info": false,
