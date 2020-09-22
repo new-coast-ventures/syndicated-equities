@@ -28,8 +28,8 @@ class PropertiesController < ApplicationController
 
   def open_property
     @open_property = Property.find(params[:id])
-    # @user_entities = current_user.investments.pluck(:investor_entity).uniq
-    @user_entities = ['test']
+    @user_entities = current_user.investments.pluck(:investor_entity).uniq
+    # @user_entities = ['test']
   end
 
   def open_property_request
