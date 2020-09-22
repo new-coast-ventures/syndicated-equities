@@ -41,7 +41,6 @@ class InvestmentsController < ApplicationController
       investor_email: investor.email.downcase,
       investing_entity:invst_params["investing_entity"]&.strip,
       investor_entity: invst_params["investor_entity"]&.strip,
-      gross_distribution: invst_params["gross_distribution"]&.strip,
       amount_invested: invst_params["amount_invested"]&.strip&.to_i,
       user_id: investor.id
     }
@@ -84,7 +83,7 @@ class InvestmentsController < ApplicationController
     @property_id = params[:id]
     @investment = Investment.new
     @headers = CSV.read(@investment_file, headers: true).headers << ['No Mapping', nil]
-    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_entity', 'investing_entity', 'amount_invested', 'gross_distribution']
+    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_entity', 'investing_entity', 'amount_invested']
     
     render 'properties/import_headers'
   rescue => e  
