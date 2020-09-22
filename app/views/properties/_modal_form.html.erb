@@ -75,7 +75,7 @@
           
           <fieldset class="form-group">
             <label>Status<span style="color:red">*</span></label>
-            <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Open', 'open']], @property&.status), {:class => "form-group", required: true} %>
+            <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Offering', 'open']], @property&.status), {:class => "form-group", required: true} %>
           </fieldset>
 
           <fieldset class="form-group">

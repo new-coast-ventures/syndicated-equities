@@ -81,7 +81,11 @@
         <div class="row">
           <div class="col-sm-6">
             <div class='col-sm-6' style="text-align: left">Status</div>
-            <div class='col-sm-6' style="text-align: right"><strong><%= @property.status&.humanize %></strong></div>
+            <div class='col-sm-6' style="text-align: right"><strong>
+              <% if @property&.status == 'open' %> Offering 
+              <% else %><%= @property&.status&.capitalize %>
+              <% end %>
+            </strong></div>
           </div>
           <% if !@property.internal_rate_of_return.blank? %>
             <div class="col-sm-6">
