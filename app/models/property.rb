@@ -65,10 +65,10 @@ class Property < ActiveRecord::Base
     total = 0
     investments.each do |inv|
       inv.gross_distributions.each do |gross|
-        total += gross.amount.to_i
+        total += gross.amount.to_f
       end
     end
-    total
+    total.round(2)
   end
 
   def total_user_gross_distribution(user_id)
