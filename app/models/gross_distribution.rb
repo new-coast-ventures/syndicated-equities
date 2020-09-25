@@ -6,7 +6,7 @@
 require 'roo'
 class GrossDistribution < ActiveRecord::Base
   belongs_to :investment
-  validates :distribution_date, uniqueness: { scope: :investment_id }
+  # validates :distribution_date, uniqueness: { scope: :investment_id }
 
   attr_reader :investor_entity, :investor_email
   private
@@ -29,7 +29,7 @@ class GrossDistribution < ActiveRecord::Base
      local_file = "tmp/#{import_file}"
      xlsx = Roo::Spreadsheet.open(local_file)
      sheet = xlsx.sheet(0)
-     gd_hash = sheet.parse(email: mapping["investor_email"], investor_entity: mapping["investor_entity"], amount: mapping["amount"], date: mapping["distribution_date"], clean:true)
+     gd_hash = sheet.parse(email: mapping["investor_email"], investor_entity: mapping["investor_entity"], amount: mapping["amount"], date: mapping["distribution_date"], clean: true)
 
      File.delete(local_file) if File.exist?(local_file)
 
