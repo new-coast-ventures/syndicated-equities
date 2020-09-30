@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_23_230501) do
+ActiveRecord::Schema.define(version: 2020_09_30_123659) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -138,6 +138,7 @@ ActiveRecord::Schema.define(version: 2020_06_23_230501) do
     t.string "funding_amount"
     t.string "target_irr"
     t.string "average_annual_return"
+    t.string "total_investor_gross_distributions_amount"
   end
 
   create_table "users", id: :serial, force: :cascade do |t|
@@ -167,6 +168,8 @@ ActiveRecord::Schema.define(version: 2020_06_23_230501) do
     t.string "state"
     t.string "country"
     t.string "zip_code"
+    t.string "total_investments_count"
+    t.string "total_invested_amount"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

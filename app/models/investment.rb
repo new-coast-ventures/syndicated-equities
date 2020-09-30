@@ -76,6 +76,8 @@ class Investment < ActiveRecord::Base
       puts investor_hash
       
       Investment.create! investor_hash
+
+      UpdateInvestorJob.perform_now if !Rails.env.development?
     rescue => e
       puts "Error on row: #{row}: #{e}"
       next

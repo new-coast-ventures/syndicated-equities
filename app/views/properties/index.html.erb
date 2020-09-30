@@ -37,7 +37,7 @@
 					<td><%= prop&.address&.city %></td>
 					<td><%= prop&.address&.state %></td>
 					<td><%= number_to_currency(prop&.deal_equity, precision: 2) %></td>
-					<td><%= number_to_currency(prop.total_investor_gross_distributions, precision: 2) || 'N/A' %></td>
+					<td><%= number_to_currency(prop.total_investor_gross_distributions_amount, precision: 2) || 'N/A' %></td>
 					<td><%= prop&.property_type&.humanize&.titleize %></td>
 					<td data-sort="<%= prop&.closing_date&.strftime("%Y/%m/%d") %>"><%= prop&.closing_date&.strftime("%m/%d/%Y") %></td>
 					<td><%= prop&.sale_date&.strftime("%m/%d/%Y") %></td>

@@ -15,19 +15,25 @@ class GrossDistributionsController < ApplicationController
     if !gd.save
       flash[:alert] = 'Something went wrong. Please try again.'
     end
-      
+    
+    UpdatePropertyJob.perform_now if !Rails.env.development?
+
     redirect_back(fallback_location: root_path)
   end
 
   def update
     gd = GrossDistribution.find(params['id'])
     gd.update(gross_distribution_params)
+    
+    UpdatePropertyJob.perform_now if !Rails.env.development?
 
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
     GrossDistribution.find(params['id']).destroy
+    
+    UpdatePropertyJob.perform_now if !Rails.env.development?
     
     redirect_back(fallback_location: root_path)
   end

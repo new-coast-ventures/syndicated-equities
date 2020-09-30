@@ -40,6 +40,9 @@ class ImportDistributionsJob < ApplicationJob
 
     AdminMailer.distribution_import_complete(errors, prop.name).deliver_now
     puts "--------- Finished Distributions import for #{prop.name} ---------"
+
+    # Run Propoery total update
+    UpdatePropertyJob.perform_now if !Rails.env.development?
   rescue => e  
     puts "--------- ERROR with Distributions import for #{prop.name} ---------"
     puts "--------- ERROR: #{e} ---------"
