@@ -48,7 +48,9 @@ class UsersController < ApplicationController
   end
 
   def show
+    
     @order = params['order'] ? params['order'] : 'DESC'
+    @status = params['status'] ? params['status'] : "active"
    
     @user = User.find_by(id: params[:id])
 
@@ -57,7 +59,8 @@ class UsersController < ApplicationController
       @user = current_user
     end
 
-    user_investments = Investment.combine_investments(@user.id, @order)
+
+    user_investments = Investment.combine_investments(@user.id, @order, @status)
     @investments = user_investments[:investments]
     @property_ids = user_investments[:property_ids]
     

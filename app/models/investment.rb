@@ -162,8 +162,16 @@ class Investment < ActiveRecord::Base
     FileUtils.cp(file, "tmp/")
   end
 
-  def self.combine_investments(user_id, order)
-    user_investments = Investment.joins(deal: :property).where(user_id: user_id).order("properties.closing_date #{order}")
+  def self.combine_investments(user_id, order, status)
+    user_investments = 
+      Investment.joins(deal: :property)
+                .where(user_id: user_id)
+                .order("properties.closing_date #{order}")
+    
+    if status != 'all'
+      user_investments = user_investments.where("properties.status = ?", status)
+    end          
+
     investments = {}
     property_ids =[]
     user_investments.each do |investment|
@@ -179,7 +187,8 @@ class Investment < ActiveRecord::Base
           investment_id: investment.id,
           property_img: property&.avatar,
           property_nickname: property&.nickname,
-          address: "#{property.address.line1}, #{property.address.location}"
+          address: "#{property.address.line1}, #{property.address.location}",
+          status: property.status
         }
       else
         investments[property.id][:investor_equity] += investment.amount_invested.to_i

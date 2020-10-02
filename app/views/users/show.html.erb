@@ -1,8 +1,15 @@
 <!-- <h5 class="dashboard-title">Your Dashboard</h5> -->
 <h5 class="dashboard-title" style="font-size: 1.75rem">Investments
-  <span class='form-container status-dropdown closing-date-dropdown'>	Closing Date:
+  <span class='form-container status-dropdown closing-date-dropdown'>	
+    Closing Date:
     <%= form_tag(user_path, :method => "get") do %>	
+      <%= hidden_field_tag :status, @status%>
       <%= select_tag :order, options_for_select([['Newest to Oldest', 'desc'], ['Oldest to Newest', 'asc']], @order), {:onchange => "this.form.submit();", :class => "form-group"} %>	
+    <% end %>	
+    Status: 
+    <%= form_tag(user_path, :method => "get") do %>	
+      <%= hidden_field_tag :order, @order%>
+      <%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Offering', 'open'], ['All Statuses', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
     <% end %>	
   </span>
 </h5>
@@ -45,6 +52,8 @@
                     Investor Equity
                     <br>
                     Gross Distributions
+                    <br>
+                    Status
                   </p>
                 </div>
                 <div class="col-xs-6">
@@ -56,6 +65,8 @@
                     <%= number_to_currency(@investments[prop_id][:investor_equity], precision: 2) %>
                     <br>
                     <%= number_to_currency(@investments[prop_id][:gross_distribution], precision: 2) %>
+                    <br>
+                    <%= @investments[prop_id][:status].capitalize %>
                   </p>
                 </div>
               </div>
