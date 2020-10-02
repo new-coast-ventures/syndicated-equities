@@ -141,7 +141,7 @@ class Investment < ActiveRecord::Base
   def self.get_user(row, mapping)
     first_name = row[mapping["investor_first_name"]]&.strip
     last_name = row[mapping["investor_last_name"]]&.strip
-    email = row[mapping["investor_email"]]&.strip ? row[mapping["investor_email"]]&.strip : "#{first_name}_#{last_name}#{rand(1000)}@syndicatedequities.com"
+    email = row[mapping["investor_email"]].downcase&.strip ? row[mapping["investor_email"]].downcase&.strip : "#{first_name}_#{last_name}#{rand(1000)}@syndicatedequities.com"
     user = User.find_by(email: email&.downcase)
     p user
     if !user
@@ -153,7 +153,7 @@ class Investment < ActiveRecord::Base
       )
     end
 
-    user
+    user.id
   rescue => e  
     puts "[get_user]ERROR for #{email}: #{e}"
   end
