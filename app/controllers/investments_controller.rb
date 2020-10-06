@@ -47,7 +47,7 @@ class InvestmentsController < ApplicationController
 
     Investment.create! investor_hash
 
-    UpdateInvestorJob.perform_now if !Rails.env.development?
+    UpdateInvestorJob.perform_now(investor.id) if !Rails.env.development?
     
     redirect_back(fallback_location: root_path)
   end
@@ -55,7 +55,9 @@ class InvestmentsController < ApplicationController
   def update
     @investment = Investment.find(params[:id])
     @investment.update(investment_params)
-    UpdateInvestorJob.perform_now
+
+    UpdateInvestorJob.perform_now(@investment.investor.id)
+
     redirect_back(fallback_location: root_path)
   end
 

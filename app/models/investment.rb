@@ -56,11 +56,14 @@ class Investment < ActiveRecord::Base
     # create_deals(file, property_id)
     # create_investments(file)
     local_file = "tmp/#{file.split("/")[-1]}"
-    
+    user_ids = []
     CSV.foreach(local_file, headers: true) do |row|
       deal = Deal.find_or_create_by(title: row[mapping["investing_entity"]])
       deal.update(property_id: property_id)
-
+      
+      user_id = get_user(row, mapping)
+      user_ids << user_id
+      
       investor_hash = {
         deal_id: deal.id,
         investor_last_name: row[mapping["investor_last_name"]],
@@ -71,17 +74,19 @@ class Investment < ActiveRecord::Base
         gross_distribution: row[mapping["gross_distribution"]],
         # gross_distribution_percentage: row[mapping["gross_distribution_percentage"]],
         amount_invested: row[mapping["amount_invested"]].strip.delete("$").delete(",").to_i,
-        user_id: get_user(row, mapping)
+        user_id: user_id
       }
+
       puts investor_hash
       
       Investment.create! investor_hash
 
-      UpdateInvestorJob.perform_now if !Rails.env.development?
     rescue => e
       puts "Error on row: #{row}: #{e}"
       next
     end
+    
+    UpdateInvestorJob.perform_now(user_ids) if !Rails.env.development?
   rescue => e
     puts e.backtrace.join("\n")
     puts e
