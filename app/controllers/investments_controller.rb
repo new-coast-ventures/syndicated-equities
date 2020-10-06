@@ -115,7 +115,14 @@ class InvestmentsController < ApplicationController
 
   def delete_all
     prop = Property.find(params[:id])
+    deal_ids = prop.deals.pluck(:id)
+    
+    user_ids = Investment.where(deal_id: deal_ids).pluck(:user_id)
+
+    UpdateInvestorJob.perform_now(user_ids)
+
     prop.deals.destroy_all
+
     flash[:notice] = 'Investments have been successfully deleted.'
 
     redirect_to property_path(params[:id])
