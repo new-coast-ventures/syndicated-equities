@@ -4,7 +4,7 @@
   <% if !@open_properties.nil? %>
     <% @open_properties.each do |prop| %>
       <div class="col-lg-4 col-md-6" >
-        <div class="card investor-card-container">
+        <div class="card investor-card-container" style="padding-bottom: 5px">
           <% if prop&.avatar&.attached? && !Rails.env.development? %>
             <div onclick="location.href='/open-property/<%= prop.id %>'" style="background-image: url(<%= rails_blob_url(prop.avatar) %>); background-repeat: no-repeat; background-position: top; background-size: cover; height: 300px; border-radius: .25rem .25rem 0 0; cursor:pointer"></div>
           <% else %>
