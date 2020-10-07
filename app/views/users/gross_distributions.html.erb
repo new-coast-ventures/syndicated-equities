@@ -92,12 +92,23 @@
               //search for the option(s) selected
               column.search( val ? val : '', true, false ).draw();
             });
-
-            column.data().unique().sort().each( function ( d, j ) {
+            
+            var properties = []
+            column.data().each( function ( d, j ) {
                 if (d.includes("href")) {
                   d = d.split(">")[1].split("<")[0]
-                } 
-                select.append( '<option value="'+d+'">'+d+'</option>' );
+                }
+
+                if(properties.indexOf(d) === -1) {
+                  properties.push(d);
+                }
+              }
+            )
+
+            var sortedProperties = properties.sort()
+            console.log(sortedProperties); 
+            sortedProperties.forEach( function ( d, j ) {
+              select.append( '<option value="'+d+'">'+d+'</option>' );
             } );
             //use column title as selector and placeholder
             $('#' + title).select2({
