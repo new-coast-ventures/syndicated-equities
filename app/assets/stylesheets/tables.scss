@@ -82,6 +82,10 @@ table.dataTable.no-footer{
   height: 30px !important;
 }
 
+.select2-container .select2-selection--multiple .select2-selection__rendered {
+  display: block !important;
+}
+
 .date_range_filter {
   height: 32px !important;
 }
