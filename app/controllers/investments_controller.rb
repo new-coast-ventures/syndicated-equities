@@ -65,9 +65,10 @@ class InvestmentsController < ApplicationController
     @investment = Investment.find_by(id: params[:id])
     @property = Property.find(@investment&.deal&.property&.id)
     @property_investments = @property.investments.where(user_id: current_user.id)
-    @gross_distributions = @investment.gross_distributions
+    @gross_distributions = @property_investments.map(&:gross_distributions).flatten
     @user_gross_distribution = @property.total_user_gross_distribution(current_user.id)
     @property_notes = @property&.notes
+    
     if @investment && current_user && @investment.investor == current_user || current_user.admin? || current_user.employee
       render 'show'
     else

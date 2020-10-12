@@ -1,4 +1,4 @@
-<div class='details-container'>
+<div class=''>
   <div class="row card investor-card-container">
   <h5 class="show-investment-card-title">Investment Details</h5>
   <div class="investment-divider" style="margin-bottom: 15px"></div>
@@ -63,31 +63,3 @@
     <%= @investment&.deal&.property&.description&.html_safe %>
   </div>
 </div>
-<% if !@gross_distributions.nil? %>
-  <div class="card investor-card-container">
-    <h5 class="show-investment-card-title">Distributions</h5>
-    <div class="grey-divider"></div>
-    <div style="padding: 15px; line-height: 1.25rem">
-      <table class="form-table table-responsive investor-table-container" style="display:table">
-        <% @gross_distributions.each do |gd| %>
-          <thead class="thead-default">
-            <tr>
-              <th>Amount</th>
-              <th>Date</th>
-            </tr>
-          </thead>
-          <tbody class="investor-table">
-            <tr>
-              <td class="form-title">
-                <%= number_to_currency(gd.amount, precision: 2) %>
-              </td>
-              <td>
-                <%= gd.description %>
-              </td>
-            </tr>
-          </tbody>
-        <% end %>
-      </table>     
-    </div>
-  </div>
-<% end %>

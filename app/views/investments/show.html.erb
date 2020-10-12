@@ -151,8 +151,41 @@
         <% else %>
           <div style="background-image: url('/empty_property_image.png'); background-repeat: no-repeat; background-position: top; background-size: cover; height: 400px; border-radius: .25rem; margin-bottom: 24px"></div>
         <% end %>
-        <%= render partial: "details" %>
+        
+        <%# needed to include Distributions table here since it wouldnt render properly with Datatables in the Partial %>
+        <div class='details-container'>
+          <%= render partial: "details" %>
+          <% if !@gross_distributions.nil? %>
+          <div class="card investor-card-container">
+            <h5 class="show-investment-card-title">Distributions</h5>
+            <div class="grey-divider"></div>
+            <div style="padding: 15px; line-height: 1.25rem">
+              <table class="display investor-table" id="sortable-table" cellspacing="0" width="100%">
+                <thead class="thead-default">
+                  <tr>
+                    <th>Entity</th>
+                    <th>Distribution</th>
+                    <th>Date</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <% @gross_distributions.each do |gd| %>
+                    <tr>
+                      <td><%= gd.investment&.investor_entity %></td>
+                      <td><%= number_to_currency(gd.amount, precision: 2) %></td>
+                      <td><%= gd.distribution_date %></td>
+                    </tr>
+                  <% end %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        <% end %>
+        </div>
       </div>
+
+
+
       <div  class="col-sm-5" style="display: flex; flex-direction: column;">
         <div class="card investor-card-container info-cards" style="padding-bottom: 10px">
           <h5 class="show-investment-card-title">Locations</h5>
@@ -233,7 +266,13 @@
       </div>
     </div>
   </div>
-
-
-  
 </div>
+<script>
+  $(document).ready(function () {
+    $('#sortable-table').DataTable({
+      dom: 'tp',
+      "paging": true,
+      "info": true,
+    });
+  });
+</script>
