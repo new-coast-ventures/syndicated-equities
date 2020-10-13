@@ -9,7 +9,7 @@
     Status: 
     <%= form_tag(user_path, :method => "get") do %>	
       <%= hidden_field_tag :order, @order%>
-      <%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Offering', 'open'], ['All Statuses', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
+      <%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['View All', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
     <% end %>	
   </span>
 </h5>

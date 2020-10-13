@@ -64,7 +64,6 @@ class UsersController < ApplicationController
     @investments = user_investments[:investments]
     @property_ids = user_investments[:property_ids]
     @property_count = @property_ids.count
-    @status = @status == "open" ? "Offerings" : @status
     
     @investment = Investment.new
     
