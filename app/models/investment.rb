@@ -178,7 +178,7 @@ class Investment < ActiveRecord::Base
     end          
 
     investments = {}
-    property_ids =[]
+    property_ids = []
     user_investments.each do |investment|
       property = investment&.deal&.property
       if investments[property.id].nil? 
@@ -187,7 +187,7 @@ class Investment < ActiveRecord::Base
           type: property.property_type&.humanize&.titleize,
           closing_date: property&.closing_date&.strftime("%m/%d/%Y"),
           investor_equity: investment&.amount_invested.to_i,
-          gross_distribution: investment.total_gross_distribution,
+          gross_distribution: property.total_user_gross_distribution(user_id),
           property_id: property&.id,
           investment_id: investment.id,
           property_img: property&.avatar,
