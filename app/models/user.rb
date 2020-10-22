@@ -15,7 +15,6 @@ class User < ActiveRecord::Base
   validates_presence_of :first_name
   validates_presence_of :last_name
   validates_presence_of :email
-  validates_presence_of :phone, :on => :create
   validate :password_complexity
 
   accepts_nested_attributes_for :address
@@ -73,7 +72,7 @@ class User < ActiveRecord::Base
   end
 
   def check_for_updates
-    if self.email_changed? || self.first_name_changed? || self.last_name_changed? || self.phone_changed? || self.address_1_changed? || self.address_2_changed? || self.city_changed? || self.state_changed? || self.country_changed? || self.zip_code_changed? 
+    if self.email_changed? || self.first_name_changed? || self.last_name_changed? || self.address_1_changed? || self.address_2_changed? || self.city_changed? || self.state_changed? || self.country_changed? || self.zip_code_changed? 
       AdminMailer.user_fields_changed(self, self.changes).deliver_now
     end
   end
