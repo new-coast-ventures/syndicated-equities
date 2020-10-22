@@ -35,6 +35,8 @@ class Property < ActiveRecord::Base
   def deal_equity
     return "0.00" if self.deals.nil? || self.investments.nil?
     self&.investments.pluck(:amount_invested)&.sum
+  rescue => e  
+    return "0.00"
   end
 
   def self.search(search)
