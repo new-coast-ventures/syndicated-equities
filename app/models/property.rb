@@ -33,7 +33,7 @@ class Property < ActiveRecord::Base
   validates :avatar, content_type: ['image/png', 'image/jpg', 'image/jpeg']
 
   def deal_equity
-    return "0.00" if self.deals.nil?
+    return "0.00" if self.deals.nil? || self.investments.nil?
     self&.investments.pluck(:amount_invested)&.sum
   end
 
