@@ -64,6 +64,7 @@ RailsAdmin.config do |config|
     list do
       field :first_name
       field :last_name
+      field :phone
       field :address
       field :email
       field :created_at
@@ -73,6 +74,7 @@ RailsAdmin.config do |config|
     edit do
       field :first_name
       field :last_name
+      field :phone
       field :approved
       field :address
       field :email

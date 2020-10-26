@@ -26,6 +26,11 @@
           </fieldset>
 
           <fieldset class="form-group">
+            <label>Phone<span style="color:red">*</span></label>
+            <%= f.telephone_field :phone, placeholder: 'xxx-xxx-xxxx', value: number_to_phone(@investor.phone)%>
+          </fieldset>
+
+          <fieldset class="form-group">
             <label>Approved</label>
             <%= f.check_box :approved, value: @investor.approved %>
           </fieldset>
