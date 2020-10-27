@@ -34,7 +34,7 @@ class Property < ActiveRecord::Base
 
   def deal_equity
     return "0.00" if self.deals.nil? || self.investments.nil?
-    self&.investments.pluck(:amount_invested)&.sum
+    self&.investments.inject(0) { |sum, i| sum + i.amount_invested.to_f }
   rescue => e  
     return "0.00"
   end

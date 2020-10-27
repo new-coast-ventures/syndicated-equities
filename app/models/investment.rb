@@ -63,7 +63,6 @@ class Investment < ActiveRecord::Base
       
       user_id = get_user(row, mapping)
       user_ids << user_id
-      
       investor_hash = {
         deal_id: deal.id,
         investor_last_name: row[mapping["investor_last_name"]],
@@ -73,7 +72,7 @@ class Investment < ActiveRecord::Base
         investor_entity: row[mapping["investor_entity"]],
         gross_distribution: row[mapping["gross_distribution"]],
         # gross_distribution_percentage: row[mapping["gross_distribution_percentage"]],
-        amount_invested: row[mapping["amount_invested"]].strip.delete("$").delete(",").to_i,
+        amount_invested: row[mapping["amount_invested"]].strip.delete("$"),
         user_id: user_id
       }
 
@@ -186,7 +185,7 @@ class Investment < ActiveRecord::Base
         investments[property.id] = {
           type: property.property_type&.humanize&.titleize,
           closing_date: property&.closing_date&.strftime("%m/%d/%Y"),
-          investor_equity: investment&.amount_invested.to_i,
+          investor_equity: investment&.amount_invested,
           gross_distribution: property.total_user_gross_distribution(user_id),
           property_id: property&.id,
           investment_id: investment.id,
@@ -196,10 +195,11 @@ class Investment < ActiveRecord::Base
           status: property.status
         }
       else
-        investments[property.id][:investor_equity] += investment.amount_invested.to_i
+        investments[property.id][:investor_equity] += investment.amount_invested
         investments[property.id][:gross_distribution] += investment.gross_distribution.to_i
       end
     end
+    
     {investments: investments,  property_ids: property_ids}
   end
 end
