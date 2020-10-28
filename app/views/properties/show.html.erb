@@ -463,13 +463,17 @@
           <tr class="investor-table">
             <td>
               <% if invst.user_id  %>
-              <%= link_to "#{invst&.investor_first_name} #{invst&.investor_last_name}", investor_show_path(invst.user_id) %>
+                <%= link_to "#{invst&.investor.name}", investor_show_path(invst.user_id) %>
               <% else %>
-              <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
+                <%= "#{invst&.investor_first_name} #{invst&.investor_last_name}" %>
               <% end %>
             </td>
             <td>
-              <%= invst.investor_email %>
+              <% if invst.user_id  %>
+                <%= invst.investor.email %> 
+              <% else %>
+                <%= invst.investor_email %>
+              <% end %>
             </td>
             <td>
               <%= invst.investor_entity %>
