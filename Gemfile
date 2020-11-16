@@ -52,6 +52,9 @@ gem 'tinymce-rails'
 # for background jobs
 gem 'sidekiq'
 
+# for pie charts
+gem "chartkick"
+
 source 'http://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.1.0'
 end

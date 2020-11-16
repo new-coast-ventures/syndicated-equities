@@ -1,3 +1,5 @@
+include ActionView::Helpers::NumberHelper
+
 # ================================================
 # RUBY->CONTROLLER->FORMSCONTROLLER ==============
 # ================================================
@@ -14,6 +16,9 @@ class FormsController < ApplicationController
     @forms = Form.where(property_id: nil, form_library: [nil, false]).order("created_at DESC")
     @note = Note.new
     @notes = Note.where(property_id: nil)
+    
+    @pie_data = [] 
+    current_user.investments.each{|x| @pie_data << [x.deal.property.nickname, x.amount_invested]}
   end
 
   def form_library
