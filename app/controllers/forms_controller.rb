@@ -23,7 +23,6 @@ class FormsController < ApplicationController
     
     type_count = current_user.investment_properties.group(:property_type).count
 
-
     investment_totals = current_user.investment_properties.map { |inv| 
 
       inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
