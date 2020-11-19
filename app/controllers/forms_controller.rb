@@ -16,9 +16,27 @@ class FormsController < ApplicationController
     @forms = Form.where(property_id: nil, form_library: [nil, false]).order("created_at DESC")
     @note = Note.new
     @notes = Note.where(property_id: nil)
+    user_investments = current_user&.investments
     
     @pie_data = [] 
-    current_user.investments.each{|x| @pie_data << [x.deal.property.nickname, x.amount_invested]}
+    user_investments.each{|x| @pie_data << [x&.deal&.property&.nickname, x&.amount_invested]}
+    
+    type_count = current_user.investment_properties.group(:property_type).count
+
+
+    investment_totals = current_user.investment_properties.map { |inv| 
+
+      inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
+      inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested}"
+
+      {
+        inv_key => inv_value
+      }
+    }
+    
+    @column_data = {}
+    investment_totals.each {|z| @column_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
+
   end
 
   def form_library

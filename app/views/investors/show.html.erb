@@ -211,6 +211,17 @@
     });
   });
 
+  $('#sortable-table input')
+    .unbind('keypress keyup input')
+    .bind('keypress keyup input', function (e) {
+      if ($(this).val().length > 2) {
+          pTable.search(this.value).draw();
+      } else if (($(this).val().length == 2) && (e.keyCode == 8)) {
+          pTable.search('').draw();
+      }
+  });
+
+
   $('#addInvestment input[required]').on('change', function () {
 
     var empty = false;

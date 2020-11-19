@@ -36,7 +36,10 @@
 				<div class="grey-divider" style="margin:0"></div>
 			</div>
 			<div class="col-md-4" style="margin-bottom:10px">
-				<%= pie_chart(@pie_data, donut: true, legend: false, prefix: "$", round: 2, zeros: true) %>
+				<%= pie_chart(@pie_data, donut: true, legend: false, prefix: "$", round: 2, zeros: true, thousands: ",") %>
+			</div>
+			<div class="col-md-12">
+				<%= column_chart(@column_data, prefix: "$", round: 2, zeros: true, thousands: ",") %>
 			</div>
 		</div>
 	</div>

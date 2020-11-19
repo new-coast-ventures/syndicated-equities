@@ -59,6 +59,11 @@ class User < ActiveRecord::Base
     deals.pluck(:property_id).uniq.compact.count
   end
 
+  def investment_properties
+    prop_ids = deals.pluck(:property_id).uniq.compact
+    Property.where(id: prop_ids)
+  end
+
   def self.insert_with(attributes = {})
     User.find_by(attributes.slice(:first_name, :last_name, :email)) || User.create(attributes)
   end
