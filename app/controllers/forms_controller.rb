@@ -20,6 +20,8 @@ class FormsController < ApplicationController
     
     @pie_data = [] 
     user_investments.each{|x| @pie_data << [x&.deal&.property&.nickname, x&.amount_invested]}
+    @pie_colors = 100.times.map{"#%06x" % (rand * 0x1000000)}
+
     
     type_count = current_user.investment_properties.group(:property_type).count
 
