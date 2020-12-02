@@ -77,10 +77,18 @@ class Property < ActiveRecord::Base
     total = 0
     self.investments.where(user_id: user_id).each do |inv|
       inv.gross_distributions.each do |gross|
-        total += gross.amount.to_i
+        total += gross.amount.to_f
       end
     end
-    total
+    total.round(2)
+  end
+
+  def total_user_investments(user_id)
+    total = 0
+    self.investments.where(user_id: user_id).each do |inv|
+      total += inv.amount_invested.delete(",").to_f
+    end
+    total.round(2)
   end
 
   def return_on_equity
