@@ -4,7 +4,9 @@
 
 <div class="investment-desktop-container">
 	<%# Totals Container %>
-	<div class="col-md-12" style="margin-top: 20px; <% if current_user.admin || current_user.employee %> display:none <% end %>">
+	<div class="col-md-12" style="margin-top: 20px; <% 
+		if (current_user.admin || current_user.employee) && !current_user.investor_view %> display:none 
+		<% end %>">
 		<div class="card investor-card-container notes-card" style="max-height:unset">
 			<h5 class="show-investment-card-title">Portfolio Overview</h5>
 			<div class="col-md-8" style="margin-top:5em">
