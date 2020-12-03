@@ -48,11 +48,22 @@ class User < ActiveRecord::Base
   end
 
   def total_invested
-    investments.inject(0) { |sum, i| sum + i.amount_invested.to_f }
+    total = 0
+    investments.each do |inv|
+      total += inv.amount_invested.delete(",").to_f
+    end
+    total.round(2)
   end
 
   def total_distributions
-    gross_distributions.inject(0) { |sum, i| sum + i.amount.to_f }
+    # gross_distributions.inject(0) { |sum, i| sum + i.amount.to_f }
+    total = 0
+    investments.each do |inv|
+      inv.gross_distributions.each do |gross|
+        total += gross.amount.delete(",").to_f
+      end
+    end
+    total.round(2)
   end
 
   def total_properties
