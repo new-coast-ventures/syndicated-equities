@@ -15,15 +15,11 @@ namespace :investors do
 
   task :update_investment_with_decimal => :environment do
     puts "Updating Investments with decimals..."
-    if !Rails.env.development?
-      UpdateInvestorJob.perform_now
-    else
-      Investment.all.each do |inv|
-        next if inv.amount_invested.include?(".")
-        inv.update(
-          amount_invested: "#{inv.amount_invested}.00"
-        )
-      end
+    Investment.all.each do |inv|
+      next if inv.amount_invested.include?(".")
+      inv.update(
+        amount_invested: "#{inv.amount_invested}.00"
+      )
     end
   end
 end
