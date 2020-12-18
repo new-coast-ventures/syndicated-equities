@@ -390,6 +390,7 @@
           </div><!-- /.modal-dialog -->
         </div>
         <% if @master_admin %>
+          <form class="button_to" style="display: inline" method="get" action="/export-investors/<%= @property.id %>"><input style="width: auto ;background: transparent; color: #0E77D9; float:right; display: inline" class="table button" type="submit" value="Export Investors"></form>
           <button type="button" class="table button"
             style="width: 100px ;background: transparent; color: #0E77D9; float:right" data-toggle="modal"
             data-target="#investor-import-modal">Import Investments</button>

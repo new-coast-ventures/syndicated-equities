@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :properties
   get '/open-properties', to: 'properties#open_properties'
   get '/open-property/:id', to: 'properties#open_property', as: 'open-property'
+  get '/export-investors/:id', to: 'properties#export_investors', as: 'export-investors'
   post '/open-property-request/:id', to: 'properties#open_property_request', as: 'open_property_request'
   
   resources :gross_distributions

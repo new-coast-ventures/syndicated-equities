@@ -113,6 +113,14 @@ class PropertiesController < ApplicationController
     redirect_to properties_path
   end
 
+  def export_investors
+    prop = Property.find(params[:id])
+    csv = prop.export_investors
+
+    send_file csv, type: 'text/csv'
+    redirect_back(fallback_location: root_path)
+  end
+
   private
 
   def property_params

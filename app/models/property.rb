@@ -103,4 +103,12 @@ class Property < ActiveRecord::Base
       nil
     end
   end
+
+  def self.export_investors
+
+    csv = CSV.generate do |csv|
+
+    end
+
+  end
 end
