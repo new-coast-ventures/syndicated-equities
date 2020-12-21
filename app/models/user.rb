@@ -39,12 +39,24 @@ class User < ActiveRecord::Base
     [first_name.to_s, last_name.to_s].compact.join(" ").strip
   end
 
+  def full_address
+    if address_1
+      [address_1.to_s, address_2.to_s, city, state, country, zip_code].compact.join(",").strip
+    else
+      ""
+    end
+  end
+
   def investment_entity
     investments.pluck(:investing_entity).uniq.join(", <br>").html_safe
   end
 
   def investor_entity
     investments.pluck(:investor_entity).uniq.join(", <br>").html_safe
+  end
+
+  def csv_investor_entity
+    investments.pluck(:investor_entity).uniq.join(",")
   end
 
   def total_invested

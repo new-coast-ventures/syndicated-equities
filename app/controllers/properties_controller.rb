@@ -115,10 +115,8 @@ class PropertiesController < ApplicationController
 
   def export_investors
     prop = Property.find(params[:id])
-    csv = prop.export_investors
 
-    send_file csv, type: 'text/csv'
-    redirect_back(fallback_location: root_path)
+    send_data prop.export_investors, filename: "#{prop.name}-Investors-#{Date.today}.csv", disposition: :attachment
   end
 
   private
