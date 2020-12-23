@@ -19,7 +19,7 @@ class FormsController < ApplicationController
     user_investments = current_user&.investments
     
     @pie_data = [] 
-    user_investments.each{|x| @pie_data << [x&.deal&.property&.nickname, x&.amount_invested]}
+    user_investments.each{|x| @pie_data << [x&.deal&.property&.nickname, x&.amount_invested.delete(",")]}
     @pie_colors = 100.times.map{"#%06x" % (rand * 0x1000000)}
 
     
@@ -28,7 +28,7 @@ class FormsController < ApplicationController
     investment_totals = current_user.investment_properties.map { |inv| 
 
       inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
-      inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested}"
+      inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
 
       {
         inv_key => inv_value
@@ -37,7 +37,6 @@ class FormsController < ApplicationController
     
     @column_data = {}
     investment_totals.each {|z| @column_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
-
   end
 
   def form_library
