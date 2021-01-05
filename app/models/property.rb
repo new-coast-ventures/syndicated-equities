@@ -105,12 +105,12 @@ class Property < ActiveRecord::Base
   end
 
   def export_investors
-    headers = %w{name email address investor_entity}
+    headers = %w{FirstName LastName Email City State Zip InvestorEntity}
     csv = CSV.generate(headers: true) do |csv|
       csv << headers
       investments.each do |inv|
         user = inv.investor
-        csv << [user.name, user.email, user&.full_address, user&.csv_investor_entity]
+        csv << [user&.first_name, user&.last_name user.email, user&.city, user&.state, user&.zip_code, user&.csv_investor_entity]
       end
     end
 
