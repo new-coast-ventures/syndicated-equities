@@ -168,8 +168,10 @@ class Investment < ActiveRecord::Base
 
   def self.combine_investments(user_id, order, status)
     user_investments = 
-      Investment.joins(deal: :property)
+      Investment
                 .where(user_id: user_id)
+                .or(Investment.where(view_users: user_id.to_s))
+                .joins(deal: :property)
                 .order("properties.closing_date #{order}")
     
     if status != 'all'

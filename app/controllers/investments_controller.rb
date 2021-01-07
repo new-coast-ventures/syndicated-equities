@@ -64,7 +64,7 @@ class InvestmentsController < ApplicationController
   def show
     @investment = Investment.find_by(id: params[:id])
     @property = Property.find(@investment&.deal&.property&.id)
-    @property_investments = @property.investments.where(user_id: current_user.id)
+    @property_investments = @property.investments.where(user_id: current_user.id).or(@property.investments.where(view_users: current_user.id.to_s))
     @total_user_investment = @property.total_user_investments(current_user.id)
 
     @gross_distributions = @property_investments.map(&:gross_distributions).flatten
@@ -72,7 +72,7 @@ class InvestmentsController < ApplicationController
     
     @property_notes = @property&.notes
     
-    if @investment && current_user && @investment.investor == current_user || current_user.admin? || current_user.employee
+    if @investment && current_user && @investment.investor == current_user || current_user.admin? || current_user.employee || @investment.view_users == current_user.id.to_s
       render 'show'
     else
       flash[:alert] = 'Not authorized'
