@@ -73,6 +73,11 @@
                   <%= f.text_field :amount_invested %>
                 </fieldset>
 
+                <fieldset class="form-group">
+                  <label>View User</label>
+                  <%= select :investment, :view_users, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user.id]}, :include_blank => true, prompt: 'Select Investor...', required: true, selected: @investment.view_users %>                                  
+                </fieldset>
+
                 <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
 
               <% end %>
@@ -172,6 +177,11 @@
                           <fieldset class="form-group">
                             <label>Gross Distribution</label>
                             <%= f.text_field :gross_distribution, value: invst.calc_gross_distribution, disabled: true %>
+                          </fieldset>
+ 
+                          <fieldset class="form-group">
+                            <label>View User</label>
+                            <%= select :investment, :view_users, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user.id]}, :include_blank => true, prompt: 'Select Investor...', required: true, selected: invst.view_users %>                                  
                           </fieldset>
 
                           <%= f.submit class: "btn btn-primary", id: "submit" %>

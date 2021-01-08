@@ -104,6 +104,7 @@ RailsAdmin.config do |config|
       field :investing_entity
       field :investor_first_name
       field :investor_last_name
+      field :view_users
     end
 
     object_label_method do 
