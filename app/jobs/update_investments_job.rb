@@ -1,4 +1,4 @@
-class UpdatePropertyJob < ApplicationJob
+class UpdateInvestmentsJob < ApplicationJob
   queue_as :default
 
   def perform
