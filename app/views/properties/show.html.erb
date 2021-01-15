@@ -486,7 +486,7 @@
               <%= number_to_currency(invst.amount_invested, precision: 2) %>
             </td>
             <td>
-              <%= link_to number_to_currency(invst.total_gross_distribution, precision: 2), gross_distribution_path(invst.id) %>
+              <%= link_to number_to_currency(invst.total_investment_gross_distributions_amount, precision: 2), gross_distribution_path(invst.id) %>
             </td>
             <% if @master_admin %>
               <td>
