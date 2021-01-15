@@ -55,6 +55,8 @@ class PropertiesController < ApplicationController
     @note = Note.new
     @doc = Form.new
 
+    @users = User.all.order("last_name ASC")
+
     if @property && current_user
       render 'show'
     else
