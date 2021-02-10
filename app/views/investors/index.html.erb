@@ -25,7 +25,7 @@
             <td><%= link_to investor.name, investor_show_path(investor.id) %></td>
             <td><%= investor&.email %></td>
             <td><%= investor&.investor_entity %></td>
-            <td><%= investor&.total_investments_count %></td>
+            <td><%= investor&.total_properties %></td>
             <td><%= number_to_currency(investor&.total_invested_amount, precision: 2) %></td>
             <td><% if investor.approved %>Yes<% else %>No<% end %></td>
           </tr>
