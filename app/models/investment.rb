@@ -86,6 +86,7 @@ class Investment < ActiveRecord::Base
     end
     
     UpdateInvestorJob.perform_now(user_ids) if !Rails.env.development?
+    UpdatePropertyJob.perform_now(property_id) if !Rails.env.development?
   rescue => e
     puts e.backtrace.join("\n")
     puts e
