@@ -59,6 +59,7 @@ class GrossDistributionsController < ApplicationController
     import_data = GrossDistribution.create_import_hash(params[:import_file], mapping)
     
     ImportDistributionsJob.perform_later(params[:property_id], import_data)
+    UpdateInvestmentsJob.perform_now
     # ImportDistributionsJob.perform(params[:property_id], import_data)
     
     flash[:notice] = 'Distributions are being imported. An email will be sent once it is complete.'
