@@ -110,7 +110,7 @@ class Property < ActiveRecord::Base
       csv << headers
       investments.each do |inv|
         user = inv.investor
-        csv << [user&.first_name, user&.last_name, user.email, user&.city, user&.state, user&.zip_code, user&.csv_investor_entity]
+        csv << [user&.first_name, user&.last_name, user&.email, user&.city, user&.state, user&.zip_code, user&.csv_investor_entity]
       end
     end
 
