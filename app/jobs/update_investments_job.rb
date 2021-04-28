@@ -3,7 +3,7 @@ class UpdateInvestmentsJob < ApplicationJob
 
   def perform(investment_ids =nil)
     investments = investment_ids ? Investment.where(id: investment_ids) : Investment.all
-
+    puts "--------- Starting Property updates for #{investments.count} investments ---------"
 
     investments.all.each do |investment|
       investment.update(

@@ -3,6 +3,7 @@ class UpdatePropertyJob < ApplicationJob
 
   def perform(property_ids = nil)
     properties = property_ids ? Property.where(id: property_ids) : Property.all
+    puts "--------- Starting Property updates for #{properties.count} properties ---------"
 
     properties.all.each do |prop|
       prop.update(

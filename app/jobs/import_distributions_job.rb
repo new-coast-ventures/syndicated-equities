@@ -6,7 +6,9 @@ class ImportDistributionsJob < ApplicationJob
     puts "--------- Starting Distributions import for #{prop.name} ---------"
     gd_hash = JSON.parse(gd_hash)
     investments = prop.investments
-  
+    
+    investment_ids = investments.pluck(:id)
+
     invalid_entities = []
     invalid_emails = []
     
@@ -42,7 +44,9 @@ class ImportDistributionsJob < ApplicationJob
     puts "--------- Finished Distributions import for #{prop.name} ---------"
 
     # Run Propoery total update
-    UpdatePropertyJob.perform_now if !Rails.env.development?
+    UpdatePropertyJob.perform_later([property_id])
+    UpdateInvestmentsJob.perform_later(investment_ids)
+
   rescue => e  
     puts "--------- ERROR with Distributions import for #{prop.name} ---------"
     puts "--------- ERROR: #{e} ---------"
