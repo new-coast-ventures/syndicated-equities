@@ -42,7 +42,7 @@ class GrossDistribution < ActiveRecord::Base
     latest_import = where(investment_id: investment_ids, created_at: (Time.now.utc - 30.minutes)..Time.now.utc)
     latest_import.destroy_all
 
-    UpdatePropertyJob.perform_now if !Rails.env.development?
+    UpdatePropertyJob.perform_now(property_id) if !Rails.env.development?
   rescue => e  
     puts "------- Error deleting Latest GD Import -----------"
     puts e 
