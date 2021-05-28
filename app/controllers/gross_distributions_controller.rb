@@ -25,15 +25,16 @@ class GrossDistributionsController < ApplicationController
     gd = GrossDistribution.find(params['id'])
     gd.update(gross_distribution_params)
     
-    UpdatePropertyJob.perform_now if !Rails.env.development?
+    UpdatePropertyJob.perform_now(gd.investment.deal.property_id) if !Rails.env.development?
 
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    GrossDistribution.find(params['id']).destroy
+    gd = GrossDistribution.find(params['id'])
+    gd.destroy
     
-    UpdatePropertyJob.perform_now if !Rails.env.development?
+    UpdatePropertyJob.perform_now(gd.investment.deal.property_id) if !Rails.env.development?
     
     redirect_back(fallback_location: root_path)
   end
