@@ -91,6 +91,12 @@ class UsersController < ApplicationController
     @total_distributions = @user.total_distributions
   end
 
+  def export_investor
+    investor = User.find(params[:investor_id])
+
+    send_data investor.export_investor, filename: "#{investor.name}-Export-#{Date.today}.csv", disposition: :attachment
+  end
+
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :phone, :address_1, :address_2, :city, :state, :country, :zip_code, :email, :approved, :admin, :employee)

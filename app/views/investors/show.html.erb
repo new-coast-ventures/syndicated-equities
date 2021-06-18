@@ -42,6 +42,7 @@
       <% if @master_admin %>
         <button type="button" class="table-button" style="margin-left: 10px" data-toggle="modal"
         data-target="#addInvestment">Add Investment</button>
+        <form class="button_to" style="display: inline" method="get" action="/export-investor/<%= @investor.id %>"><input style="width: auto ;background: transparent; color: #0E77D9; float:right; display: inline" class="table button" type="submit" value="Export Investor"></form>
       <% end %>
       <div class="modal fade" id="addInvestment" tabindex="-1" role="dialog" aria-labelledby="addInvestment"
         aria-hidden="true">

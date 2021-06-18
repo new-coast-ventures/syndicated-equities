@@ -112,4 +112,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  def export_investor
+    headers = %w{PropertyName InvestorEntity InvestmentEntity Investment GrossDistributions ClosingDate}
+    csv = CSV.generate(headers: true) do |csv|
+      csv << headers
+      investments.each do |invst|
+        csv << [
+          invst&.deal&.property&.list_name, 
+          invst.investor_entity, 
+          invst.investing_entity, 
+          invst.amount_invested, 
+          invst.total_gross_distribution, 
+          invst&.deal&.property&.closing_date&.strftime("%m/%d/%Y")]
+      end
+    end
+
+  end
+
 end

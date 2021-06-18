@@ -28,9 +28,11 @@ Rails.application.routes.draw do
 
   get 'terms', to: 'home#terms'
   get '/investor/:id', to: 'users#investor_show', as: 'investor-show'
+  get '/export-investor/:investor_id', to: 'users#export_investor', as: 'export-investor'
 
   post '/investor-import', to: 'investments#import'
   post '/investor-headers', to: 'investments#import_headers', as: 'import-headers'
+
 
   devise_for :users, path: 'u', controllers: { registrations: 'registrations' }
   devise_scope :user do
