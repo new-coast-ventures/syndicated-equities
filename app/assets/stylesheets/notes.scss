@@ -3,7 +3,7 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 .notes-card{
   max-height: 216px;
-  overflow: scroll;
+  overflow: auto;
 }
 .property-note-container{
   padding: 15px;
