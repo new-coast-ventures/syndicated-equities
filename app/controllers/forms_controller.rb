@@ -16,27 +16,56 @@ class FormsController < ApplicationController
     @forms = Form.where(property_id: nil, form_library: [nil, false]).order("created_at DESC")
     @note = Note.new
     @notes = Note.where(property_id: nil)
-    user_investments = current_user&.investments
+    @user_investments = Investment.active_investments(current_user.id)
     
+    active_deal_ids = @user_investments.map {|inv| inv.deal.id}
+    
+    prop_ids = Deal.where(id: active_deal_ids).pluck(:property_id).uniq.compact
+   
+    @active_properties = Property.where(id: prop_ids)
+
+    @total_active_invested = current_user.total_active_invested(@user_investments)
+    
+    @total_active_returns = current_user.total_active_returns(@user_investments)
+
     @pie_data = [] 
-    user_investments.each{|x| @pie_data << [x&.deal&.property&.nickname, x&.amount_invested.delete(",")]}
+
+    @user_investments.each{|x| @pie_data << [x&.deal&.property&.nickname, x&.amount_invested.delete(",")]}
     @pie_colors = 100.times.map{"#%06x" % (rand * 0x1000000)}
 
-    
-    type_count = current_user.investment_properties.group(:property_type).count
+    ### ACTIVE INVESTMENT PIE AND BAR CHART   
+      type_count = @active_properties.group(:property_type).count
 
-    investment_totals = current_user.investment_properties.map { |inv| 
+      investment_totals = @active_properties.map { |inv| 
 
-      inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
-      inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
+        inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
+        inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
 
-      {
-        inv_key => inv_value
+        {
+          inv_key => inv_value
+        }
       }
-    }
-    
-    @column_data = {}
-    investment_totals.each {|z| @column_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
+      
+      @column_data = {}
+      investment_totals.each {|z| @column_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
+
+    #### ALL INVESTMENT PIE AND BAR CHART   
+      # type_count = current_user.investment_properties.group(:property_type).count
+
+      # investment_totals = current_user.investment_properties.map { |inv| 
+
+      #   inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
+      #   inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
+
+      #   {
+      #     inv_key => inv_value
+      #   }
+      # }
+      
+      # @column_data = {}
+      # investment_totals.each {|z| @column_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
+
+
   end
 
   def form_library

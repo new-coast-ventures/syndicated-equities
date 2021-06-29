@@ -203,6 +203,22 @@ class Investment < ActiveRecord::Base
       end
     end
     
-    {investments: investments,  property_ids: property_ids}
+    total_investor_equity = 0
+    investments.each {|invs| total_investor_equity += invs[1][:investor_equity].to_f}
+
+    total_gross_distribution = 0
+    investments.each {|invs| total_gross_distribution += invs[1][:gross_distribution].to_f}
+
+    {investments: investments,  property_ids: property_ids, total_investor_equity: total_investor_equity, total_gross_distribution: total_gross_distribution}
+  end
+
+  def self.active_investments(user_id)
+    all_investments = 
+      Investment
+                .where(user_id: user_id)
+                .or(Investment.where(view_users: user_id.to_s))
+                .joins(deal: :property)
+                    
+    all_investments.where("properties.status = ?", 'active')
   end
 end
