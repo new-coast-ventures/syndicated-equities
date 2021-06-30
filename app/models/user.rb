@@ -78,7 +78,7 @@ class User < ActiveRecord::Base
     total.round(2)
   end
 
-  def total_active_invested(investments)
+  def dashboard_total_invested(investments)
     total = 0
     investments.each do |inv|
       total += inv.amount_invested.delete(",").to_f
@@ -86,7 +86,7 @@ class User < ActiveRecord::Base
     total.round(2)
   end
 
-  def total_active_returns(investments)
+  def dashboard_total_returns(investments)
     # gross_distributions.inject(0) { |sum, i| sum + i.amount.to_f }
     total = 0
     investments.each do |inv|

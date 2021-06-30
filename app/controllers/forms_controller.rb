@@ -16,7 +16,9 @@ class FormsController < ApplicationController
     @forms = Form.where(property_id: nil, form_library: [nil, false]).order("created_at DESC")
     @note = Note.new
     @notes = Note.where(property_id: nil)
-    @user_investments = Investment.active_investments(current_user.id)
+    @status = params['status'] ? params['status'] : "active"
+
+    @user_investments = Investment.active_investments(current_user.id, @status)
     
     active_deal_ids = @user_investments.map {|inv| inv.deal.id}
     
@@ -24,9 +26,9 @@ class FormsController < ApplicationController
    
     @active_properties = Property.where(id: prop_ids)
 
-    @total_active_invested = current_user.total_active_invested(@user_investments)
+    @dashboard_total_invested = current_user.dashboard_total_invested(@user_investments)
     
-    @total_active_returns = current_user.total_active_returns(@user_investments)
+    @dashboard_total_returns = current_user.dashboard_total_returns(@user_investments)
 
     @pie_data = [] 
 

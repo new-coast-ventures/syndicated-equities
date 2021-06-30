@@ -1,6 +1,12 @@
 <%= render partial: "/notes/modal_form", note: @note %>
 <%= render partial: "/forms/modal_form", doc: @doc %>
-<h5 class="dashboard-title" style="font-size: 1.75rem;padding-left:15px">Dashboard</h5>
+<h5 class="dashboard-title" style="font-size: 1.75rem;padding:15px">Dashboard
+  <span class='form-container status-dropdown closing-date-dropdown'>	
+		<%= form_tag(forms_path, :method => "get") do %>	
+			<%= select_tag :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['View All', 'all']], @status), {:onchange => "this.form.submit();", :class => "form-group"} %>	
+		<% end %>	
+	</span>
+</h5>
 
 <div class="investment-desktop-container">
 	<%# Totals Container %>
@@ -12,7 +18,7 @@
 			<h4 class="show-investment-card-title">Portfolio Overview</h4>
 			<div class="col-md-8" style="margin-top:5em">
 				<%# Active Investments %>
-				<h5 class="show-investment-card-title" style="padding:0">Active Investments</h5>
+				<h5 class="show-investment-card-title" style="padding:0"><%= @status.capitalize %> Investments</h5>
 				<div class="grey-divider" style="margin:0"></div>
 				<div class="row row-margin">
 					<div class="col-xs-6" style="margin-top: 10px">
@@ -27,7 +33,7 @@
 						<b>Investment Amount</b>
 					</div>
 					<div class="col-xs-6" style="text-align:right; font-weight: bold; margin-top: 10px">
-						<%= number_to_currency(@total_active_invested, precision: 2) %>
+						<%= number_to_currency(@dashboard_total_invested, precision: 2) %>
 					</div>
 				</div>
 				<div class="row row-margin">
@@ -35,40 +41,12 @@
 						<b>Returns To Date</b>
 					</div>
 					<div class="col-xs-6" style="text-align:right; font-weight: bold; margin-top: 10px">
-						<%= number_to_currency(@total_active_returns, precision: 2) %>
-					</div>
-				</div>				
-				<div class="grey-divider" style="margin:0;padding-bottom:40px"></div>
-
-				<%# All Investments  %>
-				<h5 class="show-investment-card-title" style="padding:0">All Investments</h5>
-				<div class="grey-divider" style="margin:0"></div>
-				<div class="row row-margin">
-					<div class="col-xs-6" style="margin-top: 10px">
-						<b>Investments</b>
-					</div>
-					<div class="col-xs-6" style="text-align:right; font-weight: bold; margin-top: 10px">
-						<%= current_user.total_properties %>
-					</div>
-				</div>
-				<div class="row row-margin">
-					<div class="col-xs-6" style="margin-top: 10px">
-						<b>Investment Amount</b>
-					</div>
-					<div class="col-xs-6" style="text-align:right; font-weight: bold; margin-top: 10px">
-						<%= number_to_currency(current_user.total_invested, precision: 2) %>
-					</div>
-				</div>
-				<div class="row row-margin">
-					<div class="col-xs-6" style="margin-top: 10px">
-						<b>Returns To Date</b>
-					</div>
-					<div class="col-xs-6" style="text-align:right; font-weight: bold; margin-top: 10px">
-						<%= number_to_currency(current_user.total_distributions, precision: 2) %>
+						<%= number_to_currency(@dashboard_total_returns, precision: 2) %>
 					</div>
 				</div>				
 				<div class="grey-divider" style="margin:0;padding-bottom:40px"></div>
 			</div>
+
 			<div class="col-md-4" style="margin-bottom:10px">
 				<%= pie_chart(@pie_data, donut: true, legend: false, prefix: "$", round: 2, zeros: true, thousands: ",", colors: @pie_colors) %>
 			</div>

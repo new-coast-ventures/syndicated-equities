@@ -212,13 +212,18 @@ class Investment < ActiveRecord::Base
     {investments: investments,  property_ids: property_ids, total_investor_equity: total_investor_equity, total_gross_distribution: total_gross_distribution}
   end
 
-  def self.active_investments(user_id)
+  def self.active_investments(user_id, status)
+
     all_investments = 
       Investment
                 .where(user_id: user_id)
                 .or(Investment.where(view_users: user_id.to_s))
                 .joins(deal: :property)
-                    
-    all_investments.where("properties.status = ?", 'active')
+    
+    if status != 'all'
+      all_investments = all_investments.where("properties.status = ?", status)
+    end
+
+    all_investments
   end
 end
