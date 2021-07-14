@@ -35,38 +35,45 @@ class FormsController < ApplicationController
     @user_investments.each{|x| @pie_data << [x&.deal&.property&.nickname, x&.amount_invested.delete(",")]}
     @pie_colors = 100.times.map{"#%06x" % (rand * 0x1000000)}
 
-    ### ACTIVE INVESTMENT PIE AND BAR CHART   
-      type_count = @active_properties.group(:property_type).count
+    type_count = @active_properties.group(:property_type).count
 
-      investment_totals = @active_properties.map { |inv| 
+    investment_totals = @active_properties.map { |inv| 
 
-        inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
-        inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
+      inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
+      inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
 
-        {
-          inv_key => inv_value
-        }
+      {
+        inv_key => inv_value
       }
+    }
       
-      @column_data = {}
-      investment_totals.each {|z| @column_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
+    dist_totals = @active_properties.map { |inv| 
 
-    #### ALL INVESTMENT PIE AND BAR CHART   
-      # type_count = current_user.investment_properties.group(:property_type).count
+      inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
+      inv_value = "#{inv.investments.find_by_user_id(current_user.id).total_investment_gross_distributions_amount&.delete(",")}"
 
-      # investment_totals = current_user.investment_properties.map { |inv| 
+      {
+        inv_key => inv_value
+      }
+    }
+    
+    @invest_data = {}
+    investment_totals.each {|z| @invest_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
 
-      #   inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
-      #   inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
+    @dist_data = {}
+    dist_totals.each {|z| @dist_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
 
-      #   {
-      #     inv_key => inv_value
-      #   }
-      # }
-      
-      # @column_data = {}
-      # investment_totals.each {|z| @column_data.merge!(z) { |k, o, n| o.to_i + n.to_i }}
 
+    @column_data = [
+      {
+        name: "Investment",
+        data:  @invest_data.to_a
+      },
+      {
+        name: "Gross Distributions",
+        data: @dist_data.to_a
+      }
+    ]
 
   end
 
