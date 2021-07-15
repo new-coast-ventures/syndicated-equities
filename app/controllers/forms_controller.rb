@@ -40,7 +40,7 @@ class FormsController < ApplicationController
     investment_totals = @active_properties.map { |inv| 
 
       inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
-      inv_value = "#{inv.investments.find_by_user_id(current_user.id).amount_invested.delete(",")}"
+      inv_value = "#{inv&.investments&.find_by_user_id(current_user.id)&.amount_invested&.delete(",")}"
 
       {
         inv_key => inv_value

@@ -17,6 +17,9 @@
     <div class="investor-details-container">
       <div class="investor-details-header">Details</div>
       <div class="investor-details-item">Email <span style="float:right"><%= @investor.email %></span> </div>
+      <% if @investor.email_2 %>
+        <div class="investor-details-item">Alt. Email<span style="float:right"><%= @investor.email_2 %></span> </div>
+      <% end %>
       <% if @investor.phone %>
         <div class="investor-details-item">Phone <span style="float:right"><%= number_to_phone(@investor.phone) %></span> </div>
       <% end %>
