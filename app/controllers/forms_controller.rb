@@ -50,7 +50,7 @@ class FormsController < ApplicationController
     dist_totals = @active_properties.map { |inv| 
 
       inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
-      inv_value = "#{inv.investments.find_by_user_id(current_user.id).total_investment_gross_distributions_amount&.delete(",")}"
+      inv_value = "#{inv.investments.find_by_user_id(current_user.id)&.total_investment_gross_distributions_amount&.delete(",")}"
 
       {
         inv_key => inv_value
