@@ -253,7 +253,7 @@
           <% if !@property&.forms&.empty? %>
           <table class="form-table">
             <tbody class="sortable" style="cursor:grab">
-              <% @property&.forms.order(:sort).each do |form| %>
+              <% @property&.forms.order(created_at: :desc).each do |form| %>
                 <% if form.document.attached? %>
                   <tr id="<%= form.sortable_id %>">
                     <td class="form-title">
