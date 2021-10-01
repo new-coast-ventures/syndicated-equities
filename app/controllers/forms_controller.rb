@@ -50,7 +50,14 @@ class FormsController < ApplicationController
     dist_totals = @active_properties.map { |inv| 
 
       inv_key = "#{inv.property_type&.humanize&.titleize} - #{type_count[inv.property_type]}"
-      inv_value = "#{inv.investments.find_by_user_id(current_user.id)&.total_investment_gross_distributions_amount&.delete(",")}"
+      
+      # combine all user investments on a property. Might be more than one
+      user_inv = 0
+      inv.investments.where(user_id: current_user.id).each do |gd|
+        user_inv += gd.total_investment_gross_distributions_amount&.delete(",").to_i
+      end
+      
+      inv_value = "#{user_inv}"
 
       {
         inv_key => inv_value
