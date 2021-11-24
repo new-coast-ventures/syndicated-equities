@@ -60,7 +60,7 @@ class Investment < ActiveRecord::Base
     CSV.foreach(local_file, headers: true) do |row|
       deal = Deal.find_or_create_by(title: row[mapping["investing_entity"]])
       deal.update(property_id: property_id)
-      
+
       user_id = get_user(row, mapping)
       user_ids << user_id
       investor_hash = {
@@ -77,14 +77,14 @@ class Investment < ActiveRecord::Base
       }
 
       puts investor_hash
-      
+
       Investment.create! investor_hash
 
     rescue => e
       puts "Error on row: #{row}: #{e}"
       next
     end
-    
+
     UpdateInvestorJob.perform_now(user_ids) if !Rails.env.development?
     UpdatePropertyJob.perform_now(property_id) if !Rails.env.development?
   rescue => e
@@ -95,7 +95,7 @@ class Investment < ActiveRecord::Base
 
   def calc_gross_distribution
     deal.property.gross_distributions.to_i * gross_distribution_percentage.to_f.round(4)
-  rescue => e  
+  rescue => e
     return  "N/A"
   end
 
@@ -103,7 +103,7 @@ class Investment < ActiveRecord::Base
     "#{(gross_distribution_percentage.to_f * 100).round(4) }%"
   end
 
-  def total_gross_distribution
+  def total_gross_distribution(gross_distributions=self.gross_distributions)
     total = 0
     gross_distributions.each do |gross|
       total += gross.amount.to_f
@@ -111,10 +111,36 @@ class Investment < ActiveRecord::Base
     total
   end
 
+  def annual_yields_by_year(gross_distributions)
+    # group distributions in 410 day increments and calculate annual yield
+    @yields = []
+    year_start_date = self.deal.property.closing_date
+    year_end_date = year_start_date + 425.days
+    collect_yearly_gross_distributions(gross_distributions, year_start_date, year_end_date)
+    @yields
+  end
+
+  def collect_yearly_gross_distributions(gross_distributions, start_date_, end_date_, count=0)
+    year_distributions = gross_distributions.where("distribution_date >= ? AND distribution_date <= ?", start_date_, end_date_)
+    if !year_distributions.empty?
+      count += 1
+      @yields << {
+        "year": count,
+        "yield": calculate_annual_yield(year_distributions)
+      }
+      collect_yearly_gross_distributions(gross_distributions, end_date_ + 1.day, end_date_ + 410.days, count)
+    end
+  end
+
+  def calculate_annual_yield(year_distributions)
+    # calculate annual yield
+    (total_gross_distribution(year_distributions) / amount_invested.to_f
+  end
+
   private
 
   def self.create_deals(file, property_id)
-    
+
     puts "create Deals from file #{file}"
     deals = Set.new
 
@@ -122,7 +148,7 @@ class Investment < ActiveRecord::Base
     xlsx.each_row_streaming(offset: 1) do |row|
       title = sanitized_string_from(row[0])
       next if title.blank?
-      
+
       deals << title
       print "."
     end
@@ -132,7 +158,7 @@ class Investment < ActiveRecord::Base
     deals.each do |deal|
       Deal.where(title: deal, property_id: property_id).first_or_create
     end
-    Deal.pluck(:id, :title).map { |d| @deals[d[1]] = d[0] } 
+    Deal.pluck(:id, :title).map { |d| @deals[d[1]] = d[0] }
   end
 
   def self.sanitized_int_from(key)
@@ -151,7 +177,7 @@ class Investment < ActiveRecord::Base
     p user
     if !user
       user = User.create(
-        email: email.downcase, 
+        email: email.downcase,
         password: "Se1#{SecureRandom.base64(8)}",
         first_name: first_name,
         last_name: last_name
@@ -159,7 +185,7 @@ class Investment < ActiveRecord::Base
     end
 
     user.id
-  rescue => e  
+  rescue => e
     puts "[get_user]ERROR for #{email}: #{e}"
   end
 
@@ -168,22 +194,22 @@ class Investment < ActiveRecord::Base
   end
 
   def self.combine_investments(user_id, order, status)
-    user_investments = 
+    user_investments =
       Investment
                 .where(user_id: user_id)
                 .or(Investment.where(view_users: user_id.to_s))
                 .joins(deal: :property)
                 .order("properties.closing_date #{order}")
-    
+
     if status != 'all'
       user_investments = user_investments.where("properties.status = ?", status)
-    end          
+    end
 
     investments = {}
     property_ids = []
     user_investments.each do |investment|
       property = investment&.deal&.property
-      if investments[property.id].nil? 
+      if investments[property.id].nil?
         property_ids << property.id
         investments[property.id] = {
           type: property.property_type&.humanize&.titleize,
@@ -202,7 +228,7 @@ class Investment < ActiveRecord::Base
         investments[property.id][:gross_distribution] += investment.gross_distribution.to_i
       end
     end
-    
+
     total_investor_equity = 0
     investments.each {|invs| total_investor_equity += invs[1][:investor_equity].to_f}
 
@@ -214,12 +240,12 @@ class Investment < ActiveRecord::Base
 
   def self.active_investments(user_id, status)
 
-    all_investments = 
+    all_investments =
       Investment
                 .where(user_id: user_id)
                 .or(Investment.where(view_users: user_id.to_s))
                 .joins(deal: :property)
-    
+
     if status != 'all'
       all_investments = all_investments.where("properties.status = ?", status)
     end

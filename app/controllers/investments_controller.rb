@@ -8,7 +8,7 @@ class InvestmentsController < ApplicationController
   # ----------------------------------------------
   # SHOW -----------------------------------------
   # ----------------------------------------------
-  def index 
+  def index
     @investments = Investment.all
   end
 
@@ -26,12 +26,12 @@ class InvestmentsController < ApplicationController
 
   def create
     invst_params = params['investment']
-    
+
     property_id = invst_params['property_id'].nil? ? params['property']['id'] : invst_params['property_id']
     user_id = invst_params['user_id'].nil? ? params['investor']['id'] : invst_params['user_id']
-    
+
     deal = Deal.find_or_create_by(title: invst_params["investing_entity"], property_id: property_id)
-    
+
     investor = User.find(user_id)
 
     investor_hash = {
@@ -48,7 +48,7 @@ class InvestmentsController < ApplicationController
     Investment.create! investor_hash
 
     UpdateInvestorJob.perform_now(investor.id) if !Rails.env.development?
-    
+
     redirect_back(fallback_location: root_path)
   end
 
@@ -69,16 +69,19 @@ class InvestmentsController < ApplicationController
 
     @gross_distributions = @property_investments.map(&:gross_distributions).flatten
     @user_gross_distribution = @property.total_user_gross_distribution(current_user.id)
-    
+
     @property_notes = @property&.notes
-    
+
+    @annual_yields = @investment.annual_yields_by_year(GrossDistribution.where(id: @gross_distributions.pluck(:id)))
+    # @annual_yields = [{"year": 1, "yield": 0.09}, { "year": 2, "yield": 0.12}]
+
     if @investment && current_user && @investment.investor == current_user || current_user.admin? || current_user.employee || @investment.view_users == current_user.id.to_s
       render 'show'
     else
       flash[:alert] = 'Not authorized'
       redirect_to main_app.root_path
     end
-  rescue => e  
+  rescue => e
     puts "%%%%%%%%%%%%%%%%%%#{e}%%%%%%%%%%%%%%%%%%%%%%%%"
     puts "%%%%%%%%%%%%%%%%%%#{e.backtrace.join "\n"}%%%%%%%%%%%%%%%%%%%%%%%%"
     flash[:alert] = 'Sorry, that investment is not available.'
@@ -92,12 +95,12 @@ class InvestmentsController < ApplicationController
     @investment = Investment.new
     @headers = CSV.read(@investment_file, headers: true).headers << ['No Mapping', nil]
     @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_entity', 'investing_entity', 'amount_invested']
-    
+
     render 'properties/import_headers'
-  rescue => e  
+  rescue => e
     puts "ERROR:: #{e}"
     flash[:alert] = "Invalid file format, please modify or import a different file."
-    redirect_to property_path(params[:id]) 
+    redirect_to property_path(params[:id])
   end
 
   def import
@@ -105,12 +108,12 @@ class InvestmentsController < ApplicationController
       Investment.import(params[:property_id], params[:investment_file], params[:post])
 
       file = "tmp/#{params[:investment_file].split("/")[-1]}"
-      
+
       File.delete(file) if File.exist?(file)
 
       flash[:notice] = 'Investments have been successfully imported.'
       redirect_to property_path(params[:property_id])
-    rescue => e  
+    rescue => e
       puts "ERROR:: #{e}"
       # flash[:notice] = "Investments have been imported. If something seems w"
       redirect_to property_path(params[:property_id])
@@ -120,7 +123,7 @@ class InvestmentsController < ApplicationController
   def delete_all
     prop = Property.find(params[:id])
     deal_ids = prop.deals.pluck(:id)
-    
+
     user_ids = Investment.where(deal_id: deal_ids).pluck(:user_id)
 
     UpdateInvestorJob.perform_now(user_ids)
