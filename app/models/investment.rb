@@ -230,7 +230,7 @@ class Investment < ActiveRecord::Base
           status: property.status
         }
       else
-        investments[property.id][:investor_equity] += investment.amount_invested
+        investments[property.id][:investor_equity] = ( investments[property.id][:investor_equity].delete(",").to_f + investment.amount_invested.delete(",").to_f)
         investments[property.id][:gross_distribution] += investment.gross_distribution.to_i
       end
     end
