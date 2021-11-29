@@ -134,12 +134,6 @@ class Investment < ActiveRecord::Base
 
   def calculate_annual_yield(year_distributions)
     # calculate annual yield
-    # (($178.94+$168.5+$179.13)/(3/4))/$7,500 
-
-    p "-"*100
-    p total_gross_distribution(year_distributions).round(2)
-    p year_distributions.count/4.00
-    p amount_invested.delete(",").to_f
     ((total_gross_distribution(year_distributions).round(2))/(year_distributions.count/4.00))/amount_invested.delete(",").to_f
   end
 
