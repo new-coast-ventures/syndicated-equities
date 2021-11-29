@@ -126,7 +126,7 @@ class Investment < ActiveRecord::Base
       count += 1
       @yields << {
         "year": count,
-        "yield": calculate_annual_yield(year_distributions)
+        "yield": calculate_annual_yield(year_distributions) * 100
       }
       collect_yearly_gross_distributions(gross_distributions, end_date_ + 1.day, end_date_ + 410.days, count)
     end
@@ -134,7 +134,13 @@ class Investment < ActiveRecord::Base
 
   def calculate_annual_yield(year_distributions)
     # calculate annual yield
-    (total_gross_distribution(year_distributions) / amount_invested.to_f
+    # (($178.94+$168.5+$179.13)/(3/4))/$7,500 
+
+    p "-"*100
+    p total_gross_distribution(year_distributions).round(2)
+    p year_distributions.count/4.00
+    p amount_invested.delete(",").to_f
+    ((total_gross_distribution(year_distributions).round(2))/(year_distributions.count/4.00))/amount_invested.delete(",").to_f
   end
 
   private
