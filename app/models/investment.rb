@@ -104,10 +104,15 @@ class Investment < ActiveRecord::Base
   end
 
   def total_gross_distribution(gross_distributions=self.gross_distributions)
-    total = 0
+    total = 0.00
     gross_distributions.each do |gross|
+      p "++++++++++++"
+      p total
+      p gross.amount.to_f
+      p "++++++++++++"
       total += gross.amount.to_f
     end
+    p total
     total
   end
 
@@ -128,12 +133,18 @@ class Investment < ActiveRecord::Base
         "year": count,
         "yield": calculate_annual_yield(year_distributions) * 100
       }
-      collect_yearly_gross_distributions(gross_distributions, end_date_ + 1.day, end_date_ + 410.days, count)
+      collect_yearly_gross_distributions(gross_distributions, end_date_ + 1.day, end_date_ + 375.days, count)
     end
   end
 
   def calculate_annual_yield(year_distributions)
     # calculate annual yield
+    p "_-------------------"
+    p "year_distributions: #{year_distributions.pluck(:amount)}"
+    p total_gross_distribution(year_distributions).round(2)
+    p amount_invested.delete(",").to_f
+    p ((total_gross_distribution(year_distributions).round(2))/(year_distributions.count/4.00))/amount_invested.delete(",").to_f
+
     ((total_gross_distribution(year_distributions).round(2))/(year_distributions.count/4.00))/amount_invested.delete(",").to_f
   end
 
