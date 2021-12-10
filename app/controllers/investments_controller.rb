@@ -73,7 +73,7 @@ class InvestmentsController < ApplicationController
     @property_notes = @property&.notes
 
     # @annual_yields = [{"year": 1, "yield": 0.09}, { "year": 2, "yield": 0.12}]
-    @annual_yields = @investment.annual_yields_by_year(GrossDistribution.where(id: @gross_distributions.pluck(:id)))
+    @annual_yields = @investment.annual_yields_by_year(GrossDistribution.where(id: @gross_distributions.pluck(:id)), current_user.id)
 
     if @investment && current_user && @investment.investor == current_user || current_user.admin? || current_user.employee || @investment.view_users == current_user.id.to_s
       render 'show'

@@ -51,6 +51,10 @@ class Investment < ActiveRecord::Base
     deal.forms.to_a + deal.property&.forms.to_a
   end
 
+  def property
+    deal.property
+  end
+
   def self.import(property_id, file, mapping)
     puts "import data from file #{file}"
     # create_deals(file, property_id)
@@ -106,46 +110,51 @@ class Investment < ActiveRecord::Base
   def total_gross_distribution(gross_distributions=self.gross_distributions)
     total = 0.00
     gross_distributions.each do |gross|
-      p "++++++++++++"
-      p total
-      p gross.amount.to_f
-      p "++++++++++++"
       total += gross.amount.to_f
     end
-    p total
     total
   end
 
-  def annual_yields_by_year(gross_distributions)
+  def total_amount_invested_by_investor
+    investments = property.investments.where(user_id: @user_id)
+    total = 0.00
+    investments.each do |inv|
+      total += inv.amount_invested.delete(",").to_f
+    end
+    total
+  end
+
+  YEAR_END = 370.days
+  def annual_yields_by_year(gross_distributions, user_id)
+    @user_id = user_id
     # group distributions in 410 day increments and calculate annual yield
+    # Can't do 1.year since some distributions happen a couple days after the year ends
+    # Can't do 410.days since some distributions happen a couple days after the year ends
+
     @yields = []
     year_start_date = self.deal.property.closing_date
-    year_end_date = year_start_date + 425.days
+    year_end_date = year_start_date + YEAR_END
     collect_yearly_gross_distributions(gross_distributions, year_start_date, year_end_date)
     @yields
   end
 
-  def collect_yearly_gross_distributions(gross_distributions, start_date_, end_date_, count=0)
-    year_distributions = gross_distributions.where("distribution_date >= ? AND distribution_date <= ?", start_date_, end_date_)
-    if !year_distributions.empty?
-      count += 1
+  def collect_yearly_gross_distributions(gross_distributions, start_date_, end_date_, index_count=0, year_count=0)
+    year_distributions = gross_distributions[index_count..index_count+3]
+    # year_distributions = gross_distributions.where("distribution_date >= ? AND distribution_date <= ?", start_date_, end_date_)
+    if year_distributions && !year_distributions.empty?
+      index_count += 4
+      year_count += 1
       @yields << {
-        "year": count,
+        "year": year_count,
         "yield": calculate_annual_yield(year_distributions) * 100
       }
-      collect_yearly_gross_distributions(gross_distributions, end_date_ + 1.day, end_date_ + 375.days, count)
+      collect_yearly_gross_distributions(gross_distributions, end_date_ + 2.days, end_date_ + YEAR_END, index_count, year_count)
     end
   end
 
   def calculate_annual_yield(year_distributions)
     # calculate annual yield
-    p "_-------------------"
-    p "year_distributions: #{year_distributions.pluck(:amount)}"
-    p total_gross_distribution(year_distributions).round(2)
-    p amount_invested.delete(",").to_f
-    p ((total_gross_distribution(year_distributions).round(2))/(year_distributions.count/4.00))/amount_invested.delete(",").to_f
-
-    ((total_gross_distribution(year_distributions).round(2))/(year_distributions.count/4.00))/amount_invested.delete(",").to_f
+    ((total_gross_distribution(year_distributions).round(2))/(year_distributions.count/4.00))/total_amount_invested_by_investor.round(2)
   end
 
   private
