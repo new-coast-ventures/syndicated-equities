@@ -94,7 +94,7 @@ class InvestmentsController < ApplicationController
     @property_id = params[:id]
     @investment = Investment.new
     @headers = CSV.read(@investment_file, headers: true).headers << ['No Mapping', nil]
-    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_entity', 'investing_entity', 'amount_invested']
+    @investment_fields = ['investor_first_name', 'investor_last_name', 'investor_email', 'investor_alt_email', 'investor_entity', 'investing_entity', 'amount_invested']
 
     render 'properties/import_headers'
   rescue => e

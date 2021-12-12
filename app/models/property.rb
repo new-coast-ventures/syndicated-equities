@@ -18,7 +18,7 @@ class Property < ActiveRecord::Base
   has_one_attached :avatar
 
   include Filterable
-  
+
   attr_accessor :potential_investment_amount, :investment_entity
 
   has_one  :address, as: :addressable, dependent: :destroy
@@ -35,7 +35,7 @@ class Property < ActiveRecord::Base
   def deal_equity
     return "0.00" if self.deals.nil? || self.investments.nil?
     investments.inject(0) { |sum, i| sum + i.amount_invested.delete(",").to_f }
-  rescue => e  
+  rescue => e
     return "0.00"
   end
 
@@ -47,7 +47,7 @@ class Property < ActiveRecord::Base
     if search == "all"
       Property.all
     else
-      where("status LIKE ?", "%#{search}%") 
+      where("status LIKE ?", "%#{search}%")
     end
   end
 
@@ -98,14 +98,14 @@ class Property < ActiveRecord::Base
       else
         nil
       end
-    rescue => e 
+    rescue => e
       puts e
       nil
     end
   end
 
   def export_investors
-    headers = %w{FirstName LastName Email Alt.Email City State Zip InvestorEntity}
+    headers = %w{FirstName LastName Email AltEmail City State Zip InvestorEntity}
     csv = CSV.generate(headers: true) do |csv|
       csv << headers
       investments.each do |inv|

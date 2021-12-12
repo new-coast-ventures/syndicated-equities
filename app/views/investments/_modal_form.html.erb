@@ -32,7 +32,12 @@
 
             <fieldset class="form-group">
               <label>View User</label>
-              <%= select :investment, :view_users, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user.id]}, :include_blank => true, prompt: 'Select Investor...', required: true, selected: invst.view_users %>                                  
+              <%= select :investment, :view_users, User.all.order("last_name ASC").map {|user| ["#{user.last_name}, #{user.first_name}", user.id]}, :include_blank => true, prompt: 'Select Investor...', required: true, selected: invst.view_users %>
+            </fieldset>
+
+            <fieldset class="form-group">
+              <label>Closed Investment?</label>
+              <%= f.check_box :closed, value: @investment.closed %>
             </fieldset>
 
             <%= f.submit class: "btn btn-primary", disabled: "disabled", id: "submit" %>
@@ -48,7 +53,7 @@
 
   $('input[required]').on('change', function() {
       console.log('here');
-      
+
       var empty = false;
       $('input[required]').each(function() {
           if ($(this).val() == '') {

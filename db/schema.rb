@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_14_192646) do
+ActiveRecord::Schema.define(version: 2021_12_12_135541) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -107,6 +107,8 @@ ActiveRecord::Schema.define(version: 2021_07_14_192646) do
     t.text "view_users", default: "{}"
     t.string "partner_id"
     t.string "total_investment_gross_distributions_amount"
+    t.string "investor_alt_email"
+    t.boolean "closed"
   end
 
   create_table "notes", id: :serial, force: :cascade do |t|

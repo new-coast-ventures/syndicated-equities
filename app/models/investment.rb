@@ -72,6 +72,7 @@ class Investment < ActiveRecord::Base
         investor_last_name: row[mapping["investor_last_name"]],
         investor_first_name: row[mapping["investor_first_name"]],
         investor_email: row[mapping["investor_email"]].downcase,
+        investor_email_2: row[mapping["investor_alt_email"]].downcase,
         investing_entity: row[mapping["investing_entity"]],
         investor_entity: row[mapping["investor_entity"]],
         gross_distribution: row[mapping["gross_distribution"]],
@@ -193,14 +194,15 @@ class Investment < ActiveRecord::Base
     first_name = row[mapping["investor_first_name"]]&.strip
     last_name = row[mapping["investor_last_name"]]&.strip
     email = row[mapping["investor_email"]].downcase&.strip ? row[mapping["investor_email"]].downcase&.strip : "#{first_name}_#{last_name}#{rand(1000)}@syndicatedequities.com"
+    alt_email = row[mapping["investor_alt_email"]]&.strip
     user = User.find_by(email: email&.downcase)
-    p user
     if !user
       user = User.create(
         email: email.downcase,
         password: "Se1#{SecureRandom.base64(8)}",
         first_name: first_name,
-        last_name: last_name
+        last_name: last_name,
+        email_2: alt_email
       )
     end
 
