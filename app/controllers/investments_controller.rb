@@ -138,6 +138,6 @@ class InvestmentsController < ApplicationController
   private
 
   def investment_params
-    params.require(:investment).permit(:user_id, :deal_id, :amount_invested, :invested_on, :investing_entity, :investor_email, :investor_first_name, :investor_last_name, :amount_cents, :amount_currency, :investor_entity, :gross_distribution_percentage, :gross_distribution, :view_users)
+    params.require(:investment).permit(:user_id, :deal_id, :amount_invested, :invested_on, :investing_entity, :investor_email, :investor_first_name, :investor_last_name, :amount_cents, :amount_currency, :investor_entity, :gross_distribution_percentage, :gross_distribution, :view_users, :closed)
   end
 end
