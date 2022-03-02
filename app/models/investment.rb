@@ -204,6 +204,10 @@ class Investment < ActiveRecord::Base
         last_name: last_name,
         email_2: alt_email
       )
+    else
+      if alt_email && user.email_2.nil?
+        user.update(email_2: alt_email)
+      end
     end
 
     user.id
