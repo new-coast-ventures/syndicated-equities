@@ -62,17 +62,17 @@
             <label>Property Type<span style="color:red">*</span></label>
             <%= f.select :property_type, Property::PROPERTY_TYPE_OPTIONS.keys.to_a.map { |s| [s.to_s.humanize, s] }, prompt: "Select Type", required: true %>
           </fieldset>
-          
+
           <fieldset class="form-group">
             <label>Internal Rate of Return</label>
             <%= f.text_field :internal_rate_of_return, value: @property&.internal_rate_of_return %>
           </fieldset>
-          
+
           <fieldset class="form-group">
             <label>Equity Multiple</label>
             <%= f.text_field :equity_multiple, value: @property&.equity_multiple %>
           </fieldset>
-          
+
           <fieldset class="form-group">
             <label>Status<span style="color:red">*</span></label>
             <%= f.select :status, options_for_select([['Active', 'active'], ['Sold', 'sold'], ['Offering', 'open']], @property&.status), {:class => "form-group", required: true} %>
@@ -97,7 +97,7 @@
             <label>Property Description</label>
             <%= f.text_area :description, value: @property&.description&.html_safe, :class => "tinymce"  %>
           </fieldset>
-         
+
           <fieldset class="form-group">
             <label>Property Image</label>
             <br>
@@ -185,7 +185,7 @@
 
   $('#property-form-modal input[required]').on('change', function() {
       console.log('here');
-      
+
       var empty = false;
       $('#property-form-modal input[required]').each(function() {
           if ($(this).val() == '') {
@@ -216,7 +216,6 @@
 
     var empty = false;
     $('#property-form-modal input[required]').each(function() {
-        console.log($(this), $(this).val())
         if ($(this).val() == '') {
           empty = true;
         }

@@ -9,6 +9,12 @@
     <div class="col-xs-6" style="text-align:right; font-weight: bold">
       <%= @investment&.deal&.property&.property_type&.humanize.titleize %>
     </div>
+    <div class="col-xs-6" style="padding-top:10px">
+      Investment Status
+    </div>
+    <div class="col-xs-6" style="text-align:right; font-weight: bold; padding-top:10px">
+      <%= @investment.closed ? "Transferred" : "Active" %>
+    </div>
   </div>
   <div class="grey-divider" style="margin-bottom: 15px"></div>
   <div class="row row-margin">
@@ -42,7 +48,7 @@
         <%= investment.investor_entity %>
       </div>
       <div class="col-xs-2 no-padding" style="text-align:right">
-        <%= number_to_currency(investment.total_gross_distribution, precision: 2) %>      
+        <%= number_to_currency(investment.total_gross_distribution, precision: 2) %>
       </div>
     <% end %>
   </div>
