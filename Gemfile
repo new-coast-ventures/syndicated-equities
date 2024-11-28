@@ -31,7 +31,7 @@ gem 'turbolinks'
 gem 'devise'
 gem 'rails_admin', '~> 1.0'
 gem 'rails_admin_become_user'
-gem 'bootstrap', '4.0.0.alpha5'
+gem 'bootstrap', '4.3.1'
 # gem 'paperclip', '>= 5.0'
 gem 'aws-sdk'
 gem "aws-sdk-s3", require: false
